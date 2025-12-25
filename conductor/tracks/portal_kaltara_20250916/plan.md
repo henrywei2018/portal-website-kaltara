@@ -13,8 +13,8 @@
 - [x] Task: TDD - Implementasi komponen kartu berita dan pencarian sederhana (258a4ed)
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Berita Resmi' (Protocol in workflow.md) (d1f831c)
 
-## Phase 3: Dashboard Statistik
+## Phase 3: Dashboard Statistik [checkpoint: d772d78]
 - [x] Task: TDD - Tambah rute dan halaman dashboard statistik (c654cd7)
 - [x] Task: TDD - Implementasi komponen ringkasan data statistik (a01c0eb)
 - [x] Task: TDD - Tambah skeleton loading dan empty state (329ff9d)
-- [~] Task: Conductor - User Manual Verification 'Phase 3: Dashboard Statistik' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Dashboard Statistik' (Protocol in workflow.md) (d772d78)
