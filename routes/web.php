@@ -2,20 +2,34 @@
 
 use App\Http\Controllers\Admin\NavigationController;
 use App\Http\Controllers\Admin\UserManagementController;
+use App\Models\NavigationItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 
+$navigationItems = fn () => NavigationItem::query()
+    ->whereNull('parent_id')
+    ->where('is_visible', true)
+    ->with(['children' => fn ($query) => $query
+        ->where('is_visible', true)
+        ->orderBy('sort_order'),
+    ])
+    ->orderBy('sort_order')
+    ->get()
+    ->map(fn (NavigationItem $item): array => [
+        'label' => $item->label,
+        'href' => $item->url ?? ($item->slug ? "/{$item->slug}" : '#'),
+        'is_external' => $item->is_external,
+        'children' => $item->children->map(fn (NavigationItem $child): array => [
+            'label' => $child->label,
+            'href' => $child->url ?? ($child->slug ? "/{$child->slug}" : '#'),
+            'is_external' => $child->is_external,
+        ]),
+    ]);
+
 $homeProps = fn () => [
-    'navigation' => [
-        ['label' => 'Beranda', 'href' => '#beranda'],
-        ['label' => 'Berita', 'href' => '#berita'],
-        ['label' => 'Data', 'href' => '#data'],
-        ['label' => 'Transparansi', 'href' => '#transparansi'],
-        ['label' => 'Profil', 'href' => '#profil'],
-        ['label' => 'Kontak', 'href' => '#kontak'],
-    ],
+    'navigation' => $navigationItems(),
     'hero' => [
         'title' => 'Portal Informasi Provinsi Kalimantan Utara',
         'subtitle' => 'Pusat informasi resmi untuk berita, data statistik, layanan, dan transparansi publik.',
