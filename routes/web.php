@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\NavigationController;
 use App\Http\Controllers\Admin\UserManagementController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -178,6 +179,19 @@ Route::middleware(['auth', 'verified', 'can:access-admin'])->prefix('admin')->na
     Route::patch('users/{user}', [UserManagementController::class, 'update'])
         ->middleware('can:manage-users')
         ->name('users.update');
+
+    Route::get('navigation', [NavigationController::class, 'index'])
+        ->middleware('can:manage-navigation')
+        ->name('navigation.index');
+    Route::post('navigation', [NavigationController::class, 'store'])
+        ->middleware('can:manage-navigation')
+        ->name('navigation.store');
+    Route::patch('navigation/{navigationItem}', [NavigationController::class, 'update'])
+        ->middleware('can:manage-navigation')
+        ->name('navigation.update');
+    Route::delete('navigation/{navigationItem}', [NavigationController::class, 'destroy'])
+        ->middleware('can:manage-navigation')
+        ->name('navigation.destroy');
 });
 
 require __DIR__.'/settings.php';
