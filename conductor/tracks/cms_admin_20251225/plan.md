@@ -5,7 +5,7 @@
 - [x] Task: TDD - Tambah manajemen pengguna & role (Super Admin, Editor, Viewer) (cc94d8e)
 - [x] Task: TDD - Nonaktifkan registrasi publik dan batasi pembuatan user via admin (707f3ab)
 - [x] Task: TDD - Proteksi akses admin berdasarkan role (71e75e2)
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Fondasi Admin & Role' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Phase 1: Fondasi Admin & Role' (Protocol in workflow.md)
 
 ## Phase 2: Manajemen Menu Navigasi
 - [ ] Task: TDD - Tambah CRUD menu navigasi (2 level, link eksternal, toggle tampil)
