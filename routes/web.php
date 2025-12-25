@@ -60,18 +60,21 @@ $homeProps = fn () => [
 $newsItems = [
     [
         'title' => 'Judul berita resmi 1',
+        'slug' => 'judul-berita-resmi-1',
         'category' => 'Pengumuman',
         'excerpt' => 'Ringkasan singkat berita resmi untuk publik dan mitra.',
         'published_at' => '2025-01-15',
     ],
     [
         'title' => 'Judul berita resmi 2',
+        'slug' => 'judul-berita-resmi-2',
         'category' => 'Agenda',
         'excerpt' => 'Informasi kegiatan pemerintah provinsi yang akan datang.',
         'published_at' => '2025-01-12',
     ],
     [
         'title' => 'Judul berita resmi 3',
+        'slug' => 'judul-berita-resmi-3',
         'category' => 'Laporan',
         'excerpt' => 'Update program prioritas dan capaian kinerja daerah.',
         'published_at' => '2025-01-10',
@@ -91,6 +94,18 @@ Route::get('/berita', function () use ($newsItems) {
         'newsItems' => $newsItems,
     ]);
 })->name('news.index');
+
+Route::get('/berita/{slug}', function (string $slug) use ($newsItems) {
+    $news = collect($newsItems)->firstWhere('slug', $slug);
+
+    if (! $news) {
+        abort(404);
+    }
+
+    return Inertia::render('news/show', [
+        'news' => $news,
+    ]);
+})->name('news.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {

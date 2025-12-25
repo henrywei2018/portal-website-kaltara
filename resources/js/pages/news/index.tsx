@@ -2,6 +2,7 @@ import { Head, Link } from '@inertiajs/react';
 
 type NewsItem = {
     title: string;
+    slug: string;
     category: string;
     excerpt: string;
     published_at: string;
@@ -56,7 +57,7 @@ export default function NewsIndex({
                                 {item.excerpt}
                             </p>
                             <Link
-                                href="#"
+                                href={`/berita/${item.slug}`}
                                 className="mt-4 inline-flex text-sm font-semibold text-[#0f6b4f]"
                             >
                                 Baca selengkapnya
