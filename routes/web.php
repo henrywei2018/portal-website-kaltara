@@ -167,13 +167,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 });
 
-Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'verified', 'can:access-admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', function () {
         return Inertia::render('admin/dashboard');
     })->name('dashboard');
 
-    Route::get('users', [UserManagementController::class, 'index'])->name('users.index');
-    Route::patch('users/{user}', [UserManagementController::class, 'update'])->name('users.update');
+    Route::get('users', [UserManagementController::class, 'index'])
+        ->middleware('can:manage-users')
+        ->name('users.index');
+    Route::patch('users/{user}', [UserManagementController::class, 'update'])
+        ->middleware('can:manage-users')
+        ->name('users.update');
 });
 
 require __DIR__.'/settings.php';
