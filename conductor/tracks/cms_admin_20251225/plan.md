@@ -8,7 +8,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Fondasi Admin & Role' (Protocol in workflow.md) (18b30b1)
 
 ## Phase 2: Manajemen Menu Navigasi
-- [ ] Task: TDD - Tambah CRUD menu navigasi (2 level, link eksternal, toggle tampil)
+- [x] Task: TDD - Tambah CRUD menu navigasi (2 level, link eksternal, toggle tampil) (237b7a0)
 - [ ] Task: TDD - Tambah urutan menu dan tampilkan di publik
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Manajemen Menu Navigasi' (Protocol in workflow.md)
 
