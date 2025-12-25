@@ -3,7 +3,7 @@
 ## Phase 1: Fondasi Beranda & Navigasi
 - [x] Task: Susun struktur informasi dan navigasi utama beranda (9e47c6b)
 - [x] Task: TDD - Tambah rute dan halaman beranda Inertia (595e1e2)
-- [ ] Task: TDD - Implementasi layout beranda sesuai pedoman brand
+- [x] Task: TDD - Implementasi layout beranda sesuai pedoman brand (ce97ffd)
 - [ ] Task: TDD - Tambah komponen ringkasan berita dan statistik
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Fondasi Beranda & Navigasi' (Protocol in workflow.md)
 
