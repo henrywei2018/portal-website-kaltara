@@ -3,7 +3,7 @@
 ## Phase 1: Fondasi Admin & Role
 - [x] Task: TDD - Tambah rute dan halaman dashboard admin utama (c19c4bc)
 - [x] Task: TDD - Tambah manajemen pengguna & role (Super Admin, Editor, Viewer) (cc94d8e)
-- [ ] Task: TDD - Nonaktifkan registrasi publik dan batasi pembuatan user via admin
+- [x] Task: TDD - Nonaktifkan registrasi publik dan batasi pembuatan user via admin (707f3ab)
 - [ ] Task: TDD - Proteksi akses admin berdasarkan role
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Fondasi Admin & Role' (Protocol in workflow.md)
 
