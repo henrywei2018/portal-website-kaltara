@@ -17,4 +17,4 @@
 - [x] Task: TDD - Tambah rute dan halaman dashboard statistik (c654cd7)
 - [x] Task: TDD - Implementasi komponen ringkasan data statistik (a01c0eb)
 - [x] Task: TDD - Tambah skeleton loading dan empty state (329ff9d)
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Dashboard Statistik' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Phase 3: Dashboard Statistik' (Protocol in workflow.md)
