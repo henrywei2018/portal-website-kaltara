@@ -1,7 +1,7 @@
 # Plan: Portal Informasi Publik Kaltara
 
 ## Phase 1: Fondasi Beranda & Navigasi
-- [ ] Task: Susun struktur informasi dan navigasi utama beranda
+- [x] Task: Susun struktur informasi dan navigasi utama beranda (9e47c6b)
 - [ ] Task: TDD - Tambah rute dan halaman beranda Inertia
 - [ ] Task: TDD - Implementasi layout beranda sesuai pedoman brand
 - [ ] Task: TDD - Tambah komponen ringkasan berita dan statistik
