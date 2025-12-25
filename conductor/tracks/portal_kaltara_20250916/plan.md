@@ -10,7 +10,7 @@
 ## Phase 2: Berita Resmi
 - [x] Task: TDD - Tambah rute dan halaman daftar berita (837d53e)
 - [x] Task: TDD - Tambah rute dan halaman detail berita (48c5a22)
-- [ ] Task: TDD - Implementasi komponen kartu berita dan pencarian sederhana
+- [x] Task: TDD - Implementasi komponen kartu berita dan pencarian sederhana (258a4ed)
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Berita Resmi' (Protocol in workflow.md)
 
 ## Phase 3: Dashboard Statistik
