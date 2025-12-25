@@ -5,10 +5,22 @@ type Highlight = {
     value: string;
 };
 
+type SectionItem = {
+    label: string;
+    value: string;
+};
+
+type Section = {
+    title: string;
+    items: SectionItem[];
+};
+
 export default function StatsIndex({
     highlights,
+    sections,
 }: {
     highlights: Highlight[];
+    sections: Section[];
 }) {
     return (
         <div className="min-h-screen bg-[#f6f8f7] text-[#10261b] dark:bg-[#0b1410] dark:text-[#e6efe9]">
@@ -50,6 +62,34 @@ export default function StatsIndex({
                                 {item.value}
                             </p>
                         </div>
+                    ))}
+                </div>
+
+                <div className="mt-10 grid gap-6 md:grid-cols-3">
+                    {sections.map((section) => (
+                        <section
+                            key={section.title}
+                            className="rounded-2xl border border-black/5 bg-white p-6 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5"
+                        >
+                            <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-[#6c867b] dark:text-[#b0c2b8]">
+                                {section.title}
+                            </h2>
+                            <div className="mt-4 space-y-3 text-sm">
+                                {section.items.map((item) => (
+                                    <div
+                                        key={item.label}
+                                        className="flex items-center justify-between border-b border-black/5 pb-2 last:border-b-0 dark:border-white/10"
+                                    >
+                                        <span className="text-[#567365] dark:text-[#b0c2b8]">
+                                            {item.label}
+                                        </span>
+                                        <span className="font-semibold text-[#123726] dark:text-white">
+                                            {item.value}
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
+                        </section>
                     ))}
                 </div>
             </main>

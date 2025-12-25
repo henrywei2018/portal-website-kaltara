@@ -131,6 +131,29 @@ Route::get('/data', function () {
             ['title' => 'Pengangguran', 'value' => '4,1%'],
             ['title' => 'Indeks Pembangunan', 'value' => '72,4'],
         ],
+        'sections' => [
+            [
+                'title' => 'Ekonomi',
+                'items' => [
+                    ['label' => 'PDRB', 'value' => 'Rp 28,4 T'],
+                    ['label' => 'Investasi', 'value' => 'Rp 6,2 T'],
+                ],
+            ],
+            [
+                'title' => 'Sosial',
+                'items' => [
+                    ['label' => 'IPM', 'value' => '72,4'],
+                    ['label' => 'Kemiskinan', 'value' => '6,1%'],
+                ],
+            ],
+            [
+                'title' => 'Infrastruktur',
+                'items' => [
+                    ['label' => 'Akses Internet', 'value' => '78%'],
+                    ['label' => 'Jalan Mantap', 'value' => '68%'],
+                ],
+            ],
+        ],
     ]);
 })->name('stats.index');
 
