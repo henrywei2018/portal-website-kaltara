@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
 
@@ -89,9 +91,23 @@ Route::get('/beranda', function () use ($homeProps) {
     return Inertia::render('welcome', $homeProps());
 })->name('portal.home');
 
-Route::get('/berita', function () use ($newsItems) {
+Route::get('/berita', function (Request $request) use ($newsItems) {
+    $searchQuery = trim((string) $request->query('q', ''));
+    $filteredItems = collect($newsItems)
+        ->when($searchQuery !== '', function ($items) use ($searchQuery) {
+            $needle = Str::lower($searchQuery);
+
+            return $items->filter(function (array $item) use ($needle) {
+                return Str::contains(Str::lower($item['title']), $needle)
+                    || Str::contains(Str::lower($item['category']), $needle);
+            })->values();
+        })
+        ->values()
+        ->all();
+
     return Inertia::render('news/index', [
-        'newsItems' => $newsItems,
+        'newsItems' => $filteredItems,
+        'searchQuery' => $searchQuery,
     ]);
 })->name('news.index');
 
