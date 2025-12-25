@@ -32,6 +32,29 @@ $homeProps = fn () => [
             'detail' => 'Bahasa yang jelas, dekat dengan kebutuhan masyarakat.',
         ],
     ],
+    'newsHighlights' => [
+        [
+            'title' => 'Judul berita resmi 1',
+            'category' => 'Pengumuman',
+            'excerpt' => 'Ringkasan singkat berita resmi untuk publik dan mitra.',
+        ],
+        [
+            'title' => 'Judul berita resmi 2',
+            'category' => 'Agenda',
+            'excerpt' => 'Informasi kegiatan pemerintah provinsi yang akan datang.',
+        ],
+        [
+            'title' => 'Judul berita resmi 3',
+            'category' => 'Laporan',
+            'excerpt' => 'Update program prioritas dan capaian kinerja daerah.',
+        ],
+    ],
+    'statsHighlights' => [
+        ['title' => 'Ekonomi Daerah', 'value' => '5,6%'],
+        ['title' => 'Inflasi Tahunan', 'value' => '2,8%'],
+        ['title' => 'Pengangguran', 'value' => '4,1%'],
+        ['title' => 'Indeks Pembangunan', 'value' => '72,4'],
+    ],
 ];
 
 Route::get('/', function () use ($homeProps) {

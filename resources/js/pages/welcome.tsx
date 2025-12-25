@@ -17,16 +17,31 @@ type Pillar = {
     detail: string;
 };
 
+type NewsHighlight = {
+    title: string;
+    category: string;
+    excerpt: string;
+};
+
+type StatsHighlight = {
+    title: string;
+    value: string;
+};
+
 export default function Welcome({
     canRegister = true,
     navigation,
     hero,
     pillars,
+    newsHighlights,
+    statsHighlights,
 }: {
     canRegister?: boolean;
     navigation: NavigationItem[];
     hero: Hero;
     pillars: Pillar[];
+    newsHighlights: NewsHighlight[];
+    statsHighlights: StatsHighlight[];
 }) {
     const { auth } = usePage<SharedData>().props;
 
@@ -224,20 +239,20 @@ export default function Welcome({
                         </Link>
                     </div>
                     <div className="mt-10 grid gap-6 md:grid-cols-3">
-                        {[1, 2, 3].map((item) => (
+                        {newsHighlights.map((item) => (
                             <article
-                                key={item}
+                                key={item.title}
                                 className="flex flex-col gap-4 rounded-2xl border border-black/5 bg-white p-5 shadow-[0_12px_30px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5"
                             >
                                 <div className="h-32 rounded-xl bg-[linear-gradient(135deg,#0f6b4f,#7bc7a1)]" />
                                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#6c867b] dark:text-[#b7c7bf]">
-                                    Pengumuman
+                                    {item.category}
                                 </p>
                                 <h3 className="text-lg font-semibold text-[#123726] dark:text-white">
-                                    Judul berita resmi {item}
+                                    {item.title}
                                 </h3>
                                 <p className="text-sm text-[#587166] dark:text-[#b0c2b8]">
-                                    Ringkasan singkat berita resmi untuk publik dan mitra.
+                                    {item.excerpt}
                                 </p>
                                 <Link
                                     href="#"
@@ -267,12 +282,7 @@ export default function Welcome({
                             </p>
                         </div>
                         <div className="grid gap-4 sm:grid-cols-2">
-                            {[
-                                { title: 'Ekonomi Daerah', value: '5,6%' },
-                                { title: 'Inflasi Tahunan', value: '2,8%' },
-                                { title: 'Pengangguran', value: '4,1%' },
-                                { title: 'Indeks Pembangunan', value: '72,4' },
-                            ].map((item) => (
+                            {statsHighlights.map((item) => (
                                 <div
                                     key={item.title}
                                     className="rounded-2xl border border-black/5 bg-white p-4 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5"

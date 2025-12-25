@@ -21,6 +21,10 @@ test('public homepage exposes navigation structure', function () {
         ->where('pillars.0.title', 'Resmi & Tepercaya')
         ->where('pillars.1.title', 'Modern & Ringkas')
         ->where('pillars.2.title', 'Ramah Warga')
+        ->has('newsHighlights', 3)
+        ->where('newsHighlights.0.title', 'Judul berita resmi 1')
+        ->has('statsHighlights', 4)
+        ->where('statsHighlights.0.title', 'Ekonomi Daerah')
     );
 });
 
