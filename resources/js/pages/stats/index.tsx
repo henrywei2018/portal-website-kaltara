@@ -18,9 +18,13 @@ type Section = {
 export default function StatsIndex({
     highlights,
     sections,
+    isLoading,
+    isEmpty,
 }: {
     highlights: Highlight[];
     sections: Section[];
+    isLoading: boolean;
+    isEmpty: boolean;
 }) {
     return (
         <div className="min-h-screen bg-[#f6f8f7] text-[#10261b] dark:bg-[#0b1410] dark:text-[#e6efe9]">
@@ -49,49 +53,71 @@ export default function StatsIndex({
             </header>
 
             <main className="mx-auto max-w-5xl px-6 py-12">
-                <div className="grid gap-6 md:grid-cols-2">
-                    {highlights.map((item) => (
-                        <div
-                            key={item.title}
-                            className="rounded-2xl border border-black/5 bg-white p-6 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5"
-                        >
-                            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#6c867b] dark:text-[#b0c2b8]">
-                                {item.title}
-                            </p>
-                            <p className="mt-3 text-2xl font-semibold text-[#123726] dark:text-white">
-                                {item.value}
-                            </p>
-                        </div>
-                    ))}
-                </div>
-
-                <div className="mt-10 grid gap-6 md:grid-cols-3">
-                    {sections.map((section) => (
-                        <section
-                            key={section.title}
-                            className="rounded-2xl border border-black/5 bg-white p-6 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5"
-                        >
-                            <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-[#6c867b] dark:text-[#b0c2b8]">
-                                {section.title}
-                            </h2>
-                            <div className="mt-4 space-y-3 text-sm">
-                                {section.items.map((item) => (
-                                    <div
-                                        key={item.label}
-                                        className="flex items-center justify-between border-b border-black/5 pb-2 last:border-b-0 dark:border-white/10"
-                                    >
-                                        <span className="text-[#567365] dark:text-[#b0c2b8]">
-                                            {item.label}
-                                        </span>
-                                        <span className="font-semibold text-[#123726] dark:text-white">
-                                            {item.value}
-                                        </span>
-                                    </div>
-                                ))}
+                {isLoading ? (
+                    <div className="grid gap-6 md:grid-cols-2">
+                        {Array.from({ length: 4 }).map((_, index) => (
+                            <div
+                                key={`skeleton-${index}`}
+                                className="h-28 rounded-2xl border border-black/5 bg-white/80 p-6 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5"
+                            >
+                                <div className="h-3 w-24 animate-pulse rounded-full bg-black/10 dark:bg-white/10" />
+                                <div className="mt-4 h-6 w-16 animate-pulse rounded-full bg-black/10 dark:bg-white/10" />
                             </div>
-                        </section>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                ) : (
+                    <>
+                        <div className="grid gap-6 md:grid-cols-2">
+                            {highlights.map((item) => (
+                                <div
+                                    key={item.title}
+                                    className="rounded-2xl border border-black/5 bg-white p-6 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5"
+                                >
+                                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#6c867b] dark:text-[#b0c2b8]">
+                                        {item.title}
+                                    </p>
+                                    <p className="mt-3 text-2xl font-semibold text-[#123726] dark:text-white">
+                                        {item.value}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="mt-10 grid gap-6 md:grid-cols-3">
+                            {sections.map((section) => (
+                                <section
+                                    key={section.title}
+                                    className="rounded-2xl border border-black/5 bg-white p-6 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5"
+                                >
+                                    <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-[#6c867b] dark:text-[#b0c2b8]">
+                                        {section.title}
+                                    </h2>
+                                    <div className="mt-4 space-y-3 text-sm">
+                                        {section.items.map((item) => (
+                                            <div
+                                                key={item.label}
+                                                className="flex items-center justify-between border-b border-black/5 pb-2 last:border-b-0 dark:border-white/10"
+                                            >
+                                                <span className="text-[#567365] dark:text-[#b0c2b8]">
+                                                    {item.label}
+                                                </span>
+                                                <span className="font-semibold text-[#123726] dark:text-white">
+                                                    {item.value}
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </section>
+                            ))}
+                        </div>
+                    </>
+                )}
+
+                {isEmpty && !isLoading ? (
+                    <div className="mt-10 rounded-2xl border border-dashed border-black/20 bg-white/70 p-10 text-center text-sm text-[#587166] dark:border-white/20 dark:bg-white/5 dark:text-[#b0c2b8]">
+                        Data statistik belum tersedia. Silakan cek kembali pada pembaruan berikutnya.
+                    </div>
+                ) : null}
             </main>
         </div>
     );

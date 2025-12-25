@@ -17,3 +17,15 @@ test('stats dashboard is publicly accessible', function () {
         ->where('sections.2.title', 'Infrastruktur')
     );
 });
+
+test('stats dashboard exposes loading and empty state flags', function () {
+    $response = $this->get('/data?loading=1&empty=1');
+
+    $response->assertOk();
+
+    $response->assertInertia(fn (Assert $page) => $page
+        ->component('stats/index')
+        ->where('isLoading', true)
+        ->where('isEmpty', true)
+    );
+});

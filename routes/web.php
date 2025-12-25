@@ -123,8 +123,13 @@ Route::get('/berita/{slug}', function (string $slug) use ($newsItems) {
     ]);
 })->name('news.show');
 
-Route::get('/data', function () {
+Route::get('/data', function (Request $request) {
+    $isLoading = $request->boolean('loading');
+    $isEmpty = $request->boolean('empty');
+
     return Inertia::render('stats/index', [
+        'isLoading' => $isLoading,
+        'isEmpty' => $isEmpty,
         'highlights' => [
             ['title' => 'Ekonomi Daerah', 'value' => '5,6%'],
             ['title' => 'Inflasi Tahunan', 'value' => '2,8%'],
