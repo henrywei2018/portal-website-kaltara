@@ -123,6 +123,17 @@ Route::get('/berita/{slug}', function (string $slug) use ($newsItems) {
     ]);
 })->name('news.show');
 
+Route::get('/data', function () {
+    return Inertia::render('stats/index', [
+        'highlights' => [
+            ['title' => 'Ekonomi Daerah', 'value' => '5,6%'],
+            ['title' => 'Inflasi Tahunan', 'value' => '2,8%'],
+            ['title' => 'Pengangguran', 'value' => '4,1%'],
+            ['title' => 'Indeks Pembangunan', 'value' => '72,4'],
+        ],
+    ]);
+})->name('stats.index');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
