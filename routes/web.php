@@ -5,10 +5,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
-use Laravel\Fortify\Features;
 
 $homeProps = fn () => [
-    'canRegister' => Features::enabled(Features::registration()),
     'navigation' => [
         ['label' => 'Beranda', 'href' => '#beranda'],
         ['label' => 'Berita', 'href' => '#berita'],

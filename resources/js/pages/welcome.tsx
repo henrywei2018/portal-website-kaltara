@@ -1,4 +1,4 @@
-import { dashboard, login, register } from '@/routes';
+import { dashboard, login } from '@/routes';
 import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 
@@ -29,14 +29,12 @@ type StatsHighlight = {
 };
 
 export default function Welcome({
-    canRegister = true,
     navigation,
     hero,
     pillars,
     newsHighlights,
     statsHighlights,
 }: {
-    canRegister?: boolean;
     navigation: NavigationItem[];
     hero: Hero;
     pillars: Pillar[];
@@ -99,22 +97,12 @@ export default function Welcome({
                                 Dashboard
                             </Link>
                         ) : (
-                            <>
-                                <Link
-                                    href={login()}
-                                    className="text-sm font-semibold text-[#123726] transition hover:text-[var(--brand)] dark:text-[#d7e6dd]"
-                                >
-                                    Masuk
-                                </Link>
-                                {canRegister && (
-                                    <Link
-                                        href={register()}
-                                        className="rounded-full bg-[var(--brand)] px-4 py-2 text-sm font-semibold text-white shadow-[0_10px_25px_rgba(15,107,79,0.25)] transition hover:brightness-95"
-                                    >
-                                        Daftar
-                                    </Link>
-                                )}
-                            </>
+                            <Link
+                                href={login()}
+                                className="text-sm font-semibold text-[#123726] transition hover:text-[var(--brand)] dark:text-[#d7e6dd]"
+                            >
+                                Masuk
+                            </Link>
                         )}
                     </div>
                 </div>
