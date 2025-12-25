@@ -8,7 +8,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Fondasi Beranda & Navigasi' (Protocol in workflow.md) (fc17c94)
 
 ## Phase 2: Berita Resmi
-- [ ] Task: TDD - Tambah rute dan halaman daftar berita
+- [x] Task: TDD - Tambah rute dan halaman daftar berita (837d53e)
 - [ ] Task: TDD - Tambah rute dan halaman detail berita
 - [ ] Task: TDD - Implementasi komponen kartu berita dan pencarian sederhana
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Berita Resmi' (Protocol in workflow.md)
