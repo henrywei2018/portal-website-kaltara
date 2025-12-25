@@ -17,6 +17,10 @@ test('public homepage exposes navigation structure', function () {
         ->where('navigation.4.label', 'Profil')
         ->where('navigation.5.label', 'Kontak')
         ->where('hero.title', 'Portal Informasi Provinsi Kalimantan Utara')
+        ->has('pillars', 3)
+        ->where('pillars.0.title', 'Resmi & Tepercaya')
+        ->where('pillars.1.title', 'Modern & Ringkas')
+        ->where('pillars.2.title', 'Ramah Warga')
     );
 });
 

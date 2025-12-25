@@ -12,14 +12,21 @@ type Hero = {
     subtitle: string;
 };
 
+type Pillar = {
+    title: string;
+    detail: string;
+};
+
 export default function Welcome({
     canRegister = true,
     navigation,
     hero,
+    pillars,
 }: {
     canRegister?: boolean;
     navigation: NavigationItem[];
     hero: Hero;
+    pillars: Pillar[];
 }) {
     const { auth } = usePage<SharedData>().props;
 
@@ -131,20 +138,7 @@ export default function Welcome({
                                 </Link>
                             </div>
                             <div className="grid gap-4 sm:grid-cols-3">
-                                {[
-                                    {
-                                        title: 'Berita Resmi',
-                                        detail: 'Pengumuman, agenda, dan keputusan daerah.',
-                                    },
-                                    {
-                                        title: 'Data Statistik',
-                                        detail: 'Ringkasan indikator ekonomi dan sosial.',
-                                    },
-                                    {
-                                        title: 'Transparansi',
-                                        detail: 'Laporan keuangan dan kinerja publik.',
-                                    },
-                                ].map((item) => (
+                                {pillars.map((item) => (
                                     <div
                                         key={item.title}
                                         className="rounded-2xl border border-black/5 bg-white/80 p-4 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5"

@@ -18,6 +18,20 @@ $homeProps = fn () => [
         'title' => 'Portal Informasi Provinsi Kalimantan Utara',
         'subtitle' => 'Pusat informasi resmi untuk berita, data statistik, layanan, dan transparansi publik.',
     ],
+    'pillars' => [
+        [
+            'title' => 'Resmi & Tepercaya',
+            'detail' => 'Informasi tervalidasi langsung dari pemerintah provinsi.',
+        ],
+        [
+            'title' => 'Modern & Ringkas',
+            'detail' => 'Tampilan rapi dan mudah dipahami untuk semua perangkat.',
+        ],
+        [
+            'title' => 'Ramah Warga',
+            'detail' => 'Bahasa yang jelas, dekat dengan kebutuhan masyarakat.',
+        ],
+    ],
 ];
 
 Route::get('/', function () use ($homeProps) {
