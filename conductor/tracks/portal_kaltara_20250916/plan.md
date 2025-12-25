@@ -7,11 +7,11 @@
 - [x] Task: TDD - Tambah komponen ringkasan berita dan statistik (78f4ada)
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Fondasi Beranda & Navigasi' (Protocol in workflow.md) (fc17c94)
 
-## Phase 2: Berita Resmi
+## Phase 2: Berita Resmi [checkpoint: d1f831c]
 - [x] Task: TDD - Tambah rute dan halaman daftar berita (837d53e)
 - [x] Task: TDD - Tambah rute dan halaman detail berita (48c5a22)
 - [x] Task: TDD - Implementasi komponen kartu berita dan pencarian sederhana (258a4ed)
-- [~] Task: Conductor - User Manual Verification 'Phase 2: Berita Resmi' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Berita Resmi' (Protocol in workflow.md) (d1f831c)
 
 ## Phase 3: Dashboard Statistik
 - [ ] Task: TDD - Tambah rute dan halaman dashboard statistik
