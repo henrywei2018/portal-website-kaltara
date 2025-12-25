@@ -168,4 +168,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 });
 
+Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', function () {
+        return Inertia::render('admin/dashboard');
+    })->name('dashboard');
+});
+
 require __DIR__.'/settings.php';
