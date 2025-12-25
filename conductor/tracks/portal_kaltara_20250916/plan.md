@@ -5,7 +5,7 @@
 - [x] Task: TDD - Tambah rute dan halaman beranda Inertia (595e1e2)
 - [x] Task: TDD - Implementasi layout beranda sesuai pedoman brand (ce97ffd)
 - [x] Task: TDD - Tambah komponen ringkasan berita dan statistik (78f4ada)
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Fondasi Beranda & Navigasi' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Phase 1: Fondasi Beranda & Navigasi' (Protocol in workflow.md)
 
 ## Phase 2: Berita Resmi
 - [ ] Task: TDD - Tambah rute dan halaman daftar berita

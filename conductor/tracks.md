@@ -4,5 +4,5 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-## [ ] Track: Membangun portal informasi publik Kaltara dengan beranda, berita resmi, dan dashboard data statistik
+## [~] Track: Membangun portal informasi publik Kaltara dengan beranda, berita resmi, dan dashboard data statistik
 *Link: [./conductor/tracks/portal_kaltara_20250916/](./conductor/tracks/portal_kaltara_20250916/)*
