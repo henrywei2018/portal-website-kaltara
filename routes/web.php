@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\UserManagementController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
@@ -172,6 +173,9 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('/', function () {
         return Inertia::render('admin/dashboard');
     })->name('dashboard');
+
+    Route::get('users', [UserManagementController::class, 'index'])->name('users.index');
+    Route::patch('users/{user}', [UserManagementController::class, 'update'])->name('users.update');
 });
 
 require __DIR__.'/settings.php';
