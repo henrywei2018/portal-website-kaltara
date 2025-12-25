@@ -14,7 +14,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Berita Resmi' (Protocol in workflow.md) (d1f831c)
 
 ## Phase 3: Dashboard Statistik
-- [ ] Task: TDD - Tambah rute dan halaman dashboard statistik
+- [x] Task: TDD - Tambah rute dan halaman dashboard statistik (c654cd7)
 - [ ] Task: TDD - Implementasi komponen ringkasan data statistik
 - [ ] Task: TDD - Tambah skeleton loading dan empty state
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Dashboard Statistik' (Protocol in workflow.md)
