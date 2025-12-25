@@ -19,3 +19,13 @@ test('public homepage exposes navigation structure', function () {
         ->where('hero.title', 'Portal Informasi Provinsi Kalimantan Utara')
     );
 });
+
+test('beranda route renders the homepage', function () {
+    $response = $this->get('/beranda');
+
+    $response->assertOk();
+
+    $response->assertInertia(fn (Assert $page) => $page
+        ->component('welcome')
+    );
+});
