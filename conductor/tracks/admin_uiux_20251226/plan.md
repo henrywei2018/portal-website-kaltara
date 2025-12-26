@@ -14,8 +14,8 @@
 - [x] Task: TDD - Terapkan list + modal CRUD pada Pengguna & Role (752e9a9)
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Refactor Modul Admin' (Protocol in workflow.md) (5f7b144)
 
-## Phase 3: Pencarian, Filter, Pagination
+## Phase 3: Pencarian, Filter, Pagination [checkpoint: fd5509d]
 - [x] Task: TDD - Tambahkan pagination 10 item/halaman di setiap modul admin (6ff7f9e)
 - [x] Task: TDD - Konsolidasikan search + filter agar konsisten di semua modul (8a1defd)
 - [x] Task: TDD - Tambahkan test untuk paginasi dan filter utama (c31c94c)
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Pencarian, Filter, Pagination' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Pencarian, Filter, Pagination' (Protocol in workflow.md) (fd5509d)
