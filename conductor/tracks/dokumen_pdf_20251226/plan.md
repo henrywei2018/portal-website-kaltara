@@ -8,7 +8,7 @@
 
 ## Phase 2: UI Admin & Upload/Preview
 - [x] Task: TDD - Buat halaman admin list + form dokumen PDF (Pengumuman/IPKD/Lain) (4ff9cd3)
-- [ ] Task: TDD - Implementasi upload PDF + preview embedded + link buka tab baru
+- [x] Task: TDD - Implementasi upload PDF + preview embedded + link buka tab baru (9409489)
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: UI Admin & Upload/Preview' (Protocol in workflow.md)
 
 ## Phase 3: Publikasi & Halaman Publik
