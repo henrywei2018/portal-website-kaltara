@@ -21,6 +21,7 @@ test('admin can view content management list', function () {
         'slug' => 'pengumuman-resmi',
         'type' => ContentType::Announcement,
         'status' => ContentStatus::Published,
+        'body' => "# Pengumuman\n\nKonten markdown.",
     ]);
 
     $response = $this->get('/admin/content');
@@ -31,6 +32,7 @@ test('admin can view content management list', function () {
         ->component('admin/content/index')
         ->has('items', 1)
         ->where('items.0.title', 'Pengumuman Resmi')
+        ->where('items.0.body', "# Pengumuman\n\nKonten markdown.")
     );
 });
 

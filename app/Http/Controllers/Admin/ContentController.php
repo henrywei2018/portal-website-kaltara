@@ -26,6 +26,7 @@ class ContentController extends Controller
                 'type' => $item->type->value,
                 'status' => $item->status->value,
                 'excerpt' => $item->excerpt,
+                'body' => $item->body,
                 'published_at' => $item->published_at?->toDateString(),
             ]);
 

@@ -13,6 +13,7 @@ type ContentItem = {
     type: string;
     status: string;
     excerpt: string | null;
+    body: string | null;
     published_at: string | null;
 };
 
@@ -22,6 +23,7 @@ type ContentForm = {
     type: string;
     status: string;
     excerpt: string;
+    body: string;
 };
 
 function ContentCard({
@@ -39,6 +41,7 @@ function ContentCard({
         type: item.type,
         status: item.status,
         excerpt: item.excerpt ?? '',
+        body: item.body ?? '',
     });
 
     const submit = (event: FormEvent) => {
@@ -131,6 +134,19 @@ function ContentCard({
                         onChange={(event) => form.setData('excerpt', event.target.value)}
                         rows={3}
                         className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                    />
+                </div>
+                <div>
+                    <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                        Konten Markdown
+                    </label>
+                    <textarea
+                        name="body"
+                        value={form.data.body}
+                        onChange={(event) => form.setData('body', event.target.value)}
+                        rows={6}
+                        className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                        placeholder="Tulis konten Markdown di sini..."
                     />
                 </div>
                 <div className="flex flex-wrap gap-3">
@@ -265,6 +281,17 @@ export default function AdminContentIndex({
                                         rows={3}
                                         className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
                                         placeholder="Ringkasan singkat konten"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                                        Konten Markdown
+                                    </label>
+                                    <textarea
+                                        name="body"
+                                        rows={6}
+                                        className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                                        placeholder="Tulis konten Markdown di sini..."
                                     />
                                 </div>
                                 <div>
