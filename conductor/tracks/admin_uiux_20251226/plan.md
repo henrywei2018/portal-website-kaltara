@@ -1,10 +1,10 @@
 # Plan: Standarisasi UI/UX Admin (List + Modal CRUD)
 
-## Phase 1: Fondasi UI Admin
+## Phase 1: Fondasi UI Admin [checkpoint: d36a7de]
 - [x] Task: TDD - Standarkan komponen list ringkas + dropdown aksi (6a07376)
 - [x] Task: TDD - Buat komponen modal slide-over CRUD yang konsisten (904cf5f)
 - [x] Task: TDD - Implementasikan drawer filter untuk layar kecil (9ec5a51)
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Fondasi UI Admin' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Fondasi UI Admin' (Protocol in workflow.md) (d36a7de)
 
 ## Phase 2: Refactor Modul Admin
 - [ ] Task: TDD - Terapkan list + modal CRUD pada Navigasi
