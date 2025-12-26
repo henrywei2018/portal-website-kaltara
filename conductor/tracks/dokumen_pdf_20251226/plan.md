@@ -7,7 +7,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Struktur Data & Validasi' (Protocol in workflow.md) (7a1028e)
 
 ## Phase 2: UI Admin & Upload/Preview
-- [ ] Task: TDD - Buat halaman admin list + form dokumen PDF (Pengumuman/IPKD/Lain)
+- [x] Task: TDD - Buat halaman admin list + form dokumen PDF (Pengumuman/IPKD/Lain) (4ff9cd3)
 - [ ] Task: TDD - Implementasi upload PDF + preview embedded + link buka tab baru
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: UI Admin & Upload/Preview' (Protocol in workflow.md)
 
