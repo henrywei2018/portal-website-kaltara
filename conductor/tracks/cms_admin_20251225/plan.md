@@ -18,8 +18,8 @@
 - [x] Task: TDD - Render halaman publik berbasis slug (4fce054)
 - [x] Task: Conductor - User Manual Verification 'Phase 3: Manajemen Halaman Dinamis (Editor Blok)' (Protocol in workflow.md) (9ecf9e0)
 
-## Phase 4: Manajemen Berita/Artikel/Pengumuman (Markdown)
+## Phase 4: Manajemen Berita/Artikel/Pengumuman (Markdown) [checkpoint: a70da27]
 - [x] Task: TDD - Tambah CRUD konten berita/artikel/pengumuman (status publish/draft) (d97ec30)
 - [x] Task: TDD - Implementasi Markdown editor untuk konten (05399e6)
 - [x] Task: TDD - Tampilkan listing & detail publik berbasis kategori (151e47f)
-- [ ] Task: Conductor - User Manual Verification 'Phase 4: Manajemen Berita/Artikel/Pengumuman (Markdown)' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 4: Manajemen Berita/Artikel/Pengumuman (Markdown)' (Protocol in workflow.md) (a70da27)
