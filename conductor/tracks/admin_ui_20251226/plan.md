@@ -7,7 +7,7 @@
 
 ## Phase 2: Dashboard Ringkas & Quick Actions
 - [x] Task: TDD - Tambah kartu statistik ringkas di dashboard admin (76679d4)
-- [ ] Task: TDD - Tambah quick actions untuk modul utama
+- [x] Task: TDD - Tambah quick actions untuk modul utama (8d112e1)
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Dashboard Ringkas & Quick Actions' (Protocol in workflow.md)
 
 ## Phase 3: Search/Filter & Pola List Hybrid
