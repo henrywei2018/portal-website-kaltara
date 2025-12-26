@@ -292,6 +292,9 @@ Route::middleware(['auth', 'verified', 'can:access-admin'])->prefix('admin')->na
         ->middleware('can:manage-content')
         ->name('content.destroy');
 
+    Route::get('documents', [DocumentItemController::class, 'index'])
+        ->middleware('can:manage-content')
+        ->name('documents.index');
     Route::post('documents', [DocumentItemController::class, 'store'])
         ->middleware('can:manage-content')
         ->name('documents.store');

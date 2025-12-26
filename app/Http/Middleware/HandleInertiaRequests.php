@@ -70,6 +70,11 @@ class HandleInertiaRequests extends Middleware
                                 'isActive' => $isActive($currentPath, route('admin.content.index')),
                             ],
                             [
+                                'title' => 'Dokumen PDF',
+                                'href' => route('admin.documents.index'),
+                                'isActive' => $isActive($currentPath, route('admin.documents.index')),
+                            ],
+                            [
                                 'title' => 'Menu Navigasi',
                                 'href' => route('admin.navigation.index'),
                                 'isActive' => $isActive($currentPath, route('admin.navigation.index')),

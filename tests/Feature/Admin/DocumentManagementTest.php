@@ -16,6 +16,27 @@ beforeEach(function () {
     ]));
 });
 
+test('admin can view document management list', function () {
+    DocumentItem::factory()->create([
+        'title' => 'IPKD 2024',
+        'type' => DocumentType::Ipkd,
+        'status' => DocumentStatus::Published,
+    ]);
+
+    $response = $this->get('/admin/documents');
+
+    $response->assertOk();
+
+    $response->assertInertia(fn ($page) => $page
+        ->component('admin/documents/index')
+        ->has('items', 1)
+        ->where('items.0.title', 'IPKD 2024')
+        ->where('listMode', 'cards')
+        ->has('types')
+        ->has('statuses')
+    );
+});
+
 test('admin can create document item with PDF upload', function () {
     Storage::fake('public');
 

@@ -8,9 +8,45 @@ use App\Http\Requests\Admin\UpdateDocumentItemRequest;
 use App\Models\DocumentItem;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class DocumentItemController extends Controller
 {
+    private const TABLE_THRESHOLD = 6;
+
+    public function index(): Response
+    {
+        $itemsQuery = DocumentItem::query()
+            ->orderByDesc('published_at')
+            ->orderByDesc('issued_at')
+            ->orderByDesc('created_at');
+
+        $itemCount = (clone $itemsQuery)->count();
+
+        $items = $itemsQuery
+            ->get()
+            ->map(fn (DocumentItem $item): array => [
+                'id' => $item->id,
+                'title' => $item->title,
+                'description' => $item->description,
+                'type' => $item->type->value,
+                'status' => $item->status->value,
+                'file_name' => $item->file_name,
+                'file_size' => $item->file_size,
+                'file_url' => Storage::disk($item->file_disk)->url($item->file_path),
+                'issued_at' => $item->issued_at?->toDateString(),
+                'published_at' => $item->published_at?->toDateString(),
+            ]);
+
+        return Inertia::render('admin/documents/index', [
+            'items' => $items,
+            'types' => \App\Enums\DocumentType::options(),
+            'statuses' => \App\Enums\DocumentStatus::options(),
+            'listMode' => $itemCount >= self::TABLE_THRESHOLD ? 'table' : 'cards',
+        ]);
+    }
+
     public function store(StoreDocumentItemRequest $request): RedirectResponse
     {
         $data = $request->validated();
