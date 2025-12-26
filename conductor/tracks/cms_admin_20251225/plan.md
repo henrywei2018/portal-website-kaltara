@@ -21,5 +21,5 @@
 ## Phase 4: Manajemen Berita/Artikel/Pengumuman (Markdown)
 - [x] Task: TDD - Tambah CRUD konten berita/artikel/pengumuman (status publish/draft) (d97ec30)
 - [x] Task: TDD - Implementasi Markdown editor untuk konten (05399e6)
-- [ ] Task: TDD - Tampilkan listing & detail publik berbasis kategori
+- [x] Task: TDD - Tampilkan listing & detail publik berbasis kategori (151e47f)
 - [ ] Task: Conductor - User Manual Verification 'Phase 4: Manajemen Berita/Artikel/Pengumuman (Markdown)' (Protocol in workflow.md)
