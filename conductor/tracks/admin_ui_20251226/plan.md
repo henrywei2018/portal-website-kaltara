@@ -11,6 +11,6 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Dashboard Ringkas & Quick Actions' (Protocol in workflow.md) (c2ab761)
 
 ## Phase 3: Search/Filter & Pola List Hybrid
-- [ ] Task: TDD - Implementasi pola list hybrid (table untuk data besar, card untuk ringkas)
+- [x] Task: TDD - Implementasi pola list hybrid (table untuk data besar, card untuk ringkas) (4aa6169)
 - [ ] Task: TDD - Tambah search dan filter di modul konten utama (Halaman, Konten, Navigasi)
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Search/Filter & Pola List Hybrid' (Protocol in workflow.md)
