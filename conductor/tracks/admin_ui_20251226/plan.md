@@ -12,5 +12,5 @@
 
 ## Phase 3: Search/Filter & Pola List Hybrid
 - [x] Task: TDD - Implementasi pola list hybrid (table untuk data besar, card untuk ringkas) (4aa6169)
-- [ ] Task: TDD - Tambah search dan filter di modul konten utama (Halaman, Konten, Navigasi)
+- [x] Task: TDD - Tambah search dan filter di modul konten utama (Halaman, Konten, Navigasi) (144b60c)
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Search/Filter & Pola List Hybrid' (Protocol in workflow.md)
