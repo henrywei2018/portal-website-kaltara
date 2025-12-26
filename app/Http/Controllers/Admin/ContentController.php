@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\ContentStatus;
+use App\Enums\ContentType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreContentItemRequest;
 use App\Http\Requests\Admin\UpdateContentItemRequest;
 use App\Models\ContentItem;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -15,13 +19,34 @@ class ContentController extends Controller
 {
     private const TABLE_THRESHOLD = 6;
 
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $search = trim((string) $request->query('q', ''));
+        $type = ContentType::tryFrom((string) $request->query('type'));
+        $status = ContentStatus::tryFrom((string) $request->query('status'));
+
         $itemsQuery = ContentItem::query()
             ->orderByDesc('published_at')
             ->orderByDesc('created_at');
 
-        $itemCount = $itemsQuery->count();
+        if ($search !== '') {
+            $needle = Str::lower($search);
+
+            $itemsQuery->where(function ($query) use ($needle) {
+                $query->whereRaw('lower(title) like ?', ["%{$needle}%"])
+                    ->orWhereRaw('lower(slug) like ?', ["%{$needle}%"]);
+            });
+        }
+
+        if ($type) {
+            $itemsQuery->where('type', $type->value);
+        }
+
+        if ($status) {
+            $itemsQuery->where('status', $status->value);
+        }
+
+        $itemCount = (clone $itemsQuery)->count();
 
         $items = $itemsQuery
             ->get()
@@ -38,9 +63,14 @@ class ContentController extends Controller
 
         return Inertia::render('admin/content/index', [
             'items' => $items,
-            'types' => \App\Enums\ContentType::options(),
-            'statuses' => \App\Enums\ContentStatus::options(),
+            'types' => ContentType::options(),
+            'statuses' => ContentStatus::options(),
             'listMode' => $itemCount >= self::TABLE_THRESHOLD ? 'table' : 'cards',
+            'filters' => [
+                'search' => $search,
+                'type' => $type?->value,
+                'status' => $status?->value,
+            ],
         ]);
     }
 
@@ -73,7 +103,7 @@ class ContentController extends Controller
 
     protected function resolvePublishedAt(string $status, ?string $publishedAt): ?Carbon
     {
-        if ($status === \App\Enums\ContentStatus::Published->value) {
+        if ($status === ContentStatus::Published->value) {
             return $publishedAt ? Carbon::parse($publishedAt) : now();
         }
 

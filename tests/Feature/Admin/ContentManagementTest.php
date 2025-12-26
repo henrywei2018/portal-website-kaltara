@@ -50,6 +50,61 @@ test('content list uses table mode for large datasets', function () {
     );
 });
 
+test('admin can search content by query', function () {
+    ContentItem::factory()->create([
+        'title' => 'Agenda Gubernur',
+        'slug' => 'agenda-gubernur',
+        'type' => ContentType::News,
+        'status' => ContentStatus::Published,
+    ]);
+
+    ContentItem::factory()->create([
+        'title' => 'Pengumuman Publik',
+        'slug' => 'pengumuman-publik',
+        'type' => ContentType::Announcement,
+        'status' => ContentStatus::Published,
+    ]);
+
+    $response = $this->get('/admin/content?q=agenda');
+
+    $response->assertOk();
+
+    $response->assertInertia(fn (Assert $page) => $page
+        ->component('admin/content/index')
+        ->has('items', 1)
+        ->where('items.0.title', 'Agenda Gubernur')
+        ->where('filters.search', 'agenda')
+    );
+});
+
+test('admin can filter content by type and status', function () {
+    ContentItem::factory()->create([
+        'title' => 'Draft Berita',
+        'slug' => 'draft-berita',
+        'type' => ContentType::News,
+        'status' => ContentStatus::Draft,
+    ]);
+
+    ContentItem::factory()->create([
+        'title' => 'Terbit Pengumuman',
+        'slug' => 'terbit-pengumuman',
+        'type' => ContentType::Announcement,
+        'status' => ContentStatus::Published,
+    ]);
+
+    $response = $this->get('/admin/content?type=announcement&status=published');
+
+    $response->assertOk();
+
+    $response->assertInertia(fn (Assert $page) => $page
+        ->component('admin/content/index')
+        ->has('items', 1)
+        ->where('items.0.title', 'Terbit Pengumuman')
+        ->where('filters.type', 'announcement')
+        ->where('filters.status', 'published')
+    );
+});
+
 test('viewer cannot access content management', function () {
     $this->actingAs(User::factory()->create([
         'role' => UserRole::Viewer,

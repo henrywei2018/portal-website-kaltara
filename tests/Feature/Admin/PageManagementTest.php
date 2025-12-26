@@ -45,6 +45,56 @@ test('page list uses table mode for large datasets', function () {
     );
 });
 
+test('admin can search pages by query', function () {
+    Page::factory()->create([
+        'title' => 'Profil Pemprov',
+        'slug' => 'profil-pemprov',
+        'status' => 'published',
+    ]);
+
+    Page::factory()->create([
+        'title' => 'Kontak',
+        'slug' => 'kontak',
+        'status' => 'published',
+    ]);
+
+    $response = $this->get('/admin/pages?q=profil');
+
+    $response->assertOk();
+
+    $response->assertInertia(fn (Assert $page) => $page
+        ->component('admin/pages/index')
+        ->has('pages', 1)
+        ->where('pages.0.title', 'Profil Pemprov')
+        ->where('filters.search', 'profil')
+    );
+});
+
+test('admin can filter pages by status', function () {
+    Page::factory()->create([
+        'title' => 'Draft Satu',
+        'slug' => 'draft-satu',
+        'status' => 'draft',
+    ]);
+
+    Page::factory()->create([
+        'title' => 'Publik Satu',
+        'slug' => 'publik-satu',
+        'status' => 'published',
+    ]);
+
+    $response = $this->get('/admin/pages?status=published');
+
+    $response->assertOk();
+
+    $response->assertInertia(fn (Assert $page) => $page
+        ->component('admin/pages/index')
+        ->has('pages', 1)
+        ->where('pages.0.title', 'Publik Satu')
+        ->where('filters.status', 'published')
+    );
+});
+
 test('viewer cannot access page management', function () {
     $this->actingAs(User::factory()->create([
         'role' => UserRole::Viewer,

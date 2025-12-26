@@ -46,6 +46,62 @@ test('navigation list uses table mode for large datasets', function () {
     );
 });
 
+test('admin can search navigation items', function () {
+    NavigationItem::factory()->create([
+        'label' => 'Beranda',
+        'slug' => 'beranda',
+        'url' => '/beranda',
+        'sort_order' => 1,
+    ]);
+
+    NavigationItem::factory()->create([
+        'label' => 'Kontak',
+        'slug' => 'kontak',
+        'url' => '/kontak',
+        'sort_order' => 2,
+    ]);
+
+    $response = $this->get('/admin/navigation?q=beranda');
+
+    $response->assertOk();
+
+    $response->assertInertia(fn (Assert $page) => $page
+        ->component('admin/navigation/index')
+        ->has('items', 1)
+        ->where('items.0.label', 'Beranda')
+        ->where('filters.search', 'beranda')
+    );
+});
+
+test('admin can filter navigation by visibility', function () {
+    NavigationItem::factory()->create([
+        'label' => 'Publik',
+        'slug' => 'publik',
+        'url' => '/publik',
+        'is_visible' => true,
+        'sort_order' => 1,
+    ]);
+
+    NavigationItem::factory()->create([
+        'label' => 'Internal',
+        'slug' => 'internal',
+        'url' => '/internal',
+        'is_visible' => false,
+        'sort_order' => 2,
+    ]);
+
+    $response = $this->get('/admin/navigation?visibility=hidden');
+
+    $response->assertOk();
+
+    $response->assertInertia(fn (Assert $page) => $page
+        ->component('admin/navigation/index')
+        ->has('items', 1)
+        ->where('items.0.label', 'Internal')
+        ->where('filters.visibility', 'hidden')
+    );
+});
+
 test('viewer cannot access navigation management', function () {
     $this->actingAs(User::factory()->create([
         'role' => UserRole::Viewer,

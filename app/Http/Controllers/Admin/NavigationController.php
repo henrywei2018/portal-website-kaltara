@@ -7,6 +7,8 @@ use App\Http\Requests\Admin\StoreNavigationItemRequest;
 use App\Http\Requests\Admin\UpdateNavigationItemRequest;
 use App\Models\NavigationItem;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -14,13 +16,38 @@ class NavigationController extends Controller
 {
     private const TABLE_THRESHOLD = 6;
 
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $search = trim((string) $request->query('q', ''));
+        $visibility = $request->query('visibility');
+
+        $selectedVisibility = in_array($visibility, ['visible', 'hidden'], true)
+            ? $visibility
+            : null;
+
         $itemsQuery = NavigationItem::query()
             ->with('parent')
             ->orderBy('sort_order');
 
-        $itemCount = $itemsQuery->count();
+        if ($search !== '') {
+            $needle = Str::lower($search);
+
+            $itemsQuery->where(function ($query) use ($needle) {
+                $query->whereRaw('lower(label) like ?', ["%{$needle}%"])
+                    ->orWhereRaw('lower(slug) like ?', ["%{$needle}%"])
+                    ->orWhereRaw('lower(url) like ?', ["%{$needle}%"]);
+            });
+        }
+
+        if ($selectedVisibility === 'visible') {
+            $itemsQuery->where('is_visible', true);
+        }
+
+        if ($selectedVisibility === 'hidden') {
+            $itemsQuery->where('is_visible', false);
+        }
+
+        $itemCount = (clone $itemsQuery)->count();
 
         $items = $itemsQuery
             ->get()
@@ -49,6 +76,10 @@ class NavigationController extends Controller
             'items' => $items,
             'parents' => $parents,
             'listMode' => $itemCount >= self::TABLE_THRESHOLD ? 'table' : 'cards',
+            'filters' => [
+                'search' => $search,
+                'visibility' => $selectedVisibility,
+            ],
         ]);
     }
 

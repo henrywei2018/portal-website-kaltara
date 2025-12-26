@@ -80,10 +80,15 @@ export default function NavigationIndex({
     items,
     parents,
     listMode,
+    filters,
 }: {
     items: NavigationItem[];
     parents: ParentOption[];
     listMode: 'cards' | 'table';
+    filters: {
+        search: string;
+        visibility: string | null;
+    };
 }) {
     const [activeItemId, setActiveItemId] = useState<number | null>(items[0]?.id ?? null);
     const activeItem = items.find((item) => item.id === activeItemId) ?? null;
@@ -116,6 +121,57 @@ export default function NavigationIndex({
                     </Link>
                 </div>
             </header>
+
+            <section className="mt-6 rounded-2xl border border-black/5 bg-white p-6 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5">
+                <h2 className="text-lg font-semibold text-[#123726] dark:text-white">
+                    Pencarian & Filter
+                </h2>
+                <form
+                    method="get"
+                    action="/admin/navigation"
+                    className="mt-4 grid gap-4 lg:grid-cols-[1.5fr_0.8fr_auto]"
+                >
+                    <div>
+                        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                            Kata Kunci
+                        </label>
+                        <input
+                            name="q"
+                            defaultValue={filters.search}
+                            placeholder="Cari label, slug, atau URL..."
+                            className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                        />
+                    </div>
+                    <div>
+                        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                            Visibilitas
+                        </label>
+                        <select
+                            name="visibility"
+                            defaultValue={filters.visibility ?? ''}
+                            className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                        >
+                            <option value="">Semua</option>
+                            <option value="visible">Tampil</option>
+                            <option value="hidden">Tersembunyi</option>
+                        </select>
+                    </div>
+                    <div className="flex flex-wrap items-end gap-3">
+                        <button
+                            type="submit"
+                            className="rounded-full bg-[#0f6b4f] px-5 py-2 text-xs font-semibold text-white shadow-[0_10px_24px_rgba(15,107,79,0.2)] transition hover:brightness-95"
+                        >
+                            Terapkan
+                        </button>
+                        <Link
+                            href="/admin/navigation"
+                            className="rounded-full border border-black/10 px-4 py-2 text-xs font-semibold text-[#123726] transition hover:border-black/20 dark:border-white/20 dark:text-white"
+                        >
+                            Reset
+                        </Link>
+                    </div>
+                </form>
+            </section>
 
             <section className="mt-8 rounded-2xl border border-black/5 bg-white p-6 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5">
                 <h2 className="text-lg font-semibold text-[#123726] dark:text-white">

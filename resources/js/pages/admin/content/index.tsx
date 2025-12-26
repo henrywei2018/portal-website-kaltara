@@ -177,11 +177,17 @@ export default function AdminContentIndex({
     types,
     statuses,
     listMode,
+    filters,
 }: {
     items: ContentItem[];
     types: OptionItem[];
     statuses: OptionItem[];
     listMode: 'cards' | 'table';
+    filters: {
+        search: string;
+        type: string | null;
+        status: string | null;
+    };
 }) {
     const [activeItemId, setActiveItemId] = useState<number | null>(items[0]?.id ?? null);
     const activeItem = items.find((item) => item.id === activeItemId) ?? null;
@@ -218,6 +224,77 @@ export default function AdminContentIndex({
                     </Link>
                 </div>
             </header>
+
+            <section className="mt-6 rounded-2xl border border-black/5 bg-white p-6 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5">
+                <h2 className="text-lg font-semibold text-[#123726] dark:text-white">
+                    Pencarian & Filter
+                </h2>
+                <form
+                    method="get"
+                    action="/admin/content"
+                    className="mt-4 grid gap-4 lg:grid-cols-[1.4fr_0.8fr_0.8fr_auto]"
+                >
+                    <div>
+                        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                            Kata Kunci
+                        </label>
+                        <input
+                            name="q"
+                            defaultValue={filters.search}
+                            placeholder="Cari judul atau slug..."
+                            className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                        />
+                    </div>
+                    <div>
+                        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                            Kategori
+                        </label>
+                        <select
+                            name="type"
+                            defaultValue={filters.type ?? ''}
+                            className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                        >
+                            <option value="">Semua kategori</option>
+                            {types.map((option) => (
+                                <option key={option.value} value={option.value}>
+                                    {option.label}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div>
+                        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                            Status
+                        </label>
+                        <select
+                            name="status"
+                            defaultValue={filters.status ?? ''}
+                            className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                        >
+                            <option value="">Semua status</option>
+                            {statuses.map((option) => (
+                                <option key={option.value} value={option.value}>
+                                    {option.label}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="flex flex-wrap items-end gap-3">
+                        <button
+                            type="submit"
+                            className="rounded-full bg-[#0f6b4f] px-5 py-2 text-xs font-semibold text-white shadow-[0_10px_24px_rgba(15,107,79,0.2)] transition hover:brightness-95"
+                        >
+                            Terapkan
+                        </button>
+                        <Link
+                            href="/admin/content"
+                            className="rounded-full border border-black/10 px-4 py-2 text-xs font-semibold text-[#123726] transition hover:border-black/20 dark:border-white/20 dark:text-white"
+                        >
+                            Reset
+                        </Link>
+                    </div>
+                </form>
+            </section>
 
             <section className="mt-8 rounded-2xl border border-black/5 bg-white p-6 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5">
                 <h2 className="text-lg font-semibold text-[#123726] dark:text-white">
