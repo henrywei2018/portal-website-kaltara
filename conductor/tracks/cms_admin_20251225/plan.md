@@ -7,10 +7,10 @@
 - [x] Task: TDD - Proteksi akses admin berdasarkan role (71e75e2)
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Fondasi Admin & Role' (Protocol in workflow.md) (18b30b1)
 
-## Phase 2: Manajemen Menu Navigasi
+## Phase 2: Manajemen Menu Navigasi [checkpoint: 7e0c779]
 - [x] Task: TDD - Tambah CRUD menu navigasi (2 level, link eksternal, toggle tampil) (237b7a0)
 - [x] Task: TDD - Tambah urutan menu dan tampilkan di publik (1d0172c)
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Manajemen Menu Navigasi' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Manajemen Menu Navigasi' (Protocol in workflow.md) (7e0c779)
 
 ## Phase 3: Manajemen Halaman Dinamis (Editor Blok)
 - [ ] Task: TDD - Tambah CRUD halaman dinamis (judul, slug, status)
