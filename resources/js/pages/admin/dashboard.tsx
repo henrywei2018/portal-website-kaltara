@@ -1,37 +1,10 @@
 import AdminSidebarLayout from '@/layouts/admin/admin-sidebar-layout';
 import { Head, Link } from '@inertiajs/react';
 
-const quickLinks = [
-    {
-        title: 'Pengguna & Role',
-        description: 'Kelola akun admin dan hak akses.',
-        href: '/admin/users',
-    },
-    {
-        title: 'Menu Navigasi',
-        description: 'Atur menu utama dan sub-menu portal.',
-        href: '/admin/navigation',
-    },
-    {
-        title: 'Halaman Dinamis',
-        description: 'Buat dan perbarui halaman publik.',
-        href: '/admin/pages',
-    },
-    {
-        title: 'Berita & Pengumuman',
-        description: 'Kelola konten berita berbasis Markdown.',
-        href: '/admin/content',
-    },
-];
-
-const quickActions = [
-    { label: 'Tambah Halaman', href: '/admin/pages' },
-    { label: 'Tambah Konten', href: '/admin/content' },
-    { label: 'Tambah Menu', href: '/admin/navigation' },
-];
-
 export default function AdminDashboard({
     stats,
+    quickActions,
+    quickLinks,
 }: {
     stats: {
         pages: number;
@@ -39,6 +12,15 @@ export default function AdminDashboard({
         content: number;
         published_content: number;
     };
+    quickActions: {
+        label: string;
+        href: string;
+    }[];
+    quickLinks: {
+        title: string;
+        description: string;
+        href: string;
+    }[];
 }) {
     const cards = [
         {

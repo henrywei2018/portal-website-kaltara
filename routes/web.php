@@ -201,6 +201,42 @@ Route::middleware(['auth', 'verified', 'can:access-admin'])->prefix('admin')->na
                     ->where('status', ContentStatus::Published)
                     ->count(),
             ],
+            'quickActions' => [
+                [
+                    'label' => 'Tambah Halaman',
+                    'href' => route('admin.pages.index'),
+                ],
+                [
+                    'label' => 'Tambah Konten',
+                    'href' => route('admin.content.index'),
+                ],
+                [
+                    'label' => 'Tambah Menu',
+                    'href' => route('admin.navigation.index'),
+                ],
+            ],
+            'quickLinks' => [
+                [
+                    'title' => 'Pengguna & Role',
+                    'description' => 'Kelola akun admin dan hak akses.',
+                    'href' => route('admin.users.index'),
+                ],
+                [
+                    'title' => 'Menu Navigasi',
+                    'description' => 'Atur menu utama dan sub-menu portal.',
+                    'href' => route('admin.navigation.index'),
+                ],
+                [
+                    'title' => 'Halaman Dinamis',
+                    'description' => 'Buat dan perbarui halaman publik.',
+                    'href' => route('admin.pages.index'),
+                ],
+                [
+                    'title' => 'Berita & Pengumuman',
+                    'description' => 'Kelola konten berita berbasis Markdown.',
+                    'href' => route('admin.content.index'),
+                ],
+            ],
         ]);
     })->name('dashboard');
 
