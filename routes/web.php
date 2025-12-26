@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\NavigationController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\UserManagementController;
@@ -236,6 +237,19 @@ Route::middleware(['auth', 'verified', 'can:access-admin'])->prefix('admin')->na
     Route::delete('pages/{page}', [PageController::class, 'destroy'])
         ->middleware('can:manage-pages')
         ->name('pages.destroy');
+
+    Route::get('content', [ContentController::class, 'index'])
+        ->middleware('can:manage-content')
+        ->name('content.index');
+    Route::post('content', [ContentController::class, 'store'])
+        ->middleware('can:manage-content')
+        ->name('content.store');
+    Route::patch('content/{contentItem}', [ContentController::class, 'update'])
+        ->middleware('can:manage-content')
+        ->name('content.update');
+    Route::delete('content/{contentItem}', [ContentController::class, 'destroy'])
+        ->middleware('can:manage-content')
+        ->name('content.destroy');
 });
 
 require __DIR__.'/settings.php';

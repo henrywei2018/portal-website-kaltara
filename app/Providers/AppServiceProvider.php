@@ -37,5 +37,9 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('manage-pages', function (User $user): bool {
             return $user->is_active && in_array($user->role, [UserRole::SuperAdmin, UserRole::Editor], true);
         });
+
+        Gate::define('manage-content', function (User $user): bool {
+            return $user->is_active && in_array($user->role, [UserRole::SuperAdmin, UserRole::Editor], true);
+        });
     }
 }
