@@ -7,7 +7,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Fondasi UI Admin' (Protocol in workflow.md) (d36a7de)
 
 ## Phase 2: Refactor Modul Admin
-- [ ] Task: TDD - Terapkan list + modal CRUD pada Navigasi
+- [x] Task: TDD - Terapkan list + modal CRUD pada Navigasi (2a14ab2)
 - [ ] Task: TDD - Terapkan list + modal CRUD pada Halaman
 - [ ] Task: TDD - Terapkan list + modal CRUD pada Konten
 - [ ] Task: TDD - Terapkan list + modal CRUD pada Dokumen PDF
