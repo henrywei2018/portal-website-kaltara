@@ -49,6 +49,7 @@ class DocumentItemController extends Controller
             'listStyle' => 'compact',
             'actionMode' => 'dropdown',
             'modalMode' => 'slide-over',
+            'filterMode' => 'drawer',
         ]);
     }
 

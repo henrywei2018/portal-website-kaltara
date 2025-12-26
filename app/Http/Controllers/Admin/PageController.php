@@ -58,6 +58,7 @@ class PageController extends Controller
             'listStyle' => 'compact',
             'actionMode' => 'dropdown',
             'modalMode' => 'slide-over',
+            'filterMode' => 'drawer',
             'filters' => [
                 'search' => $search,
                 'status' => $selectedStatus,
