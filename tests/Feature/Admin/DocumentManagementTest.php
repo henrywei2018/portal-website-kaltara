@@ -17,20 +17,27 @@ beforeEach(function () {
 });
 
 test('admin can view document management list', function () {
+    Storage::fake('public');
+
     DocumentItem::factory()->create([
         'title' => 'IPKD 2024',
         'type' => DocumentType::Ipkd,
         'status' => DocumentStatus::Published,
+        'file_path' => 'documents/ipkd-2024.pdf',
+        'file_disk' => 'public',
     ]);
 
     $response = $this->get('/admin/documents');
 
     $response->assertOk();
 
+    $expectedPreviewUrl = Storage::disk('public')->url('documents/ipkd-2024.pdf');
+
     $response->assertInertia(fn ($page) => $page
         ->component('admin/documents/index')
         ->has('items', 1)
         ->where('items.0.title', 'IPKD 2024')
+        ->where('items.0.preview_url', $expectedPreviewUrl)
         ->where('listMode', 'cards')
         ->has('types')
         ->has('statuses')

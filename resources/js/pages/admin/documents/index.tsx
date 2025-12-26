@@ -16,6 +16,7 @@ type DocumentItem = {
     file_name: string;
     file_size: number;
     file_url: string;
+    preview_url: string;
     issued_at: string | null;
     published_at: string | null;
 };
@@ -25,6 +26,7 @@ type DocumentForm = {
     description: string;
     type: string;
     status: string;
+    file: File | null;
     issued_at: string;
     published_at: string;
 };
@@ -55,13 +57,16 @@ function DocumentCard({
         description: item.description,
         type: item.type,
         status: item.status,
+        file: null,
         issued_at: item.issued_at ?? '',
         published_at: item.published_at ?? '',
     });
 
     const submit = (event: FormEvent) => {
         event.preventDefault();
-        form.patch(`/admin/documents/${item.id}`);
+        form.patch(`/admin/documents/${item.id}`, {
+            forceFormData: true,
+        });
     };
 
     return (
@@ -177,6 +182,18 @@ function DocumentCard({
                         />
                     </div>
                 </div>
+                <div>
+                    <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                        Ganti File PDF (opsional)
+                    </label>
+                    <input
+                        type="file"
+                        name="file"
+                        accept="application/pdf"
+                        onChange={(event) => form.setData('file', event.target.files?.[0] ?? null)}
+                        className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#123726] file:mr-4 file:rounded-full file:border-0 file:bg-[#0f6b4f] file:px-4 file:py-2 file:text-xs file:font-semibold file:text-white dark:border-white/10 dark:bg-white/5 dark:text-white"
+                    />
+                </div>
                 <div className="flex flex-wrap gap-3">
                     <button
                         type="submit"
@@ -195,6 +212,25 @@ function DocumentCard({
                     </button>
                 </div>
             </form>
+
+            <div className="mt-6 overflow-hidden rounded-2xl border border-black/5 bg-white/80 dark:border-white/10 dark:bg-white/5">
+                <div className="flex items-center justify-between border-b border-black/5 px-4 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#567365] dark:border-white/10 dark:text-[#b0c2b8]">
+                    <span>Preview Dokumen</span>
+                    <a
+                        href={item.file_url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="rounded-full border border-black/10 px-3 py-1 text-[0.65rem] font-semibold text-[#123726] transition hover:border-black/20 dark:border-white/20 dark:text-white"
+                    >
+                        Buka Tab Baru
+                    </a>
+                </div>
+                <iframe
+                    title={`Preview ${item.title}`}
+                    src={item.preview_url}
+                    className="h-64 w-full bg-white dark:bg-[#0b2d1d]"
+                />
+            </div>
         </div>
     );
 }
