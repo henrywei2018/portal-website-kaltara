@@ -75,6 +75,29 @@ test('admin can create document item with PDF upload', function () {
     Storage::disk('public')->assertExists($item->file_path);
 });
 
+test('admin can create draft document without publication date', function () {
+    Storage::fake('public');
+
+    $file = UploadedFile::fake()->create('draft.pdf', 200, 'application/pdf');
+
+    $response = $this->post('/admin/documents', [
+        'title' => 'Draft Pengumuman',
+        'description' => 'Dokumen masih draft.',
+        'type' => DocumentType::Announcement->value,
+        'status' => DocumentStatus::Draft->value,
+        'file' => $file,
+        'issued_at' => '2024-11-01',
+    ]);
+
+    $response->assertRedirect();
+
+    $this->assertDatabaseHas('document_items', [
+        'title' => 'Draft Pengumuman',
+        'status' => DocumentStatus::Draft->value,
+        'published_at' => null,
+    ]);
+});
+
 test('admin can update document item metadata without replacing file', function () {
     Storage::fake('public');
     Storage::disk('public')->put('documents/existing.pdf', 'dummy');

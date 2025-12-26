@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('file_size');
             $table->string('file_disk')->default('public');
             $table->date('issued_at');
-            $table->date('published_at');
+            $table->date('published_at')->nullable();
             $table->timestamps();
 
             $table->index(['type', 'status']);

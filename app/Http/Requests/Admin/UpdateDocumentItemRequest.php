@@ -31,7 +31,11 @@ class UpdateDocumentItemRequest extends FormRequest
             'status' => ['required', Rule::enum(DocumentStatus::class)],
             'file' => ['nullable', 'file', 'mimes:pdf', 'max:10240'],
             'issued_at' => ['required', 'date'],
-            'published_at' => ['required', 'date'],
+            'published_at' => [
+                'nullable',
+                'date',
+                'required_if:status,'.DocumentStatus::Published->value,
+            ],
         ];
     }
 

@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\StoreDocumentItemRequest;
 use App\Http\Requests\Admin\UpdateDocumentItemRequest;
 use App\Models\DocumentItem;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -57,6 +58,8 @@ class DocumentItemController extends Controller
             $data = $this->attachFileMetadata($data, $file, 'public');
         }
 
+        $data['published_at'] = $this->resolvePublishedAt($data['status'], $data['published_at'] ?? null);
+
         DocumentItem::query()->create($data);
 
         return redirect()->back();
@@ -71,6 +74,8 @@ class DocumentItemController extends Controller
             $this->deleteFileIfExists($documentItem);
             $data = $this->attachFileMetadata($data, $file, $documentItem->file_disk ?? 'public');
         }
+
+        $data['published_at'] = $this->resolvePublishedAt($data['status'], $data['published_at'] ?? null);
 
         $documentItem->update($data);
 
@@ -112,5 +117,14 @@ class DocumentItemController extends Controller
         $disk = $documentItem->file_disk ?? 'public';
 
         Storage::disk($disk)->delete($path);
+    }
+
+    protected function resolvePublishedAt(string $status, ?string $publishedAt): ?Carbon
+    {
+        if ($status === \App\Enums\DocumentStatus::Published->value) {
+            return $publishedAt ? Carbon::parse($publishedAt) : now();
+        }
+
+        return null;
     }
 }

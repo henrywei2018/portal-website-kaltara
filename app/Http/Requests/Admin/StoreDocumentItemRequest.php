@@ -31,7 +31,11 @@ class StoreDocumentItemRequest extends FormRequest
             'status' => ['required', Rule::enum(DocumentStatus::class)],
             'file' => ['required', 'file', 'mimes:pdf', 'max:10240'],
             'issued_at' => ['required', 'date'],
-            'published_at' => ['required', 'date'],
+            'published_at' => [
+                'nullable',
+                'date',
+                'required_if:status,'.DocumentStatus::Published->value,
+            ],
         ];
     }
 
