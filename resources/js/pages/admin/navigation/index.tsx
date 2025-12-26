@@ -1,5 +1,8 @@
+import { AdminActionMenu } from '@/components/admin/admin-action-menu';
+import { AdminList, AdminListItem } from '@/components/admin/admin-list';
+import { AdminSlideOver } from '@/components/admin/admin-slide-over';
 import AdminSidebarLayout from '@/layouts/admin/admin-sidebar-layout';
-import { Form, Head, Link } from '@inertiajs/react';
+import { Form, Head } from '@inertiajs/react';
 import { useState } from 'react';
 
 type ParentOption = {
@@ -17,64 +20,8 @@ type NavigationItem = {
     is_external: boolean;
     is_visible: boolean;
     sort_order: number;
+    meta: string;
 };
-
-function NavigationCard({ item }: { item: NavigationItem }) {
-    return (
-        <div className="rounded-2xl border border-black/5 bg-white p-6 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-                <div>
-                    <p className="text-sm font-semibold text-[#123726] dark:text-white">{item.label}</p>
-                    <p className="text-xs text-[#587166] dark:text-[#b0c2b8]">
-                        {item.parent_label ? `Submenu dari ${item.parent_label}` : 'Menu utama'}
-                    </p>
-                </div>
-                <div className="flex items-center gap-3 text-xs text-[#567365] dark:text-[#b0c2b8]">
-                    <span>Urutan: {item.sort_order}</span>
-                    <span>{item.is_visible ? 'Tampil' : 'Tersembunyi'}</span>
-                </div>
-            </div>
-            <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-[#587166] dark:text-[#b0c2b8]">
-                {item.url && <span>URL: {item.url}</span>}
-                {item.slug && <span>Slug: {item.slug}</span>}
-                {item.is_external && <span>External</span>}
-            </div>
-            <div className="mt-4 flex gap-3">
-                <Form method="patch" action={`/admin/navigation/${item.id}`}>
-                    {({ processing }) => (
-                        <>
-                            <input type="hidden" name="label" value={item.label} />
-                            <input type="hidden" name="parent_id" value={item.parent_id ?? ''} />
-                            <input type="hidden" name="slug" value={item.slug ?? ''} />
-                            <input type="hidden" name="url" value={item.url ?? ''} />
-                            <input type="hidden" name="is_external" value={item.is_external ? 1 : 0} />
-                            <input type="hidden" name="is_visible" value={item.is_visible ? 0 : 1} />
-                            <input type="hidden" name="sort_order" value={item.sort_order} />
-                            <button
-                                type="submit"
-                                disabled={processing}
-                                className="rounded-full border border-black/10 px-4 py-2 text-xs font-semibold text-[#123726] transition hover:border-black/20 dark:border-white/20 dark:text-white"
-                            >
-                                {item.is_visible ? 'Sembunyikan' : 'Tampilkan'}
-                            </button>
-                        </>
-                    )}
-                </Form>
-                <Form method="delete" action={`/admin/navigation/${item.id}`}>
-                    {({ processing }) => (
-                        <button
-                            type="submit"
-                            disabled={processing}
-                            className="rounded-full border border-red-200 px-4 py-2 text-xs font-semibold text-red-600 transition hover:border-red-300 dark:border-red-400/50 dark:text-red-200"
-                        >
-                            Hapus
-                        </button>
-                    )}
-                </Form>
-            </div>
-        </div>
-    );
-}
 
 export default function NavigationIndex({
     items,
@@ -90,8 +37,8 @@ export default function NavigationIndex({
         visibility: string | null;
     };
 }) {
-    const [activeItemId, setActiveItemId] = useState<number | null>(items[0]?.id ?? null);
-    const activeItem = items.find((item) => item.id === activeItemId) ?? null;
+    const [activeItem, setActiveItem] = useState<NavigationItem | null>(null);
+    const [isCreateOpen, setIsCreateOpen] = useState(false);
 
     return (
         <AdminSidebarLayout
@@ -113,71 +60,110 @@ export default function NavigationIndex({
                     Tambah dan atur urutan menu utama serta submenu untuk portal publik.
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3">
-                    <Link
-                        href="/admin"
-                        className="rounded-full border border-black/10 px-4 py-2 text-sm font-semibold text-[#123726] transition hover:border-black/20 dark:border-white/20 dark:text-white"
+                    <button
+                        type="button"
+                        onClick={() => setIsCreateOpen(true)}
+                        className="rounded-full bg-[#0f6b4f] px-5 py-2 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(15,107,79,0.2)] transition hover:brightness-95"
                     >
-                        Kembali ke Dashboard
-                    </Link>
+                        Tambah Menu
+                    </button>
                 </div>
             </header>
 
-            <section className="mt-6 rounded-2xl border border-black/5 bg-white p-6 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5">
-                <h2 className="text-lg font-semibold text-[#123726] dark:text-white">
-                    Pencarian & Filter
-                </h2>
-                <form
-                    method="get"
-                    action="/admin/navigation"
-                    className="mt-4 grid gap-4 lg:grid-cols-[1.5fr_0.8fr_auto]"
+            <section className="mt-8">
+                <AdminList
+                    title="Daftar Menu"
+                    description="List ringkas dengan aksi cepat untuk mengelola navigasi."
+                    count={items.length}
                 >
-                    <div>
-                        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                            Kata Kunci
-                        </label>
-                        <input
-                            name="q"
-                            defaultValue={filters.search}
-                            placeholder="Cari label, slug, atau URL..."
-                            className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                        />
-                    </div>
-                    <div>
-                        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                            Visibilitas
-                        </label>
-                        <select
-                            name="visibility"
-                            defaultValue={filters.visibility ?? ''}
-                            className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                    {items.map((item) => (
+                        <AdminListItem
+                            key={item.id}
+                            title={item.label}
+                            subtitle={item.parent_label ? `Submenu dari ${item.parent_label}` : 'Menu utama'}
+                            meta={item.meta}
+                            actions={
+                                <AdminActionMenu
+                                    items={[
+                                        {
+                                            label: 'Edit',
+                                            onSelect: () => setActiveItem(item),
+                                        },
+                                        {
+                                            label: item.is_visible ? 'Sembunyikan' : 'Tampilkan',
+                                            onSelect: () => {
+                                                const form = document.getElementById(
+                                                    `toggle-visibility-${item.id}`
+                                                ) as HTMLFormElement | null;
+
+                                                form?.requestSubmit();
+                                            },
+                                        },
+                                        {
+                                            label: 'Hapus',
+                                            tone: 'danger',
+                                            onSelect: () => {
+                                                const form = document.getElementById(
+                                                    `delete-navigation-${item.id}`
+                                                ) as HTMLFormElement | null;
+
+                                                form?.requestSubmit();
+                                            },
+                                        },
+                                    ]}
+                                />
+                            }
                         >
-                            <option value="">Semua</option>
-                            <option value="visible">Tampil</option>
-                            <option value="hidden">Tersembunyi</option>
-                        </select>
-                    </div>
-                    <div className="flex flex-wrap items-end gap-3">
-                        <button
-                            type="submit"
-                            className="rounded-full bg-[#0f6b4f] px-5 py-2 text-xs font-semibold text-white shadow-[0_10px_24px_rgba(15,107,79,0.2)] transition hover:brightness-95"
-                        >
-                            Terapkan
-                        </button>
-                        <Link
-                            href="/admin/navigation"
-                            className="rounded-full border border-black/10 px-4 py-2 text-xs font-semibold text-[#123726] transition hover:border-black/20 dark:border-white/20 dark:text-white"
-                        >
-                            Reset
-                        </Link>
-                    </div>
-                </form>
+                            {item.url && <span>URL: {item.url}</span>}
+                            {item.slug && <span className="ml-3">Slug: {item.slug}</span>}
+                            {item.is_external && <span className="ml-3">External</span>}
+                            <Form
+                                id={`toggle-visibility-${item.id}`}
+                                method="patch"
+                                action={`/admin/navigation/${item.id}`}
+                                className="hidden"
+                            >
+                                <input type="hidden" name="label" value={item.label} />
+                                <input type="hidden" name="parent_id" value={item.parent_id ?? ''} />
+                                <input type="hidden" name="slug" value={item.slug ?? ''} />
+                                <input type="hidden" name="url" value={item.url ?? ''} />
+                                <input type="hidden" name="is_external" value={item.is_external ? 1 : 0} />
+                                <input type="hidden" name="is_visible" value={item.is_visible ? 0 : 1} />
+                                <input type="hidden" name="sort_order" value={item.sort_order} />
+                            </Form>
+                            <Form
+                                id={`delete-navigation-${item.id}`}
+                                method="delete"
+                                action={`/admin/navigation/${item.id}`}
+                                className="hidden"
+                            />
+                        </AdminListItem>
+                    ))}
+                </AdminList>
             </section>
 
-            <section className="mt-8 rounded-2xl border border-black/5 bg-white p-6 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5">
-                <h2 className="text-lg font-semibold text-[#123726] dark:text-white">
-                    Tambah Menu Baru
-                </h2>
-                <Form method="post" action="/admin/navigation" className="mt-6 grid gap-4">
+            <AdminSlideOver
+                open={isCreateOpen || Boolean(activeItem)}
+                onOpenChange={(open) => {
+                    if (!open) {
+                        setIsCreateOpen(false);
+                        setActiveItem(null);
+                    }
+                }}
+                title={activeItem ? 'Edit Menu Navigasi' : 'Tambah Menu Navigasi'}
+                description={
+                    activeItem
+                        ? 'Perbarui label, urutan, serta pengaturan visibilitas menu.'
+                        : 'Tambahkan menu utama atau submenu baru.'
+                }
+            >
+                <Form
+                    method={activeItem ? 'patch' : 'post'}
+                    action={
+                        activeItem ? `/admin/navigation/${activeItem.id}` : '/admin/navigation'
+                    }
+                    className="grid gap-4"
+                >
                     {({ processing }) => (
                         <>
                             <div className="grid gap-4 md:grid-cols-2">
@@ -188,8 +174,8 @@ export default function NavigationIndex({
                                     <input
                                         name="label"
                                         required
+                                        defaultValue={activeItem?.label ?? ''}
                                         className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                                        placeholder="Contoh: Layanan"
                                     />
                                 </div>
                                 <div>
@@ -198,7 +184,7 @@ export default function NavigationIndex({
                                     </label>
                                     <select
                                         name="parent_id"
-                                        defaultValue=""
+                                        defaultValue={activeItem?.parent_id ?? ''}
                                         className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
                                     >
                                         <option value="">Tanpa Parent</option>
@@ -217,8 +203,8 @@ export default function NavigationIndex({
                                     </label>
                                     <input
                                         name="slug"
+                                        defaultValue={activeItem?.slug ?? ''}
                                         className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                                        placeholder="contoh-slug"
                                     />
                                 </div>
                                 <div>
@@ -227,8 +213,8 @@ export default function NavigationIndex({
                                     </label>
                                     <input
                                         name="url"
+                                        defaultValue={activeItem?.url ?? ''}
                                         className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                                        placeholder="/layanan atau https://..."
                                     />
                                 </div>
                             </div>
@@ -239,7 +225,7 @@ export default function NavigationIndex({
                                     </label>
                                     <select
                                         name="is_external"
-                                        defaultValue="0"
+                                        defaultValue={activeItem?.is_external ? 1 : 0}
                                         className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
                                     >
                                         <option value="0">Tidak</option>
@@ -252,7 +238,7 @@ export default function NavigationIndex({
                                     </label>
                                     <select
                                         name="is_visible"
-                                        defaultValue="1"
+                                        defaultValue={activeItem?.is_visible ? 1 : 0}
                                         className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
                                     >
                                         <option value="1">Ya</option>
@@ -267,100 +253,34 @@ export default function NavigationIndex({
                                         type="number"
                                         name="sort_order"
                                         min={0}
-                                        defaultValue={0}
+                                        defaultValue={activeItem?.sort_order ?? 0}
                                         className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
                                     />
                                 </div>
                             </div>
-                            <div>
+                            <div className="flex items-center gap-3">
                                 <button
                                     type="submit"
                                     disabled={processing}
                                     className="rounded-full bg-[#0f6b4f] px-5 py-2 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(15,107,79,0.2)] transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-70"
                                 >
-                                    Simpan Menu
+                                    {activeItem ? 'Simpan Perubahan' : 'Simpan Menu'}
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setIsCreateOpen(false);
+                                        setActiveItem(null);
+                                    }}
+                                    className="rounded-full border border-black/10 px-5 py-2 text-sm font-semibold text-[#123726] transition hover:border-black/20 dark:border-white/20 dark:text-white"
+                                >
+                                    Batal
                                 </button>
                             </div>
                         </>
                     )}
                 </Form>
-            </section>
-
-            {listMode === 'table' ? (
-                <section className="mt-8 grid gap-6">
-                    <div className="rounded-2xl border border-black/5 bg-white p-4 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5">
-                        <div className="flex flex-wrap items-center justify-between gap-3 px-2 py-4">
-                            <div>
-                                <h2 className="text-lg font-semibold text-[#123726] dark:text-white">
-                                    Daftar Menu
-                                </h2>
-                                <p className="text-xs text-[#587166] dark:text-[#b0c2b8]">
-                                    Mode tabel memudahkan kontrol urutan dan visibilitas.
-                                </p>
-                            </div>
-                            <span className="rounded-full bg-[#e6f1ec] px-3 py-1 text-xs font-semibold text-[#0f6b4f] dark:bg-white/10 dark:text-white">
-                                {items.length} Menu
-                            </span>
-                        </div>
-                        <div className="overflow-x-auto">
-                            <table className="w-full border-collapse text-left text-xs text-[#123726] dark:text-white">
-                                <thead className="text-[0.65rem] uppercase tracking-[0.2em] text-[#567365] dark:text-[#b0c2b8]">
-                                    <tr>
-                                        <th className="px-3 py-2">Label</th>
-                                        <th className="px-3 py-2">Parent</th>
-                                        <th className="px-3 py-2">Urutan</th>
-                                        <th className="px-3 py-2">Tampil</th>
-                                        <th className="px-3 py-2 text-right">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-black/5 dark:divide-white/10">
-                                    {items.map((item) => (
-                                        <tr
-                                            key={item.id}
-                                            className={
-                                                item.id === activeItemId
-                                                    ? 'bg-[#f6f8f7] dark:bg-white/10'
-                                                    : 'bg-transparent'
-                                            }
-                                        >
-                                            <td className="px-3 py-3 font-semibold">{item.label}</td>
-                                            <td className="px-3 py-3 text-[#587166] dark:text-[#b0c2b8]">
-                                                {item.parent_label ?? 'Menu utama'}
-                                            </td>
-                                            <td className="px-3 py-3">{item.sort_order}</td>
-                                            <td className="px-3 py-3">
-                                                {item.is_visible ? 'Ya' : 'Tidak'}
-                                            </td>
-                                            <td className="px-3 py-3 text-right">
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setActiveItemId(item.id)}
-                                                    className="rounded-full bg-[#0f6b4f] px-3 py-1 text-[0.65rem] font-semibold text-white shadow-[0_8px_20px_rgba(15,107,79,0.18)] transition hover:brightness-95"
-                                                >
-                                                    Kelola
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    {activeItem ? (
-                        <NavigationCard item={activeItem} />
-                    ) : (
-                        <div className="rounded-2xl border border-dashed border-black/10 bg-white/70 p-6 text-sm text-[#587166] dark:border-white/20 dark:bg-white/5 dark:text-[#b0c2b8]">
-                            Pilih menu dari tabel untuk mengedit detailnya.
-                        </div>
-                    )}
-                </section>
-            ) : (
-                <section className="mt-8 space-y-4">
-                    {items.map((item) => (
-                        <NavigationCard key={item.id} item={item} />
-                    ))}
-                </section>
-            )}
+            </AdminSlideOver>
         </AdminSidebarLayout>
     );
 }

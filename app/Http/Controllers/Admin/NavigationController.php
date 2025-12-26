@@ -61,6 +61,11 @@ class NavigationController extends Controller
                 'is_external' => $item->is_external,
                 'is_visible' => $item->is_visible,
                 'sort_order' => $item->sort_order,
+                'meta' => sprintf(
+                    'Urutan %d · %s',
+                    $item->sort_order,
+                    $item->is_visible ? 'Tampil' : 'Tersembunyi'
+                ),
             ]);
 
         $parents = NavigationItem::query()

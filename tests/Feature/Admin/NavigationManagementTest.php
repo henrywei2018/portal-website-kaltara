@@ -28,6 +28,7 @@ test('admin can view navigation management list', function () {
     $response->assertInertia(fn (Assert $page) => $page
         ->component('admin/navigation/index')
         ->has('items', 1)
+        ->where('items.0.meta', 'Urutan 1 · Tampil')
         ->where('items.0.label', 'Beranda')
         ->where('listMode', 'cards')
     );
