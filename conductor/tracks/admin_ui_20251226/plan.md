@@ -14,4 +14,6 @@
 - [x] Task: TDD - Implementasi pola list hybrid (table untuk data besar, card untuk ringkas) (4aa6169)
 - [x] Task: TDD - Tambah search dan filter di modul konten utama (Halaman, Konten, Navigasi) (144b60c)
 - [x] Task: TDD - Pisahkan layout admin dari starter kit bawaan (4432ed0)
+- [x] Task: TDD - Konsolidasikan pengelolaan ke /admin (settings + redirect dashboard) (f7f5a2f)
+- [x] Task: TDD - Nonaktifkan register + bersihkan UI starter kit (fdf61c5)
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Search/Filter & Pola List Hybrid' (Protocol in workflow.md)
