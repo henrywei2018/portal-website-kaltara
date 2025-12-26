@@ -1,4 +1,5 @@
 import AdminSidebarLayout from '@/layouts/admin/admin-sidebar-layout';
+import { edit as editProfile } from '@/routes/profile';
 import { Head, Link } from '@inertiajs/react';
 
 export default function AdminDashboard({
@@ -67,7 +68,7 @@ export default function AdminDashboard({
                         Lihat Portal Publik
                     </Link>
                     <Link
-                        href="/settings/profile"
+                        href={editProfile()}
                         className="rounded-full bg-[#0f6b4f] px-4 py-2 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(15,107,79,0.2)] transition hover:brightness-95"
                     >
                         Pengaturan Admin

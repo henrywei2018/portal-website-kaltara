@@ -4,7 +4,7 @@ import TwoFactorSetupModal from '@/components/two-factor-setup-modal';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useTwoFactorAuth } from '@/hooks/use-two-factor-auth';
-import AppLayout from '@/layouts/app-layout';
+import AdminSidebarLayout from '@/layouts/admin/admin-sidebar-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 import { disable, enable, show } from '@/routes/two-factor';
 import { type BreadcrumbItem } from '@/types';
@@ -19,7 +19,7 @@ interface TwoFactorProps {
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Two-Factor Authentication',
+        title: 'Autentikasi Dua Faktor',
         href: show.url(),
     },
 ];
@@ -41,22 +41,20 @@ export default function TwoFactor({
     const [showSetupModal, setShowSetupModal] = useState<boolean>(false);
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Two-Factor Authentication" />
+        <AdminSidebarLayout breadcrumbs={breadcrumbs}>
+            <Head title="Autentikasi Dua Faktor" />
             <SettingsLayout>
                 <div className="space-y-6">
                     <HeadingSmall
-                        title="Two-Factor Authentication"
-                        description="Manage your two-factor authentication settings"
+                        title="Autentikasi Dua Faktor"
+                        description="Kelola pengaturan keamanan dua faktor."
                     />
                     {twoFactorEnabled ? (
                         <div className="flex flex-col items-start justify-start space-y-4">
-                            <Badge variant="default">Enabled</Badge>
-                            <p className="text-muted-foreground">
-                                With two-factor authentication enabled, you will
-                                be prompted for a secure, random pin during
-                                login, which you can retrieve from the
-                                TOTP-supported application on your phone.
+                            <Badge variant="default">Aktif</Badge>
+                            <p className="text-[#587166] dark:text-[#b0c2b8]">
+                                Saat 2FA aktif, Anda akan diminta memasukkan
+                                kode keamanan dari aplikasi authenticator.
                             </p>
 
                             <TwoFactorRecoveryCodes
@@ -73,7 +71,7 @@ export default function TwoFactor({
                                             type="submit"
                                             disabled={processing}
                                         >
-                                            <ShieldBan /> Disable 2FA
+                                            <ShieldBan /> Matikan 2FA
                                         </Button>
                                     )}
                                 </Form>
@@ -81,21 +79,20 @@ export default function TwoFactor({
                         </div>
                     ) : (
                         <div className="flex flex-col items-start justify-start space-y-4">
-                            <Badge variant="destructive">Disabled</Badge>
-                            <p className="text-muted-foreground">
-                                When you enable two-factor authentication, you
-                                will be prompted for a secure pin during login.
-                                This pin can be retrieved from a TOTP-supported
-                                application on your phone.
+                            <Badge variant="destructive">Nonaktif</Badge>
+                            <p className="text-[#587166] dark:text-[#b0c2b8]">
+                                Aktifkan 2FA untuk menambah keamanan login
+                                menggunakan aplikasi authenticator.
                             </p>
 
                             <div>
                                 {hasSetupData ? (
                                     <Button
                                         onClick={() => setShowSetupModal(true)}
+                                        className="rounded-full bg-[#0f6b4f] text-white shadow-[0_10px_24px_rgba(15,107,79,0.2)] hover:brightness-95"
                                     >
                                         <ShieldCheck />
-                                        Continue Setup
+                                        Lanjutkan Setup
                                     </Button>
                                 ) : (
                                     <Form
@@ -108,9 +105,10 @@ export default function TwoFactor({
                                             <Button
                                                 type="submit"
                                                 disabled={processing}
+                                                className="rounded-full bg-[#0f6b4f] text-white shadow-[0_10px_24px_rgba(15,107,79,0.2)] hover:brightness-95"
                                             >
                                                 <ShieldCheck />
-                                                Enable 2FA
+                                                Aktifkan 2FA
                                             </Button>
                                         )}
                                     </Form>
@@ -132,6 +130,6 @@ export default function TwoFactor({
                     />
                 </div>
             </SettingsLayout>
-        </AppLayout>
+        </AdminSidebarLayout>
     );
 }

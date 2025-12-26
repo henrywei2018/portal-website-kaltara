@@ -1,3 +1,4 @@
+import { edit as editProfile } from '@/routes/profile';
 import { type BreadcrumbItem, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 
@@ -46,7 +47,7 @@ export default function AdminHeader({ breadcrumbs }: { breadcrumbs: BreadcrumbIt
                         </p>
                     </div>
                     <Link
-                        href="/settings/profile"
+                        href={editProfile()}
                         className="rounded-full border border-black/10 px-3 py-1 text-[0.65rem] font-semibold text-[#123726] transition hover:border-black/20 dark:border-white/20 dark:text-white"
                     >
                         Pengaturan

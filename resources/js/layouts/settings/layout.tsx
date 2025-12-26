@@ -1,6 +1,5 @@
 import Heading from '@/components/heading';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 import { cn, isSameUrl, resolveUrl } from '@/lib/utils';
 import { edit as editAppearance } from '@/routes/appearance';
 import { edit } from '@/routes/profile';
@@ -12,22 +11,22 @@ import { type PropsWithChildren } from 'react';
 
 const sidebarNavItems: NavItem[] = [
     {
-        title: 'Profile',
+        title: 'Profil',
         href: edit(),
         icon: null,
     },
     {
-        title: 'Password',
+        title: 'Kata Sandi',
         href: editPassword(),
         icon: null,
     },
     {
-        title: 'Two-Factor Auth',
+        title: 'Autentikasi 2FA',
         href: show(),
         icon: null,
     },
     {
-        title: 'Appearance',
+        title: 'Tampilan',
         href: editAppearance(),
         icon: null,
     },
@@ -42,27 +41,31 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
     const currentPath = window.location.pathname;
 
     return (
-        <div className="px-4 py-6">
+        <div className="px-6 py-8">
             <Heading
-                title="Settings"
-                description="Manage your profile and account settings"
+                title="Pengaturan Akun"
+                description="Kelola profil, keamanan, dan tampilan akun Anda."
             />
 
-            <div className="flex flex-col lg:flex-row lg:space-x-12">
-                <aside className="w-full max-w-xl lg:w-48">
-                    <nav className="flex flex-col space-y-1 space-x-0">
+            <div className="grid gap-8 lg:grid-cols-[240px_1fr]">
+                <aside className="rounded-3xl border border-black/5 bg-white/90 p-4 shadow-[0_16px_32px_rgba(15,107,79,0.12)] dark:border-white/10 dark:bg-white/5">
+                    <p className="px-3 pb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                        Navigasi
+                    </p>
+                    <nav className="flex flex-col gap-2">
                         {sidebarNavItems.map((item, index) => (
                             <Button
                                 key={`${resolveUrl(item.href)}-${index}`}
                                 size="sm"
                                 variant="ghost"
                                 asChild
-                                className={cn('w-full justify-start', {
-                                    'bg-muted': isSameUrl(
-                                        currentPath,
-                                        item.href,
-                                    ),
-                                })}
+                                className={cn(
+                                    'justify-start rounded-full px-4 py-2 text-sm font-semibold text-[#123726] transition hover:bg-[#e6f1ec] dark:text-white dark:hover:bg-white/10',
+                                    {
+                                        'bg-[#e6f1ec] text-[#0f6b4f] dark:bg-white/10':
+                                            isSameUrl(currentPath, item.href),
+                                    },
+                                )}
                             >
                                 <Link href={item.href}>
                                     {item.icon && (
@@ -75,12 +78,8 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
                     </nav>
                 </aside>
 
-                <Separator className="my-6 lg:hidden" />
-
-                <div className="flex-1 md:max-w-2xl">
-                    <section className="max-w-xl space-y-12">
-                        {children}
-                    </section>
+                <div className="rounded-3xl border border-black/5 bg-white/90 p-6 shadow-[0_16px_32px_rgba(15,107,79,0.12)] dark:border-white/10 dark:bg-white/5">
+                    <section className="space-y-12">{children}</section>
                 </div>
             </div>
         </div>

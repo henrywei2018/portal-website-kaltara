@@ -1,7 +1,7 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\PageController::index
-* @see app/Http/Controllers/Admin/PageController.php:15
+* @see app/Http/Controllers/Admin/PageController.php:19
 * @route '/admin/pages'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\PageController::index
-* @see app/Http/Controllers/Admin/PageController.php:15
+* @see app/Http/Controllers/Admin/PageController.php:19
 * @route '/admin/pages'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ index.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\PageController::index
-* @see app/Http/Controllers/Admin/PageController.php:15
+* @see app/Http/Controllers/Admin/PageController.php:19
 * @route '/admin/pages'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -35,7 +35,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\PageController::index
-* @see app/Http/Controllers/Admin/PageController.php:15
+* @see app/Http/Controllers/Admin/PageController.php:19
 * @route '/admin/pages'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,45 +44,8 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\Admin\PageController::index
-* @see app/Http/Controllers/Admin/PageController.php:15
-* @route '/admin/pages'
-*/
-const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: index.url(options),
-    method: 'get',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\PageController::index
-* @see app/Http/Controllers/Admin/PageController.php:15
-* @route '/admin/pages'
-*/
-indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: index.url(options),
-    method: 'get',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\PageController::index
-* @see app/Http/Controllers/Admin/PageController.php:15
-* @route '/admin/pages'
-*/
-indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: index.url({
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'HEAD',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'get',
-})
-
-index.form = indexForm
-
-/**
 * @see \App\Http\Controllers\Admin\PageController::store
-* @see app/Http/Controllers/Admin/PageController.php:34
+* @see app/Http/Controllers/Admin/PageController.php:65
 * @route '/admin/pages'
 */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -97,7 +60,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\PageController::store
-* @see app/Http/Controllers/Admin/PageController.php:34
+* @see app/Http/Controllers/Admin/PageController.php:65
 * @route '/admin/pages'
 */
 store.url = (options?: RouteQueryOptions) => {
@@ -106,7 +69,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\PageController::store
-* @see app/Http/Controllers/Admin/PageController.php:34
+* @see app/Http/Controllers/Admin/PageController.php:65
 * @route '/admin/pages'
 */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -115,30 +78,8 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\Admin\PageController::store
-* @see app/Http/Controllers/Admin/PageController.php:34
-* @route '/admin/pages'
-*/
-const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: store.url(options),
-    method: 'post',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\PageController::store
-* @see app/Http/Controllers/Admin/PageController.php:34
-* @route '/admin/pages'
-*/
-storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: store.url(options),
-    method: 'post',
-})
-
-store.form = storeForm
-
-/**
 * @see \App\Http\Controllers\Admin\PageController::update
-* @see app/Http/Controllers/Admin/PageController.php:44
+* @see app/Http/Controllers/Admin/PageController.php:75
 * @route '/admin/pages/{page}'
 */
 export const update = (args: { page: number | { id: number } } | [page: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -153,7 +94,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\PageController::update
-* @see app/Http/Controllers/Admin/PageController.php:44
+* @see app/Http/Controllers/Admin/PageController.php:75
 * @route '/admin/pages/{page}'
 */
 update.url = (args: { page: number | { id: number } } | [page: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -186,7 +127,7 @@ update.url = (args: { page: number | { id: number } } | [page: number | { id: nu
 
 /**
 * @see \App\Http\Controllers\Admin\PageController::update
-* @see app/Http/Controllers/Admin/PageController.php:44
+* @see app/Http/Controllers/Admin/PageController.php:75
 * @route '/admin/pages/{page}'
 */
 update.patch = (args: { page: number | { id: number } } | [page: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -195,40 +136,8 @@ update.patch = (args: { page: number | { id: number } } | [page: number | { id: 
 })
 
 /**
-* @see \App\Http\Controllers\Admin\PageController::update
-* @see app/Http/Controllers/Admin/PageController.php:44
-* @route '/admin/pages/{page}'
-*/
-const updateForm = (args: { page: number | { id: number } } | [page: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: update.url(args, {
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'PATCH',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'post',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\PageController::update
-* @see app/Http/Controllers/Admin/PageController.php:44
-* @route '/admin/pages/{page}'
-*/
-updateForm.patch = (args: { page: number | { id: number } } | [page: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: update.url(args, {
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'PATCH',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'post',
-})
-
-update.form = updateForm
-
-/**
 * @see \App\Http\Controllers\Admin\PageController::destroy
-* @see app/Http/Controllers/Admin/PageController.php:54
+* @see app/Http/Controllers/Admin/PageController.php:85
 * @route '/admin/pages/{page}'
 */
 export const destroy = (args: { page: number | { id: number } } | [page: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -243,7 +152,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\PageController::destroy
-* @see app/Http/Controllers/Admin/PageController.php:54
+* @see app/Http/Controllers/Admin/PageController.php:85
 * @route '/admin/pages/{page}'
 */
 destroy.url = (args: { page: number | { id: number } } | [page: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -276,45 +185,13 @@ destroy.url = (args: { page: number | { id: number } } | [page: number | { id: n
 
 /**
 * @see \App\Http\Controllers\Admin\PageController::destroy
-* @see app/Http/Controllers/Admin/PageController.php:54
+* @see app/Http/Controllers/Admin/PageController.php:85
 * @route '/admin/pages/{page}'
 */
 destroy.delete = (args: { page: number | { id: number } } | [page: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
-
-/**
-* @see \App\Http\Controllers\Admin\PageController::destroy
-* @see app/Http/Controllers/Admin/PageController.php:54
-* @route '/admin/pages/{page}'
-*/
-const destroyForm = (args: { page: number | { id: number } } | [page: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: destroy.url(args, {
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'DELETE',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'post',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\PageController::destroy
-* @see app/Http/Controllers/Admin/PageController.php:54
-* @route '/admin/pages/{page}'
-*/
-destroyForm.delete = (args: { page: number | { id: number } } | [page: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: destroy.url(args, {
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'DELETE',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'post',
-})
-
-destroy.form = destroyForm
 
 const PageController = { index, store, update, destroy }
 

@@ -77,16 +77,6 @@ class HandleInertiaRequests extends Middleware
                         ],
                     ],
                     [
-                        'title' => 'Statistik',
-                        'items' => [
-                            [
-                                'title' => 'Ringkasan Portal',
-                                'href' => route('stats.index'),
-                                'isActive' => $isActive($currentPath, route('stats.index')),
-                            ],
-                        ],
-                    ],
-                    [
                         'title' => 'Pengguna',
                         'items' => [
                             [

@@ -1,7 +1,7 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\ContentController::index
-* @see app/Http/Controllers/Admin/ContentController.php:16
+* @see app/Http/Controllers/Admin/ContentController.php:22
 * @route '/admin/content'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\ContentController::index
-* @see app/Http/Controllers/Admin/ContentController.php:16
+* @see app/Http/Controllers/Admin/ContentController.php:22
 * @route '/admin/content'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ index.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\ContentController::index
-* @see app/Http/Controllers/Admin/ContentController.php:16
+* @see app/Http/Controllers/Admin/ContentController.php:22
 * @route '/admin/content'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -35,7 +35,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\ContentController::index
-* @see app/Http/Controllers/Admin/ContentController.php:16
+* @see app/Http/Controllers/Admin/ContentController.php:22
 * @route '/admin/content'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,45 +44,8 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\Admin\ContentController::index
-* @see app/Http/Controllers/Admin/ContentController.php:16
-* @route '/admin/content'
-*/
-const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: index.url(options),
-    method: 'get',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\ContentController::index
-* @see app/Http/Controllers/Admin/ContentController.php:16
-* @route '/admin/content'
-*/
-indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: index.url(options),
-    method: 'get',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\ContentController::index
-* @see app/Http/Controllers/Admin/ContentController.php:16
-* @route '/admin/content'
-*/
-indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: index.url({
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'HEAD',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'get',
-})
-
-index.form = indexForm
-
-/**
 * @see \App\Http\Controllers\Admin\ContentController::store
-* @see app/Http/Controllers/Admin/ContentController.php:40
+* @see app/Http/Controllers/Admin/ContentController.php:77
 * @route '/admin/content'
 */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -97,7 +60,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\ContentController::store
-* @see app/Http/Controllers/Admin/ContentController.php:40
+* @see app/Http/Controllers/Admin/ContentController.php:77
 * @route '/admin/content'
 */
 store.url = (options?: RouteQueryOptions) => {
@@ -106,7 +69,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\ContentController::store
-* @see app/Http/Controllers/Admin/ContentController.php:40
+* @see app/Http/Controllers/Admin/ContentController.php:77
 * @route '/admin/content'
 */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -115,33 +78,11 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\Admin\ContentController::store
-* @see app/Http/Controllers/Admin/ContentController.php:40
-* @route '/admin/content'
-*/
-const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: store.url(options),
-    method: 'post',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\ContentController::store
-* @see app/Http/Controllers/Admin/ContentController.php:40
-* @route '/admin/content'
-*/
-storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: store.url(options),
-    method: 'post',
-})
-
-store.form = storeForm
-
-/**
 * @see \App\Http\Controllers\Admin\ContentController::update
-* @see app/Http/Controllers/Admin/ContentController.php:50
+* @see app/Http/Controllers/Admin/ContentController.php:87
 * @route '/admin/content/{contentItem}'
 */
-export const update = (args: { contentItem: string | number | { id: string | number } } | [contentItem: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+export const update = (args: { contentItem: number | { id: number } } | [contentItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
@@ -153,10 +94,10 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\ContentController::update
-* @see app/Http/Controllers/Admin/ContentController.php:50
+* @see app/Http/Controllers/Admin/ContentController.php:87
 * @route '/admin/content/{contentItem}'
 */
-update.url = (args: { contentItem: string | number | { id: string | number } } | [contentItem: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+update.url = (args: { contentItem: number | { id: number } } | [contentItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { contentItem: args }
     }
@@ -186,52 +127,20 @@ update.url = (args: { contentItem: string | number | { id: string | number } } |
 
 /**
 * @see \App\Http\Controllers\Admin\ContentController::update
-* @see app/Http/Controllers/Admin/ContentController.php:50
+* @see app/Http/Controllers/Admin/ContentController.php:87
 * @route '/admin/content/{contentItem}'
 */
-update.patch = (args: { contentItem: string | number | { id: string | number } } | [contentItem: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.patch = (args: { contentItem: number | { id: number } } | [contentItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
 
 /**
-* @see \App\Http\Controllers\Admin\ContentController::update
-* @see app/Http/Controllers/Admin/ContentController.php:50
-* @route '/admin/content/{contentItem}'
-*/
-const updateForm = (args: { contentItem: string | number | { id: string | number } } | [contentItem: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: update.url(args, {
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'PATCH',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'post',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\ContentController::update
-* @see app/Http/Controllers/Admin/ContentController.php:50
-* @route '/admin/content/{contentItem}'
-*/
-updateForm.patch = (args: { contentItem: string | number | { id: string | number } } | [contentItem: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: update.url(args, {
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'PATCH',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'post',
-})
-
-update.form = updateForm
-
-/**
 * @see \App\Http\Controllers\Admin\ContentController::destroy
-* @see app/Http/Controllers/Admin/ContentController.php:60
+* @see app/Http/Controllers/Admin/ContentController.php:97
 * @route '/admin/content/{contentItem}'
 */
-export const destroy = (args: { contentItem: string | number | { id: string | number } } | [contentItem: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { contentItem: number | { id: number } } | [contentItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -243,10 +152,10 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\ContentController::destroy
-* @see app/Http/Controllers/Admin/ContentController.php:60
+* @see app/Http/Controllers/Admin/ContentController.php:97
 * @route '/admin/content/{contentItem}'
 */
-destroy.url = (args: { contentItem: string | number | { id: string | number } } | [contentItem: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { contentItem: number | { id: number } } | [contentItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { contentItem: args }
     }
@@ -276,45 +185,13 @@ destroy.url = (args: { contentItem: string | number | { id: string | number } } 
 
 /**
 * @see \App\Http\Controllers\Admin\ContentController::destroy
-* @see app/Http/Controllers/Admin/ContentController.php:60
+* @see app/Http/Controllers/Admin/ContentController.php:97
 * @route '/admin/content/{contentItem}'
 */
-destroy.delete = (args: { contentItem: string | number | { id: string | number } } | [contentItem: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { contentItem: number | { id: number } } | [contentItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
-
-/**
-* @see \App\Http\Controllers\Admin\ContentController::destroy
-* @see app/Http/Controllers/Admin/ContentController.php:60
-* @route '/admin/content/{contentItem}'
-*/
-const destroyForm = (args: { contentItem: string | number | { id: string | number } } | [contentItem: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: destroy.url(args, {
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'DELETE',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'post',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\ContentController::destroy
-* @see app/Http/Controllers/Admin/ContentController.php:60
-* @route '/admin/content/{contentItem}'
-*/
-destroyForm.delete = (args: { contentItem: string | number | { id: string | number } } | [contentItem: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: destroy.url(args, {
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'DELETE',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'post',
-})
-
-destroy.form = destroyForm
 
 const ContentController = { index, store, update, destroy }
 

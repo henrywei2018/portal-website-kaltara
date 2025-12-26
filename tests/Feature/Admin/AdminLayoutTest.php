@@ -21,9 +21,9 @@ it('shares admin navigation groups for admin pages', function () {
 
     $response->assertInertia(fn (Assert $page) => $page
         ->component('admin/dashboard')
-        ->has('adminNav.groups', 4)
+        ->has('adminNav.groups', 3)
         ->where('adminNav.groups.0.title', 'Konten')
-        ->where('adminNav.groups.2.title', 'Pengguna')
+        ->where('adminNav.groups.1.title', 'Pengguna')
         ->where('auth.user.email', $user->email)
     );
 });

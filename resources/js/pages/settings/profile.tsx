@@ -10,13 +10,13 @@ import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import AppLayout from '@/layouts/app-layout';
+import AdminSidebarLayout from '@/layouts/admin/admin-sidebar-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 import { edit } from '@/routes/profile';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Profile settings',
+        title: 'Pengaturan Profil',
         href: edit().url,
     },
 ];
@@ -31,14 +31,14 @@ export default function Profile({
     const { auth } = usePage<SharedData>().props;
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Profile settings" />
+        <AdminSidebarLayout breadcrumbs={breadcrumbs}>
+            <Head title="Pengaturan Profil" />
 
             <SettingsLayout>
                 <div className="space-y-6">
                     <HeadingSmall
-                        title="Profile information"
-                        description="Update your name and email address"
+                        title="Informasi Profil"
+                        description="Perbarui nama dan email akun Anda."
                     />
 
                     <Form
@@ -51,7 +51,7 @@ export default function Profile({
                         {({ processing, recentlySuccessful, errors }) => (
                             <>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="name">Name</Label>
+                                    <Label htmlFor="name">Nama</Label>
 
                                     <Input
                                         id="name"
@@ -60,7 +60,7 @@ export default function Profile({
                                         name="name"
                                         required
                                         autoComplete="name"
-                                        placeholder="Full name"
+                                        placeholder="Nama lengkap"
                                     />
 
                                     <InputError
@@ -70,7 +70,7 @@ export default function Profile({
                                 </div>
 
                                 <div className="grid gap-2">
-                                    <Label htmlFor="email">Email address</Label>
+                                    <Label htmlFor="email">Email</Label>
 
                                     <Input
                                         id="email"
@@ -80,7 +80,7 @@ export default function Profile({
                                         name="email"
                                         required
                                         autoComplete="username"
-                                        placeholder="Email address"
+                                        placeholder="Email"
                                     />
 
                                     <InputError
@@ -92,25 +92,21 @@ export default function Profile({
                                 {mustVerifyEmail &&
                                     auth.user.email_verified_at === null && (
                                         <div>
-                                            <p className="-mt-4 text-sm text-muted-foreground">
-                                                Your email address is
-                                                unverified.{' '}
+                                            <p className="-mt-4 text-sm text-[#587166] dark:text-[#b0c2b8]">
+                                                Email Anda belum terverifikasi.{' '}
                                                 <Link
                                                     href={send()}
                                                     as="button"
-                                                    className="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
+                                                    className="font-semibold text-[#0f6b4f] underline decoration-transparent underline-offset-4 transition hover:decoration-[#0f6b4f]"
                                                 >
-                                                    Click here to resend the
-                                                    verification email.
+                                                    Klik di sini untuk kirim ulang verifikasi.
                                                 </Link>
                                             </p>
 
                                             {status ===
                                                 'verification-link-sent' && (
-                                                <div className="mt-2 text-sm font-medium text-green-600">
-                                                    A new verification link has
-                                                    been sent to your email
-                                                    address.
+                                                <div className="mt-2 text-sm font-medium text-[#0f6b4f]">
+                                                    Tautan verifikasi baru telah dikirim ke email Anda.
                                                 </div>
                                             )}
                                         </div>
@@ -120,8 +116,9 @@ export default function Profile({
                                     <Button
                                         disabled={processing}
                                         data-test="update-profile-button"
+                                        className="rounded-full bg-[#0f6b4f] text-white shadow-[0_10px_24px_rgba(15,107,79,0.2)] hover:brightness-95"
                                     >
-                                        Save
+                                        Simpan
                                     </Button>
 
                                     <Transition
@@ -131,8 +128,8 @@ export default function Profile({
                                         leave="transition ease-in-out"
                                         leaveTo="opacity-0"
                                     >
-                                        <p className="text-sm text-neutral-600">
-                                            Saved
+                                        <p className="text-sm text-[#587166] dark:text-[#b0c2b8]">
+                                            Tersimpan
                                         </p>
                                     </Transition>
                                 </div>
@@ -143,6 +140,6 @@ export default function Profile({
 
                 <DeleteUser />
             </SettingsLayout>
-        </AppLayout>
+        </AdminSidebarLayout>
     );
 }
