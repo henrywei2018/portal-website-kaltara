@@ -39,7 +39,7 @@ test('admin can view document management list', function () {
         ->where('items.data.0.title', 'IPKD 2024')
         ->where('items.data.0.meta', 'IPKD · Terbit')
         ->where('items.data.0.preview_url', $expectedPreviewUrl)
-        ->where('items.meta.per_page', 10)
+        ->where('items.per_page', 10)
         ->where('listMode', 'cards')
         ->has('types')
         ->has('statuses')

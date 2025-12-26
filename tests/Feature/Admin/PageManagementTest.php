@@ -29,7 +29,7 @@ test('admin can view page management list', function () {
         ->has('pages.data', 1)
         ->where('pages.data.0.title', 'Profil Pemerintah')
         ->where('pages.data.0.meta', 'Status: Terbit')
-        ->where('pages.meta.per_page', 10)
+        ->where('pages.per_page', 10)
         ->where('listMode', 'cards')
     );
 });
