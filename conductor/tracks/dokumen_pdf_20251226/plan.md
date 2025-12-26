@@ -12,7 +12,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 2: UI Admin & Upload/Preview' (Protocol in workflow.md) (b7bf3ca)
 
 ## Phase 3: Publikasi & Halaman Publik
-- [ ] Task: TDD - Implementasi status Draft/Published dan aturan tanggal publikasi
+- [x] Task: TDD - Implementasi status Draft/Published dan aturan tanggal publikasi (707aa5d)
 - [ ] Task: TDD - Tambah halaman publik list Pengumuman
 - [ ] Task: TDD - Tambah halaman publik list IPKD
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Publikasi & Halaman Publik' (Protocol in workflow.md)
