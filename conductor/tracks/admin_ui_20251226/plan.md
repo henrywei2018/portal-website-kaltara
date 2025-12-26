@@ -5,10 +5,10 @@
 - [x] Task: TDD - Implementasi navigasi sidebar + state aktif (3f32906)
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Layout Admin & Sidebar' (Protocol in workflow.md) (195b25b)
 
-## Phase 2: Dashboard Ringkas & Quick Actions
+## Phase 2: Dashboard Ringkas & Quick Actions [checkpoint: c2ab761]
 - [x] Task: TDD - Tambah kartu statistik ringkas di dashboard admin (76679d4)
 - [x] Task: TDD - Tambah quick actions untuk modul utama (8d112e1)
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Dashboard Ringkas & Quick Actions' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Dashboard Ringkas & Quick Actions' (Protocol in workflow.md) (c2ab761)
 
 ## Phase 3: Search/Filter & Pola List Hybrid
 - [ ] Task: TDD - Implementasi pola list hybrid (table untuk data besar, card untuk ringkas)
