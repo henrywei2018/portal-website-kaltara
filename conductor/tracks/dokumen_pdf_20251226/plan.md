@@ -6,10 +6,10 @@
 - [x] Task: TDD - Implementasi controller admin untuk CRUD dokumen PDF (4c76a17)
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Struktur Data & Validasi' (Protocol in workflow.md) (7a1028e)
 
-## Phase 2: UI Admin & Upload/Preview
+## Phase 2: UI Admin & Upload/Preview [checkpoint: b7bf3ca]
 - [x] Task: TDD - Buat halaman admin list + form dokumen PDF (Pengumuman/IPKD/Lain) (4ff9cd3)
 - [x] Task: TDD - Implementasi upload PDF + preview embedded + link buka tab baru (9409489)
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: UI Admin & Upload/Preview' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: UI Admin & Upload/Preview' (Protocol in workflow.md) (b7bf3ca)
 
 ## Phase 3: Publikasi & Halaman Publik
 - [ ] Task: TDD - Implementasi status Draft/Published dan aturan tanggal publikasi
