@@ -11,8 +11,8 @@
 - [x] Task: TDD - Implementasi upload PDF + preview embedded + link buka tab baru (9409489)
 - [x] Task: Conductor - User Manual Verification 'Phase 2: UI Admin & Upload/Preview' (Protocol in workflow.md) (b7bf3ca)
 
-## Phase 3: Publikasi & Halaman Publik
+## Phase 3: Publikasi & Halaman Publik [checkpoint: ee5ef8b]
 - [x] Task: TDD - Implementasi status Draft/Published dan aturan tanggal publikasi (707aa5d)
 - [x] Task: TDD - Tambah halaman publik list Pengumuman (25d0211)
 - [x] Task: TDD - Tambah halaman publik list IPKD (25d0211)
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Publikasi & Halaman Publik' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Publikasi & Halaman Publik' (Protocol in workflow.md) (ee5ef8b)
