@@ -29,6 +29,20 @@ test('admin can view navigation management list', function () {
         ->component('admin/navigation/index')
         ->has('items', 1)
         ->where('items.0.label', 'Beranda')
+        ->where('listMode', 'cards')
+    );
+});
+
+test('navigation list uses table mode for large datasets', function () {
+    NavigationItem::factory()->count(7)->create();
+
+    $response = $this->get('/admin/navigation');
+
+    $response->assertOk();
+
+    $response->assertInertia(fn (Assert $page) => $page
+        ->component('admin/navigation/index')
+        ->where('listMode', 'table')
     );
 });
 

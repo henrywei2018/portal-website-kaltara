@@ -1,5 +1,6 @@
 import AdminSidebarLayout from '@/layouts/admin/admin-sidebar-layout';
 import { Form, Head, Link } from '@inertiajs/react';
+import { useState } from 'react';
 
 type ParentOption = {
     id: number;
@@ -18,13 +19,75 @@ type NavigationItem = {
     sort_order: number;
 };
 
+function NavigationCard({ item }: { item: NavigationItem }) {
+    return (
+        <div className="rounded-2xl border border-black/5 bg-white p-6 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                    <p className="text-sm font-semibold text-[#123726] dark:text-white">{item.label}</p>
+                    <p className="text-xs text-[#587166] dark:text-[#b0c2b8]">
+                        {item.parent_label ? `Submenu dari ${item.parent_label}` : 'Menu utama'}
+                    </p>
+                </div>
+                <div className="flex items-center gap-3 text-xs text-[#567365] dark:text-[#b0c2b8]">
+                    <span>Urutan: {item.sort_order}</span>
+                    <span>{item.is_visible ? 'Tampil' : 'Tersembunyi'}</span>
+                </div>
+            </div>
+            <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-[#587166] dark:text-[#b0c2b8]">
+                {item.url && <span>URL: {item.url}</span>}
+                {item.slug && <span>Slug: {item.slug}</span>}
+                {item.is_external && <span>External</span>}
+            </div>
+            <div className="mt-4 flex gap-3">
+                <Form method="patch" action={`/admin/navigation/${item.id}`}>
+                    {({ processing }) => (
+                        <>
+                            <input type="hidden" name="label" value={item.label} />
+                            <input type="hidden" name="parent_id" value={item.parent_id ?? ''} />
+                            <input type="hidden" name="slug" value={item.slug ?? ''} />
+                            <input type="hidden" name="url" value={item.url ?? ''} />
+                            <input type="hidden" name="is_external" value={item.is_external ? 1 : 0} />
+                            <input type="hidden" name="is_visible" value={item.is_visible ? 0 : 1} />
+                            <input type="hidden" name="sort_order" value={item.sort_order} />
+                            <button
+                                type="submit"
+                                disabled={processing}
+                                className="rounded-full border border-black/10 px-4 py-2 text-xs font-semibold text-[#123726] transition hover:border-black/20 dark:border-white/20 dark:text-white"
+                            >
+                                {item.is_visible ? 'Sembunyikan' : 'Tampilkan'}
+                            </button>
+                        </>
+                    )}
+                </Form>
+                <Form method="delete" action={`/admin/navigation/${item.id}`}>
+                    {({ processing }) => (
+                        <button
+                            type="submit"
+                            disabled={processing}
+                            className="rounded-full border border-red-200 px-4 py-2 text-xs font-semibold text-red-600 transition hover:border-red-300 dark:border-red-400/50 dark:text-red-200"
+                        >
+                            Hapus
+                        </button>
+                    )}
+                </Form>
+            </div>
+        </div>
+    );
+}
+
 export default function NavigationIndex({
     items,
     parents,
+    listMode,
 }: {
     items: NavigationItem[];
     parents: ParentOption[];
+    listMode: 'cards' | 'table';
 }) {
+    const [activeItemId, setActiveItemId] = useState<number | null>(items[0]?.id ?? null);
+    const activeItem = items.find((item) => item.id === activeItemId) ?? null;
+
     return (
         <AdminSidebarLayout
             breadcrumbs={[
@@ -167,69 +230,81 @@ export default function NavigationIndex({
                 </Form>
             </section>
 
-            <section className="mt-8 space-y-4">
-                {items.map((item) => (
-                    <div
-                        key={item.id}
-                        className="rounded-2xl border border-black/5 bg-white p-6 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5"
-                    >
-                        <div className="flex flex-wrap items-center justify-between gap-4">
+            {listMode === 'table' ? (
+                <section className="mt-8 grid gap-6">
+                    <div className="rounded-2xl border border-black/5 bg-white p-4 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5">
+                        <div className="flex flex-wrap items-center justify-between gap-3 px-2 py-4">
                             <div>
-                                <p className="text-sm font-semibold text-[#123726] dark:text-white">
-                                    {item.label}
-                                </p>
+                                <h2 className="text-lg font-semibold text-[#123726] dark:text-white">
+                                    Daftar Menu
+                                </h2>
                                 <p className="text-xs text-[#587166] dark:text-[#b0c2b8]">
-                                    {item.parent_label
-                                        ? `Submenu dari ${item.parent_label}`
-                                        : 'Menu utama'}
+                                    Mode tabel memudahkan kontrol urutan dan visibilitas.
                                 </p>
                             </div>
-                            <div className="flex items-center gap-3 text-xs text-[#567365] dark:text-[#b0c2b8]">
-                                <span>Urutan: {item.sort_order}</span>
-                                <span>{item.is_visible ? 'Tampil' : 'Tersembunyi'}</span>
-                            </div>
+                            <span className="rounded-full bg-[#e6f1ec] px-3 py-1 text-xs font-semibold text-[#0f6b4f] dark:bg-white/10 dark:text-white">
+                                {items.length} Menu
+                            </span>
                         </div>
-                        <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-[#587166] dark:text-[#b0c2b8]">
-                            {item.url && <span>URL: {item.url}</span>}
-                            {item.slug && <span>Slug: {item.slug}</span>}
-                            {item.is_external && <span>External</span>}
-                        </div>
-                        <div className="mt-4 flex gap-3">
-                            <Form method="patch" action={`/admin/navigation/${item.id}`}>
-                                {({ processing }) => (
-                                    <>
-                                        <input type="hidden" name="label" value={item.label} />
-                                        <input type="hidden" name="parent_id" value={item.parent_id ?? ''} />
-                                        <input type="hidden" name="slug" value={item.slug ?? ''} />
-                                        <input type="hidden" name="url" value={item.url ?? ''} />
-                                        <input type="hidden" name="is_external" value={item.is_external ? 1 : 0} />
-                                        <input type="hidden" name="is_visible" value={item.is_visible ? 0 : 1} />
-                                        <input type="hidden" name="sort_order" value={item.sort_order} />
-                                        <button
-                                            type="submit"
-                                            disabled={processing}
-                                            className="rounded-full border border-black/10 px-4 py-2 text-xs font-semibold text-[#123726] transition hover:border-black/20 dark:border-white/20 dark:text-white"
+                        <div className="overflow-x-auto">
+                            <table className="w-full border-collapse text-left text-xs text-[#123726] dark:text-white">
+                                <thead className="text-[0.65rem] uppercase tracking-[0.2em] text-[#567365] dark:text-[#b0c2b8]">
+                                    <tr>
+                                        <th className="px-3 py-2">Label</th>
+                                        <th className="px-3 py-2">Parent</th>
+                                        <th className="px-3 py-2">Urutan</th>
+                                        <th className="px-3 py-2">Tampil</th>
+                                        <th className="px-3 py-2 text-right">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-black/5 dark:divide-white/10">
+                                    {items.map((item) => (
+                                        <tr
+                                            key={item.id}
+                                            className={
+                                                item.id === activeItemId
+                                                    ? 'bg-[#f6f8f7] dark:bg-white/10'
+                                                    : 'bg-transparent'
+                                            }
                                         >
-                                            {item.is_visible ? 'Sembunyikan' : 'Tampilkan'}
-                                        </button>
-                                    </>
-                                )}
-                            </Form>
-                            <Form method="delete" action={`/admin/navigation/${item.id}`}>
-                                {({ processing }) => (
-                                    <button
-                                        type="submit"
-                                        disabled={processing}
-                                        className="rounded-full border border-red-200 px-4 py-2 text-xs font-semibold text-red-600 transition hover:border-red-300 dark:border-red-400/50 dark:text-red-200"
-                                    >
-                                        Hapus
-                                    </button>
-                                )}
-                            </Form>
+                                            <td className="px-3 py-3 font-semibold">{item.label}</td>
+                                            <td className="px-3 py-3 text-[#587166] dark:text-[#b0c2b8]">
+                                                {item.parent_label ?? 'Menu utama'}
+                                            </td>
+                                            <td className="px-3 py-3">{item.sort_order}</td>
+                                            <td className="px-3 py-3">
+                                                {item.is_visible ? 'Ya' : 'Tidak'}
+                                            </td>
+                                            <td className="px-3 py-3 text-right">
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setActiveItemId(item.id)}
+                                                    className="rounded-full bg-[#0f6b4f] px-3 py-1 text-[0.65rem] font-semibold text-white shadow-[0_8px_20px_rgba(15,107,79,0.18)] transition hover:brightness-95"
+                                                >
+                                                    Kelola
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                ))}
-            </section>
+                    {activeItem ? (
+                        <NavigationCard item={activeItem} />
+                    ) : (
+                        <div className="rounded-2xl border border-dashed border-black/10 bg-white/70 p-6 text-sm text-[#587166] dark:border-white/20 dark:bg-white/5 dark:text-[#b0c2b8]">
+                            Pilih menu dari tabel untuk mengedit detailnya.
+                        </div>
+                    )}
+                </section>
+            ) : (
+                <section className="mt-8 space-y-4">
+                    {items.map((item) => (
+                        <NavigationCard key={item.id} item={item} />
+                    ))}
+                </section>
+            )}
         </AdminSidebarLayout>
     );
 }

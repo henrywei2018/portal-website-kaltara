@@ -28,6 +28,20 @@ test('admin can view page management list', function () {
         ->component('admin/pages/index')
         ->has('pages', 1)
         ->where('pages.0.title', 'Profil Pemerintah')
+        ->where('listMode', 'cards')
+    );
+});
+
+test('page list uses table mode for large datasets', function () {
+    Page::factory()->count(7)->create();
+
+    $response = $this->get('/admin/pages');
+
+    $response->assertOk();
+
+    $response->assertInertia(fn (Assert $page) => $page
+        ->component('admin/pages/index')
+        ->where('listMode', 'table')
     );
 });
 

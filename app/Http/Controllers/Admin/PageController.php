@@ -12,12 +12,18 @@ use Inertia\Response;
 
 class PageController extends Controller
 {
+    private const TABLE_THRESHOLD = 6;
+
     public function index(): Response
     {
-        $pages = Page::query()
-            ->orderBy('title')
+        $pagesQuery = Page::query()
+            ->orderBy('title');
+
+        $pageCount = $pagesQuery->count();
+
+        $pages = $pagesQuery
             ->get()
-            ->map(fn (Page $page) => [
+            ->map(fn (Page $page): array => [
                 'id' => $page->id,
                 'title' => $page->title,
                 'slug' => $page->slug,
@@ -28,6 +34,7 @@ class PageController extends Controller
 
         return Inertia::render('admin/pages/index', [
             'pages' => $pages,
+            'listMode' => $pageCount >= self::TABLE_THRESHOLD ? 'table' : 'cards',
         ]);
     }
 

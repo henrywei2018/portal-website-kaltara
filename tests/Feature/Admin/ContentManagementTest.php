@@ -33,6 +33,20 @@ test('admin can view content management list', function () {
         ->has('items', 1)
         ->where('items.0.title', 'Pengumuman Resmi')
         ->where('items.0.body', "# Pengumuman\n\nKonten markdown.")
+        ->where('listMode', 'cards')
+    );
+});
+
+test('content list uses table mode for large datasets', function () {
+    ContentItem::factory()->count(7)->create();
+
+    $response = $this->get('/admin/content');
+
+    $response->assertOk();
+
+    $response->assertInertia(fn (Assert $page) => $page
+        ->component('admin/content/index')
+        ->where('listMode', 'table')
     );
 });
 

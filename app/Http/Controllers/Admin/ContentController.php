@@ -13,11 +13,17 @@ use Inertia\Response;
 
 class ContentController extends Controller
 {
+    private const TABLE_THRESHOLD = 6;
+
     public function index(): Response
     {
-        $items = ContentItem::query()
+        $itemsQuery = ContentItem::query()
             ->orderByDesc('published_at')
-            ->orderByDesc('created_at')
+            ->orderByDesc('created_at');
+
+        $itemCount = $itemsQuery->count();
+
+        $items = $itemsQuery
             ->get()
             ->map(fn (ContentItem $item): array => [
                 'id' => $item->id,
@@ -34,6 +40,7 @@ class ContentController extends Controller
             'items' => $items,
             'types' => \App\Enums\ContentType::options(),
             'statuses' => \App\Enums\ContentStatus::options(),
+            'listMode' => $itemCount >= self::TABLE_THRESHOLD ? 'table' : 'cards',
         ]);
     }
 

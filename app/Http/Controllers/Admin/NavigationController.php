@@ -12,11 +12,17 @@ use Inertia\Response;
 
 class NavigationController extends Controller
 {
+    private const TABLE_THRESHOLD = 6;
+
     public function index(): Response
     {
-        $items = NavigationItem::query()
+        $itemsQuery = NavigationItem::query()
             ->with('parent')
-            ->orderBy('sort_order')
+            ->orderBy('sort_order');
+
+        $itemCount = $itemsQuery->count();
+
+        $items = $itemsQuery
             ->get()
             ->map(fn (NavigationItem $item): array => [
                 'id' => $item->id,
@@ -42,6 +48,7 @@ class NavigationController extends Controller
         return Inertia::render('admin/navigation/index', [
             'items' => $items,
             'parents' => $parents,
+            'listMode' => $itemCount >= self::TABLE_THRESHOLD ? 'table' : 'cards',
         ]);
     }
 

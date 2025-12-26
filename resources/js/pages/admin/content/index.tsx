@@ -1,6 +1,6 @@
 import AdminSidebarLayout from '@/layouts/admin/admin-sidebar-layout';
 import { Form, Head, Link, useForm } from '@inertiajs/react';
-import { type FormEvent } from 'react';
+import { type FormEvent, useState } from 'react';
 
 type OptionItem = {
     value: string;
@@ -176,11 +176,20 @@ export default function AdminContentIndex({
     items,
     types,
     statuses,
+    listMode,
 }: {
     items: ContentItem[];
     types: OptionItem[];
     statuses: OptionItem[];
+    listMode: 'cards' | 'table';
 }) {
+    const [activeItemId, setActiveItemId] = useState<number | null>(items[0]?.id ?? null);
+    const activeItem = items.find((item) => item.id === activeItemId) ?? null;
+
+    const typeLabel = (value: string) => types.find((type) => type.value === value)?.label ?? value;
+    const statusLabel = (value: string) =>
+        statuses.find((status) => status.value === value)?.label ?? value;
+
     return (
         <AdminSidebarLayout
             breadcrumbs={[
@@ -311,11 +320,85 @@ export default function AdminContentIndex({
                 </Form>
             </section>
 
-            <section className="mt-8 space-y-4">
-                {items.map((item) => (
-                    <ContentCard key={item.id} item={item} types={types} statuses={statuses} />
-                ))}
-            </section>
+            {listMode === 'table' ? (
+                <section className="mt-8 grid gap-6">
+                    <div className="rounded-2xl border border-black/5 bg-white p-4 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5">
+                        <div className="flex flex-wrap items-center justify-between gap-3 px-2 py-4">
+                            <div>
+                                <h2 className="text-lg font-semibold text-[#123726] dark:text-white">
+                                    Daftar Konten
+                                </h2>
+                                <p className="text-xs text-[#587166] dark:text-[#b0c2b8]">
+                                    Mode tabel memudahkan audit banyak konten sekaligus.
+                                </p>
+                            </div>
+                            <span className="rounded-full bg-[#e6f1ec] px-3 py-1 text-xs font-semibold text-[#0f6b4f] dark:bg-white/10 dark:text-white">
+                                {items.length} Konten
+                            </span>
+                        </div>
+                        <div className="overflow-x-auto">
+                            <table className="w-full border-collapse text-left text-xs text-[#123726] dark:text-white">
+                                <thead className="text-[0.65rem] uppercase tracking-[0.2em] text-[#567365] dark:text-[#b0c2b8]">
+                                    <tr>
+                                        <th className="px-3 py-2">Judul</th>
+                                        <th className="px-3 py-2">Kategori</th>
+                                        <th className="px-3 py-2">Status</th>
+                                        <th className="px-3 py-2">Terbit</th>
+                                        <th className="px-3 py-2 text-right">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-black/5 dark:divide-white/10">
+                                    {items.map((item) => (
+                                        <tr
+                                            key={item.id}
+                                            className={
+                                                item.id === activeItemId
+                                                    ? 'bg-[#f6f8f7] dark:bg-white/10'
+                                                    : 'bg-transparent'
+                                            }
+                                        >
+                                            <td className="px-3 py-3 font-semibold">{item.title}</td>
+                                            <td className="px-3 py-3 text-[#587166] dark:text-[#b0c2b8]">
+                                                {typeLabel(item.type)}
+                                            </td>
+                                            <td className="px-3 py-3">
+                                                <span className="rounded-full border border-black/10 px-2 py-1 text-[0.65rem] font-semibold text-[#123726] dark:border-white/20 dark:text-white">
+                                                    {statusLabel(item.status)}
+                                                </span>
+                                            </td>
+                                            <td className="px-3 py-3 text-[#587166] dark:text-[#b0c2b8]">
+                                                {item.published_at ?? '-'}
+                                            </td>
+                                            <td className="px-3 py-3 text-right">
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setActiveItemId(item.id)}
+                                                    className="rounded-full bg-[#0f6b4f] px-3 py-1 text-[0.65rem] font-semibold text-white shadow-[0_8px_20px_rgba(15,107,79,0.18)] transition hover:brightness-95"
+                                                >
+                                                    Kelola
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {activeItem ? (
+                        <ContentCard item={activeItem} types={types} statuses={statuses} />
+                    ) : (
+                        <div className="rounded-2xl border border-dashed border-black/10 bg-white/70 p-6 text-sm text-[#587166] dark:border-white/20 dark:bg-white/5 dark:text-[#b0c2b8]">
+                            Pilih konten dari tabel untuk mengedit detailnya.
+                        </div>
+                    )}
+                </section>
+            ) : (
+                <section className="mt-8 space-y-4">
+                    {items.map((item) => (
+                        <ContentCard key={item.id} item={item} types={types} statuses={statuses} />
+                    ))}
+                </section>
+            )}
         </AdminSidebarLayout>
     );
 }

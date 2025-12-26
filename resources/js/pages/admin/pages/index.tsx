@@ -1,6 +1,6 @@
 import AdminSidebarLayout from '@/layouts/admin/admin-sidebar-layout';
 import { Form, Head, Link, useForm } from '@inertiajs/react';
-import { type FormEvent } from 'react';
+import { type FormEvent, useState } from 'react';
 
 type BlockItem = {
     type: string;
@@ -211,7 +211,16 @@ function PageCard({ page }: { page: PageItem }) {
     );
 }
 
-export default function AdminPagesIndex({ pages }: { pages: PageItem[] }) {
+export default function AdminPagesIndex({
+    pages,
+    listMode,
+}: {
+    pages: PageItem[];
+    listMode: 'cards' | 'table';
+}) {
+    const [activePageId, setActivePageId] = useState<number | null>(pages[0]?.id ?? null);
+    const activePage = pages.find((page) => page.id === activePageId) ?? null;
+
     return (
         <AdminSidebarLayout
             breadcrumbs={[
@@ -304,11 +313,85 @@ export default function AdminPagesIndex({ pages }: { pages: PageItem[] }) {
                 </Form>
             </section>
 
-            <section className="mt-8 space-y-4">
-                {pages.map((page) => (
-                    <PageCard key={page.id} page={page} />
-                ))}
-            </section>
+            {listMode === 'table' ? (
+                <section className="mt-8 grid gap-6">
+                    <div className="rounded-2xl border border-black/5 bg-white p-4 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5">
+                        <div className="flex flex-wrap items-center justify-between gap-3 px-2 py-4">
+                            <div>
+                                <h2 className="text-lg font-semibold text-[#123726] dark:text-white">
+                                    Daftar Halaman
+                                </h2>
+                                <p className="text-xs text-[#587166] dark:text-[#b0c2b8]">
+                                    Mode tabel membantu melihat banyak halaman sekaligus.
+                                </p>
+                            </div>
+                            <span className="rounded-full bg-[#e6f1ec] px-3 py-1 text-xs font-semibold text-[#0f6b4f] dark:bg-white/10 dark:text-white">
+                                {pages.length} Halaman
+                            </span>
+                        </div>
+                        <div className="overflow-x-auto">
+                            <table className="w-full border-collapse text-left text-xs text-[#123726] dark:text-white">
+                                <thead className="text-[0.65rem] uppercase tracking-[0.2em] text-[#567365] dark:text-[#b0c2b8]">
+                                    <tr>
+                                        <th className="px-3 py-2">Judul</th>
+                                        <th className="px-3 py-2">Slug</th>
+                                        <th className="px-3 py-2">Status</th>
+                                        <th className="px-3 py-2">Update</th>
+                                        <th className="px-3 py-2 text-right">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-black/5 dark:divide-white/10">
+                                    {pages.map((page) => (
+                                        <tr
+                                            key={page.id}
+                                            className={
+                                                page.id === activePageId
+                                                    ? 'bg-[#f6f8f7] dark:bg-white/10'
+                                                    : 'bg-transparent'
+                                            }
+                                        >
+                                            <td className="px-3 py-3 font-semibold">{page.title}</td>
+                                            <td className="px-3 py-3 text-[#587166] dark:text-[#b0c2b8]">
+                                                /{page.slug}
+                                            </td>
+                                            <td className="px-3 py-3">
+                                                <span className="rounded-full border border-black/10 px-2 py-1 text-[0.65rem] font-semibold text-[#123726] dark:border-white/20 dark:text-white">
+                                                    {page.status === 'published' ? 'Terbit' : 'Draf'}
+                                                </span>
+                                            </td>
+                                            <td className="px-3 py-3 text-[#587166] dark:text-[#b0c2b8]">
+                                                {page.updated_at ?? 'Baru'}
+                                            </td>
+                                            <td className="px-3 py-3 text-right">
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setActivePageId(page.id)}
+                                                    className="rounded-full bg-[#0f6b4f] px-3 py-1 text-[0.65rem] font-semibold text-white shadow-[0_8px_20px_rgba(15,107,79,0.18)] transition hover:brightness-95"
+                                                >
+                                                    Kelola
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {activePage ? (
+                        <PageCard page={activePage} />
+                    ) : (
+                        <div className="rounded-2xl border border-dashed border-black/10 bg-white/70 p-6 text-sm text-[#587166] dark:border-white/20 dark:bg-white/5 dark:text-[#b0c2b8]">
+                            Pilih halaman dari tabel untuk mengedit detailnya.
+                        </div>
+                    )}
+                </section>
+            ) : (
+                <section className="mt-8 space-y-4">
+                    {pages.map((page) => (
+                        <PageCard key={page.id} page={page} />
+                    ))}
+                </section>
+            )}
         </AdminSidebarLayout>
     );
 }
