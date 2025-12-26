@@ -1,9 +1,12 @@
 <?php
 
+use App\Enums\ContentStatus;
+use App\Enums\ContentType;
 use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\NavigationController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\UserManagementController;
+use App\Models\ContentItem;
 use App\Models\NavigationItem;
 use App\Models\Page;
 use Illuminate\Http\Request;
@@ -76,30 +79,6 @@ $homeProps = fn () => [
     ],
 ];
 
-$newsItems = [
-    [
-        'title' => 'Judul berita resmi 1',
-        'slug' => 'judul-berita-resmi-1',
-        'category' => 'Pengumuman',
-        'excerpt' => 'Ringkasan singkat berita resmi untuk publik dan mitra.',
-        'published_at' => '2025-01-15',
-    ],
-    [
-        'title' => 'Judul berita resmi 2',
-        'slug' => 'judul-berita-resmi-2',
-        'category' => 'Agenda',
-        'excerpt' => 'Informasi kegiatan pemerintah provinsi yang akan datang.',
-        'published_at' => '2025-01-12',
-    ],
-    [
-        'title' => 'Judul berita resmi 3',
-        'slug' => 'judul-berita-resmi-3',
-        'category' => 'Laporan',
-        'excerpt' => 'Update program prioritas dan capaian kinerja daerah.',
-        'published_at' => '2025-01-10',
-    ],
-];
-
 Route::get('/', function () use ($homeProps) {
     return Inertia::render('welcome', $homeProps());
 })->name('home');
@@ -108,35 +87,61 @@ Route::get('/beranda', function () use ($homeProps) {
     return Inertia::render('welcome', $homeProps());
 })->name('portal.home');
 
-Route::get('/berita', function (Request $request) use ($newsItems) {
+Route::get('/berita', function (Request $request) {
     $searchQuery = trim((string) $request->query('q', ''));
-    $filteredItems = collect($newsItems)
-        ->when($searchQuery !== '', function ($items) use ($searchQuery) {
+    $typeQuery = $request->query('type');
+    $type = $typeQuery ? ContentType::tryFrom((string) $typeQuery) : null;
+
+    $items = ContentItem::query()
+        ->where('status', ContentStatus::Published)
+        ->when($type, fn ($query, ContentType $type) => $query->where('type', $type->value))
+        ->when($searchQuery !== '', function ($query) use ($searchQuery) {
             $needle = Str::lower($searchQuery);
 
-            return $items->filter(function (array $item) use ($needle) {
-                return Str::contains(Str::lower($item['title']), $needle)
-                    || Str::contains(Str::lower($item['category']), $needle);
-            })->values();
+            $query->where(function ($builder) use ($needle) {
+                $builder->whereRaw('lower(title) like ?', ["%{$needle}%"])
+                    ->orWhereRaw('lower(slug) like ?', ["%{$needle}%"]);
+            });
         })
+        ->orderByDesc('published_at')
+        ->orderByDesc('created_at')
+        ->get()
+        ->map(fn (ContentItem $item): array => [
+            'title' => $item->title,
+            'slug' => $item->slug,
+            'category' => $item->type->label(),
+            'excerpt' => $item->excerpt ?? '',
+            'published_at' => $item->published_at?->format('d M Y') ?? '',
+        ])
         ->values()
         ->all();
 
     return Inertia::render('news/index', [
-        'newsItems' => $filteredItems,
+        'newsItems' => $items,
         'searchQuery' => $searchQuery,
+        'activeType' => $type?->value,
     ]);
 })->name('news.index');
 
-Route::get('/berita/{slug}', function (string $slug) use ($newsItems) {
-    $news = collect($newsItems)->firstWhere('slug', $slug);
+Route::get('/berita/{slug}', function (string $slug) {
+    $newsItem = ContentItem::query()
+        ->where('slug', $slug)
+        ->where('status', ContentStatus::Published)
+        ->first();
 
-    if (! $news) {
+    if (! $newsItem) {
         abort(404);
     }
 
     return Inertia::render('news/show', [
-        'news' => $news,
+        'news' => [
+            'title' => $newsItem->title,
+            'slug' => $newsItem->slug,
+            'category' => $newsItem->type->label(),
+            'excerpt' => $newsItem->excerpt ?? '',
+            'published_at' => $newsItem->published_at?->format('d M Y') ?? '',
+            'body_html' => Str::markdown($newsItem->body ?? ''),
+        ],
     ]);
 })->name('news.show');
 

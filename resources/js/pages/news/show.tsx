@@ -6,6 +6,7 @@ type NewsItem = {
     category: string;
     excerpt: string;
     published_at: string;
+    body_html: string;
 };
 
 export default function NewsShow({ news }: { news: NewsItem }) {
@@ -39,9 +40,10 @@ export default function NewsShow({ news }: { news: NewsItem }) {
                 <p className="text-base leading-relaxed text-[#354f42] dark:text-[#c7d6ce]">
                     {news.excerpt}
                 </p>
-                <div className="rounded-2xl border border-black/5 bg-white/70 p-6 text-sm text-[#587166] shadow-[0_12px_30px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5 dark:text-[#b0c2b8]">
-                    Konten lengkap berita resmi akan ditampilkan di sini. Saat ini masih menggunakan data stub untuk kebutuhan awal portal.
-                </div>
+                <div
+                    className="prose max-w-none rounded-2xl border border-black/5 bg-white/70 p-6 text-sm text-[#587166] shadow-[0_12px_30px_rgba(15,107,79,0.08)] dark:prose-invert dark:border-white/10 dark:bg-white/5 dark:text-[#b0c2b8]"
+                    dangerouslySetInnerHTML={{ __html: news.body_html }}
+                />
             </main>
         </div>
     );
