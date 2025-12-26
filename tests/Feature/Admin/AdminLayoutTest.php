@@ -23,6 +23,7 @@ it('shares admin navigation groups for admin pages', function () {
         ->component('admin/dashboard')
         ->has('adminNav.groups', 3)
         ->where('adminNav.groups.0.title', 'Konten')
+        ->where('adminNav.groups.0.items.3.title', 'Dokumen PDF')
         ->where('adminNav.groups.1.title', 'Pengguna')
         ->where('auth.user.email', $user->email)
     );
