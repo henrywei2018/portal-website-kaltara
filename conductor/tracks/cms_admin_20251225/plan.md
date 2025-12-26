@@ -19,7 +19,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 3: Manajemen Halaman Dinamis (Editor Blok)' (Protocol in workflow.md) (9ecf9e0)
 
 ## Phase 4: Manajemen Berita/Artikel/Pengumuman (Markdown)
-- [ ] Task: TDD - Tambah CRUD konten berita/artikel/pengumuman (status publish/draft)
+- [x] Task: TDD - Tambah CRUD konten berita/artikel/pengumuman (status publish/draft) (d97ec30)
 - [ ] Task: TDD - Implementasi Markdown editor untuk konten
 - [ ] Task: TDD - Tampilkan listing & detail publik berbasis kategori
 - [ ] Task: Conductor - User Manual Verification 'Phase 4: Manajemen Berita/Artikel/Pengumuman (Markdown)' (Protocol in workflow.md)
