@@ -7,11 +7,13 @@ use Inertia\Testing\AssertableInertia as Assert;
 use function Pest\Laravel\actingAs;
 
 it('shares admin navigation groups for admin pages', function () {
-    actingAs(User::factory()->create([
+    $user = User::factory()->create([
         'role' => UserRole::Editor,
         'is_active' => true,
         'email_verified_at' => now(),
-    ]));
+    ]);
+
+    actingAs($user);
 
     $response = $this->get('/admin');
 
@@ -22,6 +24,7 @@ it('shares admin navigation groups for admin pages', function () {
         ->has('adminNav.groups', 4)
         ->where('adminNav.groups.0.title', 'Konten')
         ->where('adminNav.groups.2.title', 'Pengguna')
+        ->where('auth.user.email', $user->email)
     );
 });
 

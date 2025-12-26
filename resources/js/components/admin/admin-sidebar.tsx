@@ -12,7 +12,6 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { NavUser } from '@/components/nav-user';
 import { type AdminNavGroup, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import { ChevronDown } from 'lucide-react';
@@ -31,6 +30,7 @@ export function AdminSidebar() {
     const page = usePage<SharedData>();
     const adminNav = page.props.adminNav;
     const currentPath = page.url;
+    const user = page.props.auth.user;
 
     const groups = useMemo<AdminNavGroup[]>(() => adminNav?.groups ?? [], [adminNav]);
     const [openGroups, setOpenGroups] = useState(() =>
@@ -95,8 +95,8 @@ export function AdminSidebar() {
                                                 const path = resolvePath(String(item.href));
                                                 const isActive =
                                                     item.isActive ??
-                                                    currentPath === path ||
-                                                    currentPath.startsWith(`${path}/`);
+                                                    (currentPath === path ||
+                                                        currentPath.startsWith(`${path}/`));
 
                                                 return (
                                                     <SidebarMenuItem key={item.title}>
@@ -120,7 +120,20 @@ export function AdminSidebar() {
             </SidebarContent>
 
             <SidebarFooter className="border-t border-sidebar-border/60 px-3 py-4">
-                <NavUser />
+                <div className="flex items-center gap-3 rounded-2xl bg-sidebar-accent/40 px-3 py-3">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#0f6b4f] text-xs font-semibold text-white">
+                        {user.name
+                            .split(' ')
+                            .slice(0, 2)
+                            .map((part) => part[0])
+                            .join('')
+                            .toUpperCase()}
+                    </div>
+                    <div className="leading-tight">
+                        <p className="text-sm font-semibold text-sidebar-foreground">{user.name}</p>
+                        <p className="text-xs text-sidebar-foreground/70">{user.email}</p>
+                    </div>
+                </div>
             </SidebarFooter>
         </Sidebar>
     );
