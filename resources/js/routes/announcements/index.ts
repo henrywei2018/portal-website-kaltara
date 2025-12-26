@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../wayfinder'
 /**
-* @see routes/web.php:212
-* @route '/data'
+* @see routes/web.php:158
+* @route '/pengumuman'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: index.url(options),
@@ -10,20 +10,20 @@ export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 index.definition = {
     methods: ["get","head"],
-    url: '/data',
+    url: '/pengumuman',
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see routes/web.php:212
-* @route '/data'
+* @see routes/web.php:158
+* @route '/pengumuman'
 */
 index.url = (options?: RouteQueryOptions) => {
     return index.definition.url + queryParams(options)
 }
 
 /**
-* @see routes/web.php:212
-* @route '/data'
+* @see routes/web.php:158
+* @route '/pengumuman'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: index.url(options),
@@ -31,8 +31,8 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see routes/web.php:212
-* @route '/data'
+* @see routes/web.php:158
+* @route '/pengumuman'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: index.url(options),
@@ -40,8 +40,8 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see routes/web.php:212
-* @route '/data'
+* @see routes/web.php:158
+* @route '/pengumuman'
 */
 const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
     action: index.url(options),
@@ -49,8 +49,8 @@ const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => (
 })
 
 /**
-* @see routes/web.php:212
-* @route '/data'
+* @see routes/web.php:158
+* @route '/pengumuman'
 */
 indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
     action: index.url(options),
@@ -58,8 +58,8 @@ indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 })
 
 /**
-* @see routes/web.php:212
-* @route '/data'
+* @see routes/web.php:158
+* @route '/pengumuman'
 */
 indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
     action: index.url({
@@ -73,8 +73,8 @@ indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 
 index.form = indexForm
 
-const stats = {
+const announcements = {
     index: Object.assign(index, index),
 }
 
-export default stats
+export default announcements

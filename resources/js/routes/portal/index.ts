@@ -1,6 +1,6 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../wayfinder'
 /**
-* @see routes/web.php:86
+* @see routes/web.php:91
 * @route '/beranda'
 */
 export const home = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -14,7 +14,7 @@ home.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see routes/web.php:86
+* @see routes/web.php:91
 * @route '/beranda'
 */
 home.url = (options?: RouteQueryOptions) => {
@@ -22,7 +22,7 @@ home.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see routes/web.php:86
+* @see routes/web.php:91
 * @route '/beranda'
 */
 home.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -31,13 +31,47 @@ home.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see routes/web.php:86
+* @see routes/web.php:91
 * @route '/beranda'
 */
 home.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: home.url(options),
     method: 'head',
 })
+
+/**
+* @see routes/web.php:91
+* @route '/beranda'
+*/
+const homeForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: home.url(options),
+    method: 'get',
+})
+
+/**
+* @see routes/web.php:91
+* @route '/beranda'
+*/
+homeForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: home.url(options),
+    method: 'get',
+})
+
+/**
+* @see routes/web.php:91
+* @route '/beranda'
+*/
+homeForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: home.url({
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+home.form = homeForm
 
 const portal = {
     home: Object.assign(home, home),
