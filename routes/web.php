@@ -3,6 +3,7 @@
 use App\Enums\ContentStatus;
 use App\Enums\ContentType;
 use App\Http\Controllers\Admin\ContentController;
+use App\Http\Controllers\Admin\DocumentItemController;
 use App\Http\Controllers\Admin\NavigationController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\UserManagementController;
@@ -290,6 +291,16 @@ Route::middleware(['auth', 'verified', 'can:access-admin'])->prefix('admin')->na
     Route::delete('content/{contentItem}', [ContentController::class, 'destroy'])
         ->middleware('can:manage-content')
         ->name('content.destroy');
+
+    Route::post('documents', [DocumentItemController::class, 'store'])
+        ->middleware('can:manage-content')
+        ->name('documents.store');
+    Route::patch('documents/{documentItem}', [DocumentItemController::class, 'update'])
+        ->middleware('can:manage-content')
+        ->name('documents.update');
+    Route::delete('documents/{documentItem}', [DocumentItemController::class, 'destroy'])
+        ->middleware('can:manage-content')
+        ->name('documents.destroy');
 });
 
 Route::get('/{page:slug}', function (Page $page) use ($navigationItems) {
