@@ -6,13 +6,13 @@
 - [x] Task: TDD - Implementasikan drawer filter untuk layar kecil (9ec5a51)
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Fondasi UI Admin' (Protocol in workflow.md) (d36a7de)
 
-## Phase 2: Refactor Modul Admin
+## Phase 2: Refactor Modul Admin [checkpoint: 5f7b144]
 - [x] Task: TDD - Terapkan list + modal CRUD pada Navigasi (2a14ab2)
 - [x] Task: TDD - Terapkan list + modal CRUD pada Halaman (8f4fc9f)
 - [x] Task: TDD - Terapkan list + modal CRUD pada Konten (2548662)
 - [x] Task: TDD - Terapkan list + modal CRUD pada Dokumen PDF (412a8d6)
 - [x] Task: TDD - Terapkan list + modal CRUD pada Pengguna & Role (752e9a9)
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Refactor Modul Admin' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Refactor Modul Admin' (Protocol in workflow.md) (5f7b144)
 
 ## Phase 3: Pencarian, Filter, Pagination
 - [ ] Task: TDD - Tambahkan pagination 10 item/halaman di setiap modul admin
