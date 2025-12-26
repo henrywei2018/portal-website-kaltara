@@ -52,6 +52,21 @@ test('content list uses table mode for large datasets', function () {
     );
 });
 
+test('content list paginates results', function () {
+    ContentItem::factory()->count(12)->create();
+
+    $response = $this->get('/admin/content?page=2');
+
+    $response->assertOk();
+
+    $response->assertInertia(fn (Assert $page) => $page
+        ->component('admin/content/index')
+        ->where('items.current_page', 2)
+        ->where('items.per_page', 10)
+        ->has('items.data', 2)
+    );
+});
+
 test('admin can search content by query', function () {
     ContentItem::factory()->create([
         'title' => 'Agenda Gubernur',

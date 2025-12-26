@@ -77,6 +77,38 @@ test('admin can search document items', function () {
     );
 });
 
+test('admin can filter document items by type and status', function () {
+    Storage::fake('public');
+
+    DocumentItem::factory()->create([
+        'title' => 'IPKD 2024',
+        'type' => DocumentType::Ipkd,
+        'status' => DocumentStatus::Published,
+        'file_path' => 'documents/ipkd-2024.pdf',
+        'file_disk' => 'public',
+    ]);
+
+    DocumentItem::factory()->create([
+        'title' => 'Draft Pengumuman',
+        'type' => DocumentType::Announcement,
+        'status' => DocumentStatus::Draft,
+        'file_path' => 'documents/draft-pengumuman.pdf',
+        'file_disk' => 'public',
+    ]);
+
+    $response = $this->get('/admin/documents?type=ipkd&status=published');
+
+    $response->assertOk();
+
+    $response->assertInertia(fn ($page) => $page
+        ->component('admin/documents/index')
+        ->has('items.data', 1)
+        ->where('items.data.0.title', 'IPKD 2024')
+        ->where('filters.type', 'ipkd')
+        ->where('filters.status', 'published')
+    );
+});
+
 test('admin can create document item with PDF upload', function () {
     Storage::fake('public');
 

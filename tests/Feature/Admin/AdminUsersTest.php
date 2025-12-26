@@ -56,6 +56,40 @@ test('super admins can search admin users', function () {
     );
 });
 
+test('super admins can filter users by role and status', function () {
+    $admin = User::factory()->create([
+        'name' => 'Super Admin',
+        'email' => 'admin@example.com',
+        'role' => UserRole::SuperAdmin,
+    ]);
+
+    User::factory()->create([
+        'name' => 'Editor Aktif',
+        'email' => 'editor@example.com',
+        'role' => UserRole::Editor,
+        'is_active' => true,
+    ]);
+
+    User::factory()->create([
+        'name' => 'Editor Nonaktif',
+        'email' => 'editor-nonaktif@example.com',
+        'role' => UserRole::Editor,
+        'is_active' => false,
+    ]);
+
+    $response = $this->actingAs($admin)->get('/admin/users?role=editor&status=inactive');
+
+    $response->assertOk();
+
+    $response->assertInertia(fn (Assert $page) => $page
+        ->component('admin/users/index')
+        ->has('users.data', 1)
+        ->where('users.data.0.email', 'editor-nonaktif@example.com')
+        ->where('filters.role', 'editor')
+        ->where('filters.status', 'inactive')
+    );
+});
+
 test('non super admins cannot access admin user management', function () {
     $this->actingAs(User::factory()->create([
         'role' => UserRole::Editor,
