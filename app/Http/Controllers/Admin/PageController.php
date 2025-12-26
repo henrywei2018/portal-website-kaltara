@@ -57,6 +57,7 @@ class PageController extends Controller
             'listMode' => $pageCount >= self::TABLE_THRESHOLD ? 'table' : 'cards',
             'listStyle' => 'compact',
             'actionMode' => 'dropdown',
+            'modalMode' => 'slide-over',
             'filters' => [
                 'search' => $search,
                 'status' => $selectedStatus,

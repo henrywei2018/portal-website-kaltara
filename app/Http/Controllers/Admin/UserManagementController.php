@@ -30,6 +30,7 @@ class UserManagementController extends Controller
             'roles' => UserRole::options(),
             'listStyle' => 'compact',
             'actionMode' => 'dropdown',
+            'modalMode' => 'slide-over',
         ]);
     }
 

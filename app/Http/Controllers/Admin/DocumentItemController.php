@@ -48,6 +48,7 @@ class DocumentItemController extends Controller
             'listMode' => $itemCount >= self::TABLE_THRESHOLD ? 'table' : 'cards',
             'listStyle' => 'compact',
             'actionMode' => 'dropdown',
+            'modalMode' => 'slide-over',
         ]);
     }
 
