@@ -14,7 +14,7 @@
 
 ## Phase 3: Manajemen Halaman Dinamis (Editor Blok)
 - [x] Task: TDD - Tambah CRUD halaman dinamis (judul, slug, status) (e9fa366)
-- [ ] Task: TDD - Implementasi editor blok modular untuk halaman
+- [x] Task: TDD - Implementasi editor blok modular untuk halaman (a24fd8b)
 - [ ] Task: TDD - Render halaman publik berbasis slug
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Manajemen Halaman Dinamis (Editor Blok)' (Protocol in workflow.md)
 
