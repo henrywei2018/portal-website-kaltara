@@ -2,16 +2,20 @@
 
 use App\Enums\ContentStatus;
 use App\Enums\ContentType;
+use App\Enums\DocumentStatus;
+use App\Enums\DocumentType;
 use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\DocumentItemController;
 use App\Http\Controllers\Admin\NavigationController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Models\ContentItem;
+use App\Models\DocumentItem;
 use App\Models\NavigationItem;
 use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 
@@ -150,6 +154,60 @@ Route::get('/berita/{slug}', function (string $slug) {
         ],
     ]);
 })->name('news.show');
+
+Route::get('/pengumuman', function () {
+    $items = DocumentItem::query()
+        ->where('status', DocumentStatus::Published->value)
+        ->where('type', DocumentType::Announcement->value)
+        ->orderByDesc('published_at')
+        ->orderByDesc('issued_at')
+        ->orderByDesc('created_at')
+        ->get()
+        ->map(fn (DocumentItem $item): array => [
+            'title' => $item->title,
+            'description' => $item->description,
+            'file_name' => $item->file_name,
+            'file_size' => $item->file_size,
+            'file_url' => Storage::disk($item->file_disk)->url($item->file_path),
+            'issued_at' => $item->issued_at?->format('d M Y'),
+            'published_at' => $item->published_at?->format('d M Y'),
+        ])
+        ->values()
+        ->all();
+
+    return Inertia::render('portal/documents', [
+        'title' => 'Pengumuman Publik',
+        'subtitle' => 'Dokumen resmi dan pengumuman terkini Pemerintah Provinsi Kalimantan Utara.',
+        'items' => $items,
+    ]);
+})->name('announcements.index');
+
+Route::get('/ipkd', function () {
+    $items = DocumentItem::query()
+        ->where('status', DocumentStatus::Published->value)
+        ->where('type', DocumentType::Ipkd->value)
+        ->orderByDesc('published_at')
+        ->orderByDesc('issued_at')
+        ->orderByDesc('created_at')
+        ->get()
+        ->map(fn (DocumentItem $item): array => [
+            'title' => $item->title,
+            'description' => $item->description,
+            'file_name' => $item->file_name,
+            'file_size' => $item->file_size,
+            'file_url' => Storage::disk($item->file_disk)->url($item->file_path),
+            'issued_at' => $item->issued_at?->format('d M Y'),
+            'published_at' => $item->published_at?->format('d M Y'),
+        ])
+        ->values()
+        ->all();
+
+    return Inertia::render('portal/documents', [
+        'title' => 'Publikasi IPKD',
+        'subtitle' => 'Indeks Pembangunan dan Kinerja Daerah yang bisa diunduh masyarakat.',
+        'items' => $items,
+    ]);
+})->name('ipkd.index');
 
 Route::get('/data', function (Request $request) {
     $isLoading = $request->boolean('loading');
