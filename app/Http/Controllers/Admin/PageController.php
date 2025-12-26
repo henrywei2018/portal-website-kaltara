@@ -55,6 +55,8 @@ class PageController extends Controller
         return Inertia::render('admin/pages/index', [
             'pages' => $pages,
             'listMode' => $pageCount >= self::TABLE_THRESHOLD ? 'table' : 'cards',
+            'listStyle' => 'compact',
+            'actionMode' => 'dropdown',
             'filters' => [
                 'search' => $search,
                 'status' => $selectedStatus,

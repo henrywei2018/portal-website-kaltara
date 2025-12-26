@@ -28,6 +28,8 @@ class UserManagementController extends Controller
         return Inertia::render('admin/users/index', [
             'users' => $users,
             'roles' => UserRole::options(),
+            'listStyle' => 'compact',
+            'actionMode' => 'dropdown',
         ]);
     }
 

@@ -66,6 +66,8 @@ class ContentController extends Controller
             'types' => ContentType::options(),
             'statuses' => ContentStatus::options(),
             'listMode' => $itemCount >= self::TABLE_THRESHOLD ? 'table' : 'cards',
+            'listStyle' => 'compact',
+            'actionMode' => 'dropdown',
             'filters' => [
                 'search' => $search,
                 'type' => $type?->value,

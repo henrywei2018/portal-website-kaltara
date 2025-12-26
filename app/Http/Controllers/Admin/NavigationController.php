@@ -76,6 +76,8 @@ class NavigationController extends Controller
             'items' => $items,
             'parents' => $parents,
             'listMode' => $itemCount >= self::TABLE_THRESHOLD ? 'table' : 'cards',
+            'listStyle' => 'compact',
+            'actionMode' => 'dropdown',
             'filters' => [
                 'search' => $search,
                 'visibility' => $selectedVisibility,

@@ -46,6 +46,8 @@ class DocumentItemController extends Controller
             'types' => \App\Enums\DocumentType::options(),
             'statuses' => \App\Enums\DocumentStatus::options(),
             'listMode' => $itemCount >= self::TABLE_THRESHOLD ? 'table' : 'cards',
+            'listStyle' => 'compact',
+            'actionMode' => 'dropdown',
         ]);
     }
 
