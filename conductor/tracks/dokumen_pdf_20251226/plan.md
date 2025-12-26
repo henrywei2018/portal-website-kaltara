@@ -1,10 +1,10 @@
 # Plan: Manajemen Dokumen PDF (Pengumuman, IPKD, Dokumen Lain)
 
-## Phase 1: Struktur Data & Validasi
+## Phase 1: Struktur Data & Validasi [checkpoint: 7a1028e]
 - [x] Task: TDD - Tambah model & migrasi dokumen PDF (metadata wajib + status + tipe) (65bf16e)
 - [x] Task: TDD - Buat Form Request validasi (judul, deskripsi, file PDF maks 10MB, tanggal terbit, tanggal publikasi) (4ad7b17)
 - [x] Task: TDD - Implementasi controller admin untuk CRUD dokumen PDF (4c76a17)
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Struktur Data & Validasi' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Struktur Data & Validasi' (Protocol in workflow.md) (7a1028e)
 
 ## Phase 2: UI Admin & Upload/Preview
 - [ ] Task: TDD - Buat halaman admin list + form dokumen PDF (Pengumuman/IPKD/Lain)
