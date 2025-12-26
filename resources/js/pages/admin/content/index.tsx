@@ -1,3 +1,4 @@
+import AdminSidebarLayout from '@/layouts/admin/admin-sidebar-layout';
 import { Form, Head, Link, useForm } from '@inertiajs/react';
 import { type FormEvent } from 'react';
 
@@ -181,144 +182,140 @@ export default function AdminContentIndex({
     statuses: OptionItem[];
 }) {
     return (
-        <div className="min-h-screen bg-[#f6f8f7] text-[#10261b] dark:bg-[#0b1410] dark:text-[#e6efe9]">
+        <AdminSidebarLayout
+            breadcrumbs={[
+                { title: 'Dashboard', href: '/admin' },
+                { title: 'Konten', href: '/admin/content' },
+            ]}
+        >
             <Head title="Manajemen Konten" />
 
-            <header className="border-b border-black/5 bg-white/80 py-10 dark:border-white/10 dark:bg-[#0b1410]/80">
-                <div className="mx-auto max-w-6xl px-6">
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                        Admin CMS
-                    </p>
-                    <h1 className="mt-3 font-['Unbounded'] text-3xl text-[#0b2d1d] dark:text-white">
-                        Manajemen Konten Publik
-                    </h1>
-                    <p className="mt-3 max-w-2xl text-sm text-[#587166] dark:text-[#b0c2b8]">
-                        Kelola berita, artikel, dan pengumuman dari satu dashboard.
-                    </p>
-                    <div className="mt-6 flex flex-wrap gap-3">
-                        <Link
-                            href="/admin"
-                            className="rounded-full border border-black/10 px-4 py-2 text-sm font-semibold text-[#123726] transition hover:border-black/20 dark:border-white/20 dark:text-white"
-                        >
-                            Kembali ke Dashboard
-                        </Link>
-                    </div>
+            <header className="rounded-3xl border border-black/5 bg-white/90 p-8 shadow-[0_18px_40px_rgba(15,107,79,0.12)] dark:border-white/10 dark:bg-white/5">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                    Admin CMS
+                </p>
+                <h1 className="mt-3 font-['Unbounded'] text-3xl text-[#0b2d1d] dark:text-white">
+                    Manajemen Konten Publik
+                </h1>
+                <p className="mt-3 max-w-2xl text-sm text-[#587166] dark:text-[#b0c2b8]">
+                    Kelola berita, artikel, dan pengumuman dari satu dashboard.
+                </p>
+                <div className="mt-6 flex flex-wrap gap-3">
+                    <Link
+                        href="/admin"
+                        className="rounded-full border border-black/10 px-4 py-2 text-sm font-semibold text-[#123726] transition hover:border-black/20 dark:border-white/20 dark:text-white"
+                    >
+                        Kembali ke Dashboard
+                    </Link>
                 </div>
             </header>
 
-            <main className="mx-auto max-w-6xl space-y-8 px-6 py-12">
-                <section className="rounded-2xl border border-black/5 bg-white p-6 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5">
-                    <h2 className="text-lg font-semibold text-[#123726] dark:text-white">
-                        Tambah Konten Baru
-                    </h2>
-                    <Form method="post" action="/admin/content" className="mt-6 grid gap-4">
-                        {({ processing }) => (
-                            <>
-                                <div className="grid gap-4 md:grid-cols-2">
-                                    <div>
-                                        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                                            Judul
-                                        </label>
-                                        <input
-                                            name="title"
-                                            required
-                                            className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                                            placeholder="Judul konten"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                                            Slug
-                                        </label>
-                                        <input
-                                            name="slug"
-                                            required
-                                            className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                                            placeholder="judul-konten"
-                                        />
-                                    </div>
-                                </div>
-                                <div className="grid gap-4 md:grid-cols-3">
-                                    <div>
-                                        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                                            Kategori
-                                        </label>
-                                        <select
-                                            name="type"
-                                            defaultValue={types[0]?.value}
-                                            className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                                        >
-                                            {types.map((option) => (
-                                                <option key={option.value} value={option.value}>
-                                                    {option.label}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                                            Status
-                                        </label>
-                                        <select
-                                            name="status"
-                                            defaultValue={statuses[0]?.value}
-                                            className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                                        >
-                                            {statuses.map((option) => (
-                                                <option key={option.value} value={option.value}>
-                                                    {option.label}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </div>
-                                </div>
+            <section className="mt-8 rounded-2xl border border-black/5 bg-white p-6 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5">
+                <h2 className="text-lg font-semibold text-[#123726] dark:text-white">
+                    Tambah Konten Baru
+                </h2>
+                <Form method="post" action="/admin/content" className="mt-6 grid gap-4">
+                    {({ processing }) => (
+                        <>
+                            <div className="grid gap-4 md:grid-cols-2">
                                 <div>
                                     <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                                        Ringkasan
+                                        Judul
                                     </label>
-                                    <textarea
-                                        name="excerpt"
-                                        rows={3}
-                                        className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                                        placeholder="Ringkasan singkat konten"
+                                    <input
+                                        name="title"
+                                        required
+                                        className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                                        placeholder="Judul konten"
                                     />
                                 </div>
                                 <div>
                                     <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                                        Konten Markdown
+                                        Slug
                                     </label>
-                                    <textarea
-                                        name="body"
-                                        rows={6}
-                                        className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                                        placeholder="Tulis konten Markdown di sini..."
+                                    <input
+                                        name="slug"
+                                        required
+                                        className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                                        placeholder="judul-konten"
                                     />
                                 </div>
+                            </div>
+                            <div className="grid gap-4 md:grid-cols-3">
                                 <div>
-                                    <button
-                                        type="submit"
-                                        disabled={processing}
-                                        className="rounded-full bg-[#0f6b4f] px-5 py-2 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(15,107,79,0.2)] transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-70"
+                                    <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                                        Kategori
+                                    </label>
+                                    <select
+                                        name="type"
+                                        defaultValue={types[0]?.value}
+                                        className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
                                     >
-                                        Simpan Konten
-                                    </button>
+                                        {types.map((option) => (
+                                            <option key={option.value} value={option.value}>
+                                                {option.label}
+                                            </option>
+                                        ))}
+                                    </select>
                                 </div>
-                            </>
-                        )}
-                    </Form>
-                </section>
+                                <div>
+                                    <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                                        Status
+                                    </label>
+                                    <select
+                                        name="status"
+                                        defaultValue={statuses[0]?.value}
+                                        className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                                    >
+                                        {statuses.map((option) => (
+                                            <option key={option.value} value={option.value}>
+                                                {option.label}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                                    Ringkasan
+                                </label>
+                                <textarea
+                                    name="excerpt"
+                                    rows={3}
+                                    className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                                    placeholder="Ringkasan singkat konten"
+                                />
+                            </div>
+                            <div>
+                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                                    Konten Markdown
+                                </label>
+                                <textarea
+                                    name="body"
+                                    rows={6}
+                                    className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                                    placeholder="Tulis konten Markdown di sini..."
+                                />
+                            </div>
+                            <div>
+                                <button
+                                    type="submit"
+                                    disabled={processing}
+                                    className="rounded-full bg-[#0f6b4f] px-5 py-2 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(15,107,79,0.2)] transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-70"
+                                >
+                                    Simpan Konten
+                                </button>
+                            </div>
+                        </>
+                    )}
+                </Form>
+            </section>
 
-                <section className="space-y-4">
-                    {items.map((item) => (
-                        <ContentCard
-                            key={item.id}
-                            item={item}
-                            types={types}
-                            statuses={statuses}
-                        />
-                    ))}
-                </section>
-            </main>
-        </div>
+            <section className="mt-8 space-y-4">
+                {items.map((item) => (
+                    <ContentCard key={item.id} item={item} types={types} statuses={statuses} />
+                ))}
+            </section>
+        </AdminSidebarLayout>
     );
 }

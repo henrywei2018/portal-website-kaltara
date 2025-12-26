@@ -22,11 +22,22 @@ export interface NavItem {
     isActive?: boolean;
 }
 
+export interface AdminNavItem {
+    title: string;
+    href: NonNullable<InertiaLinkProps['href']>;
+}
+
+export interface AdminNavGroup {
+    title: string;
+    items: AdminNavItem[];
+}
+
 export interface SharedData {
     name: string;
     quote: { message: string; author: string };
     auth: Auth;
     sidebarOpen: boolean;
+    adminNav?: { groups: AdminNavGroup[] };
     [key: string]: unknown;
 }
 

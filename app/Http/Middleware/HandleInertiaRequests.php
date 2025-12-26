@@ -37,6 +37,41 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
+        $adminNav = $request->is('admin*')
+            ? [
+                'groups' => [
+                    [
+                        'title' => 'Konten',
+                        'items' => [
+                            ['title' => 'Dashboard', 'href' => route('admin.dashboard')],
+                            ['title' => 'Halaman Dinamis', 'href' => route('admin.pages.index')],
+                            ['title' => 'Berita & Pengumuman', 'href' => route('admin.content.index')],
+                            ['title' => 'Menu Navigasi', 'href' => route('admin.navigation.index')],
+                        ],
+                    ],
+                    [
+                        'title' => 'Statistik',
+                        'items' => [
+                            ['title' => 'Ringkasan Portal', 'href' => route('stats.index')],
+                        ],
+                    ],
+                    [
+                        'title' => 'Pengguna',
+                        'items' => [
+                            ['title' => 'Manajemen Pengguna', 'href' => route('admin.users.index')],
+                        ],
+                    ],
+                    [
+                        'title' => 'Pengaturan',
+                        'items' => [
+                            ['title' => 'Profil', 'href' => route('profile.edit')],
+                            ['title' => 'Password', 'href' => route('user-password.edit')],
+                            ['title' => 'Tampilan', 'href' => route('appearance.edit')],
+                        ],
+                    ],
+                ],
+            ]
+            : null;
 
         return [
             ...parent::share($request),
@@ -46,6 +81,7 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
+            ...($adminNav ? ['adminNav' => $adminNav] : []),
         ];
     }
 }

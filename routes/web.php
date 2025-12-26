@@ -184,21 +184,6 @@ Route::get('/data', function (Request $request) {
     ]);
 })->name('stats.index');
 
-Route::get('/{page:slug}', function (Page $page) use ($navigationItems) {
-    if ($page->status !== 'published') {
-        abort(404);
-    }
-
-    return Inertia::render('pages/show', [
-        'page' => [
-            'title' => $page->title,
-            'slug' => $page->slug,
-            'blocks' => $page->blocks ?? [],
-        ],
-        'navigation' => $navigationItems(),
-    ]);
-})->name('pages.show');
-
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
@@ -256,5 +241,20 @@ Route::middleware(['auth', 'verified', 'can:access-admin'])->prefix('admin')->na
         ->middleware('can:manage-content')
         ->name('content.destroy');
 });
+
+Route::get('/{page:slug}', function (Page $page) use ($navigationItems) {
+    if ($page->status !== 'published') {
+        abort(404);
+    }
+
+    return Inertia::render('pages/show', [
+        'page' => [
+            'title' => $page->title,
+            'slug' => $page->slug,
+            'blocks' => $page->blocks ?? [],
+        ],
+        'navigation' => $navigationItems(),
+    ]);
+})->name('pages.show');
 
 require __DIR__.'/settings.php';
