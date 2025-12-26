@@ -1,9 +1,9 @@
 # Plan: Revamp Admin UI & Konten Management
 
-## Phase 1: Layout Admin & Sidebar
+## Phase 1: Layout Admin & Sidebar [checkpoint: 195b25b]
 - [x] Task: TDD - Rancang layout admin baru dengan sidebar mixed (menu utama tetap, sub-menu collapse) (e2fcbbb)
 - [x] Task: TDD - Implementasi navigasi sidebar + state aktif (3f32906)
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Layout Admin & Sidebar' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Layout Admin & Sidebar' (Protocol in workflow.md) (195b25b)
 
 ## Phase 2: Dashboard Ringkas & Quick Actions
 - [ ] Task: TDD - Tambah kartu statistik ringkas di dashboard admin
