@@ -49,3 +49,17 @@ it('does not duplicate default users when re-seeded', function () {
 
     expect($count)->toBe(3);
 });
+
+it('includes default users when running the database seeder', function () {
+    seed();
+
+    $count = User::query()
+        ->whereIn('email', [
+            'admin@kaltara.go.id',
+            'editor@kaltara.go.id',
+            'viewer@kaltara.go.id',
+        ])
+        ->count();
+
+    expect($count)->toBe(3);
+});
