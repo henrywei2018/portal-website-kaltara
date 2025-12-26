@@ -16,6 +16,6 @@
 
 ## Phase 3: Pencarian, Filter, Pagination
 - [x] Task: TDD - Tambahkan pagination 10 item/halaman di setiap modul admin (6ff7f9e)
-- [ ] Task: TDD - Konsolidasikan search + filter agar konsisten di semua modul
+- [x] Task: TDD - Konsolidasikan search + filter agar konsisten di semua modul (8a1defd)
 - [ ] Task: TDD - Tambahkan test untuk paginasi dan filter utama
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Pencarian, Filter, Pagination' (Protocol in workflow.md)
