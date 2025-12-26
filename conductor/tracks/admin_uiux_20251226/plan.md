@@ -11,7 +11,7 @@
 - [x] Task: TDD - Terapkan list + modal CRUD pada Halaman (8f4fc9f)
 - [x] Task: TDD - Terapkan list + modal CRUD pada Konten (2548662)
 - [x] Task: TDD - Terapkan list + modal CRUD pada Dokumen PDF (412a8d6)
-- [ ] Task: TDD - Terapkan list + modal CRUD pada Pengguna & Role
+- [x] Task: TDD - Terapkan list + modal CRUD pada Pengguna & Role (752e9a9)
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Refactor Modul Admin' (Protocol in workflow.md)
 
 ## Phase 3: Pencarian, Filter, Pagination
