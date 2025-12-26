@@ -32,6 +32,7 @@ test('admin can view content management list', function () {
         ->component('admin/content/index')
         ->has('items', 1)
         ->where('items.0.title', 'Pengumuman Resmi')
+        ->where('items.0.meta', 'Pengumuman · Terbit')
         ->where('items.0.body', "# Pengumuman\n\nKonten markdown.")
         ->where('listMode', 'cards')
     );

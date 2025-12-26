@@ -59,6 +59,11 @@ class ContentController extends Controller
                 'excerpt' => $item->excerpt,
                 'body' => $item->body,
                 'published_at' => $item->published_at?->toDateString(),
+                'meta' => sprintf(
+                    '%s · %s',
+                    $item->type->label(),
+                    $item->status->label()
+                ),
             ]);
 
         return Inertia::render('admin/content/index', [

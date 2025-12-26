@@ -1,6 +1,9 @@
+import { AdminActionMenu } from '@/components/admin/admin-action-menu';
+import { AdminList, AdminListItem } from '@/components/admin/admin-list';
+import { AdminSlideOver } from '@/components/admin/admin-slide-over';
 import AdminSidebarLayout from '@/layouts/admin/admin-sidebar-layout';
-import { Form, Head, Link, useForm } from '@inertiajs/react';
-import { type FormEvent, useState } from 'react';
+import { Form, Head, useForm } from '@inertiajs/react';
+import { type FormEvent, useEffect, useState } from 'react';
 
 type OptionItem = {
     value: string;
@@ -16,6 +19,7 @@ type ContentItem = {
     excerpt: string | null;
     body: string | null;
     published_at: string | null;
+    meta: string;
 };
 
 type ContentForm = {
@@ -27,156 +31,20 @@ type ContentForm = {
     body: string;
 };
 
-function ContentCard({
-    item,
-    types,
-    statuses,
-}: {
-    item: ContentItem;
-    types: OptionItem[];
-    statuses: OptionItem[];
-}) {
-    const form = useForm<ContentForm>({
-        title: item.title,
-        slug: item.slug,
-        type: item.type,
-        status: item.status,
-        excerpt: item.excerpt ?? '',
-        body: item.body ?? '',
-    });
-
-    const submit = (event: FormEvent) => {
-        event.preventDefault();
-        form.patch(`/admin/content/${item.id}`);
-    };
-
-    return (
-        <div className="rounded-2xl border border-black/5 bg-white p-6 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-                <div>
-                    <p className="text-sm font-semibold text-[#123726] dark:text-white">{item.title}</p>
-                    <p className="text-xs text-[#587166] dark:text-[#b0c2b8]">/{item.slug}</p>
-                </div>
-                <div className="text-xs text-[#567365] dark:text-[#b0c2b8]">
-                    {item.published_at ? `Terbit: ${item.published_at}` : 'Belum diterbitkan'}
-                </div>
-            </div>
-
-            <form onSubmit={submit} className="mt-4 grid gap-4">
-                <div className="grid gap-4 md:grid-cols-2">
-                    <div>
-                        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                            Judul
-                        </label>
-                        <input
-                            name="title"
-                            required
-                            value={form.data.title}
-                            onChange={(event) => form.setData('title', event.target.value)}
-                            className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                        />
-                    </div>
-                    <div>
-                        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                            Slug
-                        </label>
-                        <input
-                            name="slug"
-                            required
-                            value={form.data.slug}
-                            onChange={(event) => form.setData('slug', event.target.value)}
-                            className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                        />
-                    </div>
-                </div>
-                <div className="grid gap-4 md:grid-cols-3">
-                    <div>
-                        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                            Kategori
-                        </label>
-                        <select
-                            name="type"
-                            value={form.data.type}
-                            onChange={(event) => form.setData('type', event.target.value)}
-                            className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                        >
-                            {types.map((option) => (
-                                <option key={option.value} value={option.value}>
-                                    {option.label}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    <div>
-                        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                            Status
-                        </label>
-                        <select
-                            name="status"
-                            value={form.data.status}
-                            onChange={(event) => form.setData('status', event.target.value)}
-                            className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                        >
-                            {statuses.map((option) => (
-                                <option key={option.value} value={option.value}>
-                                    {option.label}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                </div>
-                <div>
-                    <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                        Ringkasan
-                    </label>
-                    <textarea
-                        name="excerpt"
-                        value={form.data.excerpt}
-                        onChange={(event) => form.setData('excerpt', event.target.value)}
-                        rows={3}
-                        className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                    />
-                </div>
-                <div>
-                    <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                        Konten Markdown
-                    </label>
-                    <textarea
-                        name="body"
-                        value={form.data.body}
-                        onChange={(event) => form.setData('body', event.target.value)}
-                        rows={6}
-                        className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                        placeholder="Tulis konten Markdown di sini..."
-                    />
-                </div>
-                <div className="flex flex-wrap gap-3">
-                    <button
-                        type="submit"
-                        disabled={form.processing}
-                        className="rounded-full border border-black/10 px-4 py-2 text-xs font-semibold text-[#123726] transition hover:border-black/20 disabled:cursor-not-allowed disabled:opacity-70 dark:border-white/20 dark:text-white"
-                    >
-                        Simpan Perubahan
-                    </button>
-                    <button
-                        type="button"
-                        disabled={form.processing}
-                        onClick={() => form.delete(`/admin/content/${item.id}`)}
-                        className="rounded-full border border-red-200 px-4 py-2 text-xs font-semibold text-red-600 transition hover:border-red-300 disabled:cursor-not-allowed disabled:opacity-70 dark:border-red-400/50 dark:text-red-200"
-                    >
-                        Hapus
-                    </button>
-                </div>
-            </form>
-        </div>
-    );
-}
+const emptyForm: ContentForm = {
+    title: '',
+    slug: '',
+    type: 'news',
+    status: 'draft',
+    excerpt: '',
+    body: '',
+};
 
 export default function AdminContentIndex({
     items,
     types,
     statuses,
-    listMode,
+    listMode: _listMode,
     filters,
 }: {
     items: ContentItem[];
@@ -189,12 +57,44 @@ export default function AdminContentIndex({
         status: string | null;
     };
 }) {
-    const [activeItemId, setActiveItemId] = useState<number | null>(items[0]?.id ?? null);
-    const activeItem = items.find((item) => item.id === activeItemId) ?? null;
+    const [activeItem, setActiveItem] = useState<ContentItem | null>(null);
+    const [isCreateOpen, setIsCreateOpen] = useState(false);
+    const form = useForm<ContentForm>(emptyForm);
 
-    const typeLabel = (value: string) => types.find((type) => type.value === value)?.label ?? value;
-    const statusLabel = (value: string) =>
-        statuses.find((status) => status.value === value)?.label ?? value;
+    useEffect(() => {
+        if (activeItem) {
+            form.setData({
+                title: activeItem.title,
+                slug: activeItem.slug,
+                type: activeItem.type,
+                status: activeItem.status,
+                excerpt: activeItem.excerpt ?? '',
+                body: activeItem.body ?? '',
+            });
+            return;
+        }
+
+        if (isCreateOpen) {
+            form.setData({ ...emptyForm, type: types[0]?.value ?? 'news', status: statuses[0]?.value ?? 'draft' });
+        }
+    }, [activeItem, isCreateOpen, types, statuses]);
+
+    const closeModal = () => {
+        setIsCreateOpen(false);
+        setActiveItem(null);
+        form.reset();
+    };
+
+    const submit = (event: FormEvent) => {
+        event.preventDefault();
+
+        if (activeItem) {
+            form.patch(`/admin/content/${activeItem.id}`);
+            return;
+        }
+
+        form.post('/admin/content');
+    };
 
     return (
         <AdminSidebarLayout
@@ -216,12 +116,13 @@ export default function AdminContentIndex({
                     Kelola berita, artikel, dan pengumuman dari satu dashboard.
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3">
-                    <Link
-                        href="/admin"
-                        className="rounded-full border border-black/10 px-4 py-2 text-sm font-semibold text-[#123726] transition hover:border-black/20 dark:border-white/20 dark:text-white"
+                    <button
+                        type="button"
+                        onClick={() => setIsCreateOpen(true)}
+                        className="rounded-full bg-[#0f6b4f] px-5 py-2 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(15,107,79,0.2)] transition hover:brightness-95"
                     >
-                        Kembali ke Dashboard
-                    </Link>
+                        Tambah Konten
+                    </button>
                 </div>
             </header>
 
@@ -286,196 +187,183 @@ export default function AdminContentIndex({
                         >
                             Terapkan
                         </button>
-                        <Link
+                        <a
                             href="/admin/content"
                             className="rounded-full border border-black/10 px-4 py-2 text-xs font-semibold text-[#123726] transition hover:border-black/20 dark:border-white/20 dark:text-white"
                         >
                             Reset
-                        </Link>
+                        </a>
                     </div>
                 </form>
             </section>
 
-            <section className="mt-8 rounded-2xl border border-black/5 bg-white p-6 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5">
-                <h2 className="text-lg font-semibold text-[#123726] dark:text-white">
-                    Tambah Konten Baru
-                </h2>
-                <Form method="post" action="/admin/content" className="mt-6 grid gap-4">
-                    {({ processing }) => (
-                        <>
-                            <div className="grid gap-4 md:grid-cols-2">
-                                <div>
-                                    <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                                        Judul
-                                    </label>
-                                    <input
-                                        name="title"
-                                        required
-                                        className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                                        placeholder="Judul konten"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                                        Slug
-                                    </label>
-                                    <input
-                                        name="slug"
-                                        required
-                                        className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                                        placeholder="judul-konten"
-                                    />
-                                </div>
-                            </div>
-                            <div className="grid gap-4 md:grid-cols-3">
-                                <div>
-                                    <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                                        Kategori
-                                    </label>
-                                    <select
-                                        name="type"
-                                        defaultValue={types[0]?.value}
-                                        className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                                    >
-                                        {types.map((option) => (
-                                            <option key={option.value} value={option.value}>
-                                                {option.label}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
-                                <div>
-                                    <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                                        Status
-                                    </label>
-                                    <select
-                                        name="status"
-                                        defaultValue={statuses[0]?.value}
-                                        className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                                    >
-                                        {statuses.map((option) => (
-                                            <option key={option.value} value={option.value}>
-                                                {option.label}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </div>
-                            <div>
-                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                                    Ringkasan
-                                </label>
-                                <textarea
-                                    name="excerpt"
-                                    rows={3}
-                                    className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                                    placeholder="Ringkasan singkat konten"
+            <section className="mt-8">
+                <AdminList
+                    title="Daftar Konten"
+                    description="List ringkas untuk memantau status publikasi konten."
+                    count={items.length}
+                >
+                    {items.map((item) => (
+                        <AdminListItem
+                            key={item.id}
+                            title={item.title}
+                            subtitle={`/${item.slug}`}
+                            meta={item.meta}
+                            actions={
+                                <AdminActionMenu
+                                    items={[
+                                        {
+                                            label: 'Edit',
+                                            onSelect: () => setActiveItem(item),
+                                        },
+                                        {
+                                            label: 'Hapus',
+                                            tone: 'danger',
+                                            onSelect: () => {
+                                                const formElement = document.getElementById(
+                                                    `delete-content-${item.id}`
+                                                ) as HTMLFormElement | null;
+
+                                                formElement?.requestSubmit();
+                                            },
+                                        },
+                                    ]}
                                 />
-                            </div>
-                            <div>
-                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                                    Konten Markdown
-                                </label>
-                                <textarea
-                                    name="body"
-                                    rows={6}
-                                    className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                                    placeholder="Tulis konten Markdown di sini..."
-                                />
-                            </div>
-                            <div>
-                                <button
-                                    type="submit"
-                                    disabled={processing}
-                                    className="rounded-full bg-[#0f6b4f] px-5 py-2 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(15,107,79,0.2)] transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-70"
-                                >
-                                    Simpan Konten
-                                </button>
-                            </div>
-                        </>
-                    )}
-                </Form>
+                            }
+                        >
+                            <span>{item.excerpt ?? 'Ringkasan belum diisi.'}</span>
+                            <Form
+                                id={`delete-content-${item.id}`}
+                                action={`/admin/content/${item.id}`}
+                                className="hidden"
+                                method="delete"
+                            />
+                        </AdminListItem>
+                    ))}
+                </AdminList>
             </section>
 
-            {listMode === 'table' ? (
-                <section className="mt-8 grid gap-6">
-                    <div className="rounded-2xl border border-black/5 bg-white p-4 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5">
-                        <div className="flex flex-wrap items-center justify-between gap-3 px-2 py-4">
-                            <div>
-                                <h2 className="text-lg font-semibold text-[#123726] dark:text-white">
-                                    Daftar Konten
-                                </h2>
-                                <p className="text-xs text-[#587166] dark:text-[#b0c2b8]">
-                                    Mode tabel memudahkan audit banyak konten sekaligus.
-                                </p>
-                            </div>
-                            <span className="rounded-full bg-[#e6f1ec] px-3 py-1 text-xs font-semibold text-[#0f6b4f] dark:bg-white/10 dark:text-white">
-                                {items.length} Konten
-                            </span>
+            <AdminSlideOver
+                open={isCreateOpen || Boolean(activeItem)}
+                onOpenChange={(open) => {
+                    if (!open) {
+                        closeModal();
+                    }
+                }}
+                title={activeItem ? 'Edit Konten' : 'Tambah Konten'}
+                description={
+                    activeItem
+                        ? 'Perbarui judul, status, kategori, dan konten utama.'
+                        : 'Buat konten baru untuk publikasi.'
+                }
+            >
+                <form onSubmit={submit} className="grid gap-4">
+                    <div className="grid gap-4 md:grid-cols-2">
+                        <div>
+                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                                Judul
+                            </label>
+                            <input
+                                name="title"
+                                required
+                                value={form.data.title}
+                                onChange={(event) => form.setData('title', event.target.value)}
+                                className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                            />
                         </div>
-                        <div className="overflow-x-auto">
-                            <table className="w-full border-collapse text-left text-xs text-[#123726] dark:text-white">
-                                <thead className="text-[0.65rem] uppercase tracking-[0.2em] text-[#567365] dark:text-[#b0c2b8]">
-                                    <tr>
-                                        <th className="px-3 py-2">Judul</th>
-                                        <th className="px-3 py-2">Kategori</th>
-                                        <th className="px-3 py-2">Status</th>
-                                        <th className="px-3 py-2">Terbit</th>
-                                        <th className="px-3 py-2 text-right">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-black/5 dark:divide-white/10">
-                                    {items.map((item) => (
-                                        <tr
-                                            key={item.id}
-                                            className={
-                                                item.id === activeItemId
-                                                    ? 'bg-[#f6f8f7] dark:bg-white/10'
-                                                    : 'bg-transparent'
-                                            }
-                                        >
-                                            <td className="px-3 py-3 font-semibold">{item.title}</td>
-                                            <td className="px-3 py-3 text-[#587166] dark:text-[#b0c2b8]">
-                                                {typeLabel(item.type)}
-                                            </td>
-                                            <td className="px-3 py-3">
-                                                <span className="rounded-full border border-black/10 px-2 py-1 text-[0.65rem] font-semibold text-[#123726] dark:border-white/20 dark:text-white">
-                                                    {statusLabel(item.status)}
-                                                </span>
-                                            </td>
-                                            <td className="px-3 py-3 text-[#587166] dark:text-[#b0c2b8]">
-                                                {item.published_at ?? '-'}
-                                            </td>
-                                            <td className="px-3 py-3 text-right">
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setActiveItemId(item.id)}
-                                                    className="rounded-full bg-[#0f6b4f] px-3 py-1 text-[0.65rem] font-semibold text-white shadow-[0_8px_20px_rgba(15,107,79,0.18)] transition hover:brightness-95"
-                                                >
-                                                    Kelola
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                        <div>
+                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                                Slug
+                            </label>
+                            <input
+                                name="slug"
+                                required
+                                value={form.data.slug}
+                                onChange={(event) => form.setData('slug', event.target.value)}
+                                className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                            />
                         </div>
                     </div>
-                    {activeItem ? (
-                        <ContentCard item={activeItem} types={types} statuses={statuses} />
-                    ) : (
-                        <div className="rounded-2xl border border-dashed border-black/10 bg-white/70 p-6 text-sm text-[#587166] dark:border-white/20 dark:bg-white/5 dark:text-[#b0c2b8]">
-                            Pilih konten dari tabel untuk mengedit detailnya.
+                    <div className="grid gap-4 md:grid-cols-2">
+                        <div>
+                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                                Kategori
+                            </label>
+                            <select
+                                name="type"
+                                value={form.data.type}
+                                onChange={(event) => form.setData('type', event.target.value)}
+                                className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                            >
+                                {types.map((option) => (
+                                    <option key={option.value} value={option.value}>
+                                        {option.label}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
-                    )}
-                </section>
-            ) : (
-                <section className="mt-8 space-y-4">
-                    {items.map((item) => (
-                        <ContentCard key={item.id} item={item} types={types} statuses={statuses} />
-                    ))}
-                </section>
-            )}
+                        <div>
+                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                                Status
+                            </label>
+                            <select
+                                name="status"
+                                value={form.data.status}
+                                onChange={(event) => form.setData('status', event.target.value)}
+                                className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                            >
+                                {statuses.map((option) => (
+                                    <option key={option.value} value={option.value}>
+                                        {option.label}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                            Ringkasan
+                        </label>
+                        <textarea
+                            name="excerpt"
+                            value={form.data.excerpt}
+                            onChange={(event) => form.setData('excerpt', event.target.value)}
+                            rows={3}
+                            className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                        />
+                    </div>
+                    <div>
+                        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                            Konten Markdown
+                        </label>
+                        <textarea
+                            name="body"
+                            value={form.data.body}
+                            onChange={(event) => form.setData('body', event.target.value)}
+                            rows={8}
+                            className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                            placeholder="Tulis konten Markdown di sini..."
+                        />
+                    </div>
+                    <div className="flex flex-wrap gap-3">
+                        <button
+                            type="submit"
+                            disabled={form.processing}
+                            className="rounded-full bg-[#0f6b4f] px-5 py-2 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(15,107,79,0.2)] transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-70"
+                        >
+                            {activeItem ? 'Simpan Perubahan' : 'Simpan Konten'}
+                        </button>
+                        <button
+                            type="button"
+                            onClick={closeModal}
+                            className="rounded-full border border-black/10 px-5 py-2 text-sm font-semibold text-[#123726] transition hover:border-black/20 dark:border-white/20 dark:text-white"
+                        >
+                            Batal
+                        </button>
+                    </div>
+                </form>
+            </AdminSlideOver>
+
         </AdminSidebarLayout>
     );
 }
