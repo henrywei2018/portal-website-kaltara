@@ -50,6 +50,10 @@ class PageController extends Controller
                 'status' => $page->status,
                 'blocks' => $page->blocks ?? [],
                 'updated_at' => $page->updated_at?->toDateTimeString(),
+                'meta' => sprintf(
+                    'Status: %s',
+                    $page->status === 'published' ? 'Terbit' : 'Draf'
+                ),
             ]);
 
         return Inertia::render('admin/pages/index', [

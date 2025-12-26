@@ -28,6 +28,7 @@ test('admin can view page management list', function () {
         ->component('admin/pages/index')
         ->has('pages', 1)
         ->where('pages.0.title', 'Profil Pemerintah')
+        ->where('pages.0.meta', 'Status: Terbit')
         ->where('listMode', 'cards')
     );
 });
