@@ -12,11 +12,11 @@
 - [x] Task: TDD - Tambah urutan menu dan tampilkan di publik (1d0172c)
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Manajemen Menu Navigasi' (Protocol in workflow.md) (7e0c779)
 
-## Phase 3: Manajemen Halaman Dinamis (Editor Blok)
+## Phase 3: Manajemen Halaman Dinamis (Editor Blok) [checkpoint: 9ecf9e0]
 - [x] Task: TDD - Tambah CRUD halaman dinamis (judul, slug, status) (e9fa366)
 - [x] Task: TDD - Implementasi editor blok modular untuk halaman (a24fd8b)
 - [x] Task: TDD - Render halaman publik berbasis slug (4fce054)
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Manajemen Halaman Dinamis (Editor Blok)' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Manajemen Halaman Dinamis (Editor Blok)' (Protocol in workflow.md) (9ecf9e0)
 
 ## Phase 4: Manajemen Berita/Artikel/Pengumuman (Markdown)
 - [ ] Task: TDD - Tambah CRUD konten berita/artikel/pengumuman (status publish/draft)
