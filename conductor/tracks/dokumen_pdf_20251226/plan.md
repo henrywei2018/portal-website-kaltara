@@ -14,5 +14,5 @@
 ## Phase 3: Publikasi & Halaman Publik
 - [x] Task: TDD - Implementasi status Draft/Published dan aturan tanggal publikasi (707aa5d)
 - [x] Task: TDD - Tambah halaman publik list Pengumuman (25d0211)
-- [ ] Task: TDD - Tambah halaman publik list IPKD
+- [x] Task: TDD - Tambah halaman publik list IPKD (25d0211)
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Publikasi & Halaman Publik' (Protocol in workflow.md)
