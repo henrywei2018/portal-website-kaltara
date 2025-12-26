@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\NavigationController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Models\NavigationItem;
+use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
@@ -176,6 +177,21 @@ Route::get('/data', function (Request $request) {
         ],
     ]);
 })->name('stats.index');
+
+Route::get('/{page:slug}', function (Page $page) use ($navigationItems) {
+    if ($page->status !== 'published') {
+        abort(404);
+    }
+
+    return Inertia::render('pages/show', [
+        'page' => [
+            'title' => $page->title,
+            'slug' => $page->slug,
+            'blocks' => $page->blocks ?? [],
+        ],
+        'navigation' => $navigationItems(),
+    ]);
+})->name('pages.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
