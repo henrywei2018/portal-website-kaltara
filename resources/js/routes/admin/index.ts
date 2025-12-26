@@ -4,7 +4,7 @@ import navigation from './navigation'
 import pages from './pages'
 import content from './content'
 /**
-* @see routes/web.php:194
+* @see routes/web.php:199
 * @route '/admin'
 */
 export const dashboard = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -18,7 +18,7 @@ dashboard.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see routes/web.php:194
+* @see routes/web.php:199
 * @route '/admin'
 */
 dashboard.url = (options?: RouteQueryOptions) => {
@@ -26,7 +26,7 @@ dashboard.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see routes/web.php:194
+* @see routes/web.php:199
 * @route '/admin'
 */
 dashboard.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -35,7 +35,7 @@ dashboard.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see routes/web.php:194
+* @see routes/web.php:199
 * @route '/admin'
 */
 dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({

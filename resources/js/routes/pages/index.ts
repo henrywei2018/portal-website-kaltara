@@ -1,6 +1,6 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../wayfinder'
 /**
-* @see routes/web.php:290
+* @see routes/web.php:295
 * @route '/{page}'
 */
 export const show = (args: { page: string | { slug: string } } | [page: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -14,7 +14,7 @@ show.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see routes/web.php:290
+* @see routes/web.php:295
 * @route '/{page}'
 */
 show.url = (args: { page: string | { slug: string } } | [page: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
@@ -46,7 +46,7 @@ show.url = (args: { page: string | { slug: string } } | [page: string | { slug: 
 }
 
 /**
-* @see routes/web.php:290
+* @see routes/web.php:295
 * @route '/{page}'
 */
 show.get = (args: { page: string | { slug: string } } | [page: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -55,7 +55,7 @@ show.get = (args: { page: string | { slug: string } } | [page: string | { slug: 
 })
 
 /**
-* @see routes/web.php:290
+* @see routes/web.php:295
 * @route '/{page}'
 */
 show.head = (args: { page: string | { slug: string } } | [page: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({

@@ -1,7 +1,7 @@
 <?php
 
 test('registration is disabled', function () {
-    $this->get('/register')->assertNotFound();
+    $this->get('/register')->assertRedirect('/login');
 
     $this->post('/register', [
         'name' => 'Test User',

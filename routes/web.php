@@ -87,6 +87,11 @@ Route::get('/beranda', function () use ($homeProps) {
     return Inertia::render('welcome', $homeProps());
 })->name('portal.home');
 
+Route::redirect('/register', '/login');
+Route::post('/register', function () {
+    abort(404);
+});
+
 Route::get('/berita', function (Request $request) {
     $searchQuery = trim((string) $request->query('q', ''));
     $typeQuery = $request->query('type');

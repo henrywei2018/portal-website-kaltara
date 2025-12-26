@@ -2,14 +2,108 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../
 /**
 * @see \Illuminate\Routing\RedirectController::__invoke
 * @see vendor/laravel/framework/src/Illuminate/Routing/RedirectController.php:19
-* @route '/admin/settings'
+* @route '/register'
 */
-const RedirectController = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: RedirectController.url(options),
+const RedirectControllere9819db9819a1d19b38dd89a0c4218c4 = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: RedirectControllere9819db9819a1d19b38dd89a0c4218c4.url(options),
     method: 'get',
 })
 
-RedirectController.definition = {
+RedirectControllere9819db9819a1d19b38dd89a0c4218c4.definition = {
+    methods: ["get","head","post","put","patch","delete","options"],
+    url: '/register',
+} satisfies RouteDefinition<["get","head","post","put","patch","delete","options"]>
+
+/**
+* @see \Illuminate\Routing\RedirectController::__invoke
+* @see vendor/laravel/framework/src/Illuminate/Routing/RedirectController.php:19
+* @route '/register'
+*/
+RedirectControllere9819db9819a1d19b38dd89a0c4218c4.url = (options?: RouteQueryOptions) => {
+    return RedirectControllere9819db9819a1d19b38dd89a0c4218c4.definition.url + queryParams(options)
+}
+
+/**
+* @see \Illuminate\Routing\RedirectController::__invoke
+* @see vendor/laravel/framework/src/Illuminate/Routing/RedirectController.php:19
+* @route '/register'
+*/
+RedirectControllere9819db9819a1d19b38dd89a0c4218c4.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: RedirectControllere9819db9819a1d19b38dd89a0c4218c4.url(options),
+    method: 'get',
+})
+
+/**
+* @see \Illuminate\Routing\RedirectController::__invoke
+* @see vendor/laravel/framework/src/Illuminate/Routing/RedirectController.php:19
+* @route '/register'
+*/
+RedirectControllere9819db9819a1d19b38dd89a0c4218c4.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: RedirectControllere9819db9819a1d19b38dd89a0c4218c4.url(options),
+    method: 'head',
+})
+
+/**
+* @see \Illuminate\Routing\RedirectController::__invoke
+* @see vendor/laravel/framework/src/Illuminate/Routing/RedirectController.php:19
+* @route '/register'
+*/
+RedirectControllere9819db9819a1d19b38dd89a0c4218c4.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: RedirectControllere9819db9819a1d19b38dd89a0c4218c4.url(options),
+    method: 'post',
+})
+
+/**
+* @see \Illuminate\Routing\RedirectController::__invoke
+* @see vendor/laravel/framework/src/Illuminate/Routing/RedirectController.php:19
+* @route '/register'
+*/
+RedirectControllere9819db9819a1d19b38dd89a0c4218c4.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+    url: RedirectControllere9819db9819a1d19b38dd89a0c4218c4.url(options),
+    method: 'put',
+})
+
+/**
+* @see \Illuminate\Routing\RedirectController::__invoke
+* @see vendor/laravel/framework/src/Illuminate/Routing/RedirectController.php:19
+* @route '/register'
+*/
+RedirectControllere9819db9819a1d19b38dd89a0c4218c4.patch = (options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+    url: RedirectControllere9819db9819a1d19b38dd89a0c4218c4.url(options),
+    method: 'patch',
+})
+
+/**
+* @see \Illuminate\Routing\RedirectController::__invoke
+* @see vendor/laravel/framework/src/Illuminate/Routing/RedirectController.php:19
+* @route '/register'
+*/
+RedirectControllere9819db9819a1d19b38dd89a0c4218c4.delete = (options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+    url: RedirectControllere9819db9819a1d19b38dd89a0c4218c4.url(options),
+    method: 'delete',
+})
+
+/**
+* @see \Illuminate\Routing\RedirectController::__invoke
+* @see vendor/laravel/framework/src/Illuminate/Routing/RedirectController.php:19
+* @route '/register'
+*/
+RedirectControllere9819db9819a1d19b38dd89a0c4218c4.options = (options?: RouteQueryOptions): RouteDefinition<'options'> => ({
+    url: RedirectControllere9819db9819a1d19b38dd89a0c4218c4.url(options),
+    method: 'options',
+})
+
+/**
+* @see \Illuminate\Routing\RedirectController::__invoke
+* @see vendor/laravel/framework/src/Illuminate/Routing/RedirectController.php:19
+* @route '/admin/settings'
+*/
+const RedirectController0c70edcc722471a5b69e029da05ad7cd = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: RedirectController0c70edcc722471a5b69e029da05ad7cd.url(options),
+    method: 'get',
+})
+
+RedirectController0c70edcc722471a5b69e029da05ad7cd.definition = {
     methods: ["get","head","post","put","patch","delete","options"],
     url: '/admin/settings',
 } satisfies RouteDefinition<["get","head","post","put","patch","delete","options"]>
@@ -19,8 +113,8 @@ RedirectController.definition = {
 * @see vendor/laravel/framework/src/Illuminate/Routing/RedirectController.php:19
 * @route '/admin/settings'
 */
-RedirectController.url = (options?: RouteQueryOptions) => {
-    return RedirectController.definition.url + queryParams(options)
+RedirectController0c70edcc722471a5b69e029da05ad7cd.url = (options?: RouteQueryOptions) => {
+    return RedirectController0c70edcc722471a5b69e029da05ad7cd.definition.url + queryParams(options)
 }
 
 /**
@@ -28,8 +122,8 @@ RedirectController.url = (options?: RouteQueryOptions) => {
 * @see vendor/laravel/framework/src/Illuminate/Routing/RedirectController.php:19
 * @route '/admin/settings'
 */
-RedirectController.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: RedirectController.url(options),
+RedirectController0c70edcc722471a5b69e029da05ad7cd.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: RedirectController0c70edcc722471a5b69e029da05ad7cd.url(options),
     method: 'get',
 })
 
@@ -38,8 +132,8 @@ RedirectController.get = (options?: RouteQueryOptions): RouteDefinition<'get'> =
 * @see vendor/laravel/framework/src/Illuminate/Routing/RedirectController.php:19
 * @route '/admin/settings'
 */
-RedirectController.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
-    url: RedirectController.url(options),
+RedirectController0c70edcc722471a5b69e029da05ad7cd.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: RedirectController0c70edcc722471a5b69e029da05ad7cd.url(options),
     method: 'head',
 })
 
@@ -48,8 +142,8 @@ RedirectController.head = (options?: RouteQueryOptions): RouteDefinition<'head'>
 * @see vendor/laravel/framework/src/Illuminate/Routing/RedirectController.php:19
 * @route '/admin/settings'
 */
-RedirectController.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
-    url: RedirectController.url(options),
+RedirectController0c70edcc722471a5b69e029da05ad7cd.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: RedirectController0c70edcc722471a5b69e029da05ad7cd.url(options),
     method: 'post',
 })
 
@@ -58,8 +152,8 @@ RedirectController.post = (options?: RouteQueryOptions): RouteDefinition<'post'>
 * @see vendor/laravel/framework/src/Illuminate/Routing/RedirectController.php:19
 * @route '/admin/settings'
 */
-RedirectController.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
-    url: RedirectController.url(options),
+RedirectController0c70edcc722471a5b69e029da05ad7cd.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+    url: RedirectController0c70edcc722471a5b69e029da05ad7cd.url(options),
     method: 'put',
 })
 
@@ -68,8 +162,8 @@ RedirectController.put = (options?: RouteQueryOptions): RouteDefinition<'put'> =
 * @see vendor/laravel/framework/src/Illuminate/Routing/RedirectController.php:19
 * @route '/admin/settings'
 */
-RedirectController.patch = (options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
-    url: RedirectController.url(options),
+RedirectController0c70edcc722471a5b69e029da05ad7cd.patch = (options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+    url: RedirectController0c70edcc722471a5b69e029da05ad7cd.url(options),
     method: 'patch',
 })
 
@@ -78,8 +172,8 @@ RedirectController.patch = (options?: RouteQueryOptions): RouteDefinition<'patch
 * @see vendor/laravel/framework/src/Illuminate/Routing/RedirectController.php:19
 * @route '/admin/settings'
 */
-RedirectController.delete = (options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
-    url: RedirectController.url(options),
+RedirectController0c70edcc722471a5b69e029da05ad7cd.delete = (options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+    url: RedirectController0c70edcc722471a5b69e029da05ad7cd.url(options),
     method: 'delete',
 })
 
@@ -88,9 +182,14 @@ RedirectController.delete = (options?: RouteQueryOptions): RouteDefinition<'dele
 * @see vendor/laravel/framework/src/Illuminate/Routing/RedirectController.php:19
 * @route '/admin/settings'
 */
-RedirectController.options = (options?: RouteQueryOptions): RouteDefinition<'options'> => ({
-    url: RedirectController.url(options),
+RedirectController0c70edcc722471a5b69e029da05ad7cd.options = (options?: RouteQueryOptions): RouteDefinition<'options'> => ({
+    url: RedirectController0c70edcc722471a5b69e029da05ad7cd.url(options),
     method: 'options',
 })
+
+const RedirectController = {
+    '/register': RedirectControllere9819db9819a1d19b38dd89a0c4218c4,
+    '/admin/settings': RedirectController0c70edcc722471a5b69e029da05ad7cd,
+}
 
 export default RedirectController
