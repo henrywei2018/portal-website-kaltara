@@ -37,6 +37,7 @@ test('admin can view document management list', function () {
         ->component('admin/documents/index')
         ->has('items', 1)
         ->where('items.0.title', 'IPKD 2024')
+        ->where('items.0.meta', 'IPKD · Terbit')
         ->where('items.0.preview_url', $expectedPreviewUrl)
         ->where('listMode', 'cards')
         ->has('types')

@@ -39,6 +39,11 @@ class DocumentItemController extends Controller
                 'preview_url' => Storage::disk($item->file_disk)->url($item->file_path),
                 'issued_at' => $item->issued_at?->toDateString(),
                 'published_at' => $item->published_at?->toDateString(),
+                'meta' => sprintf(
+                    '%s · %s',
+                    $item->type->label(),
+                    $item->status->label()
+                ),
             ]);
 
         return Inertia::render('admin/documents/index', [
