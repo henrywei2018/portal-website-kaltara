@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\UserManagementController::index
-* @see app/Http/Controllers/Admin/UserManagementController.php:15
+* @see app/Http/Controllers/Admin/UserManagementController.php:17
 * @route '/admin/users'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\UserManagementController::index
-* @see app/Http/Controllers/Admin/UserManagementController.php:15
+* @see app/Http/Controllers/Admin/UserManagementController.php:17
 * @route '/admin/users'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ index.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\UserManagementController::index
-* @see app/Http/Controllers/Admin/UserManagementController.php:15
+* @see app/Http/Controllers/Admin/UserManagementController.php:17
 * @route '/admin/users'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -35,7 +35,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\UserManagementController::index
-* @see app/Http/Controllers/Admin/UserManagementController.php:15
+* @see app/Http/Controllers/Admin/UserManagementController.php:17
 * @route '/admin/users'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -45,7 +45,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\UserManagementController::index
-* @see app/Http/Controllers/Admin/UserManagementController.php:15
+* @see app/Http/Controllers/Admin/UserManagementController.php:17
 * @route '/admin/users'
 */
 const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -55,7 +55,7 @@ const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => (
 
 /**
 * @see \App\Http\Controllers\Admin\UserManagementController::index
-* @see app/Http/Controllers/Admin/UserManagementController.php:15
+* @see app/Http/Controllers/Admin/UserManagementController.php:17
 * @route '/admin/users'
 */
 indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -65,7 +65,7 @@ indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\UserManagementController::index
-* @see app/Http/Controllers/Admin/UserManagementController.php:15
+* @see app/Http/Controllers/Admin/UserManagementController.php:17
 * @route '/admin/users'
 */
 indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -82,7 +82,7 @@ index.form = indexForm
 
 /**
 * @see \App\Http\Controllers\Admin\UserManagementController::update
-* @see app/Http/Controllers/Admin/UserManagementController.php:44
+* @see app/Http/Controllers/Admin/UserManagementController.php:77
 * @route '/admin/users/{user}'
 */
 export const update = (args: { user: number | { id: number } } | [user: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -97,7 +97,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\UserManagementController::update
-* @see app/Http/Controllers/Admin/UserManagementController.php:44
+* @see app/Http/Controllers/Admin/UserManagementController.php:77
 * @route '/admin/users/{user}'
 */
 update.url = (args: { user: number | { id: number } } | [user: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -130,7 +130,7 @@ update.url = (args: { user: number | { id: number } } | [user: number | { id: nu
 
 /**
 * @see \App\Http\Controllers\Admin\UserManagementController::update
-* @see app/Http/Controllers/Admin/UserManagementController.php:44
+* @see app/Http/Controllers/Admin/UserManagementController.php:77
 * @route '/admin/users/{user}'
 */
 update.patch = (args: { user: number | { id: number } } | [user: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -140,7 +140,7 @@ update.patch = (args: { user: number | { id: number } } | [user: number | { id: 
 
 /**
 * @see \App\Http\Controllers\Admin\UserManagementController::update
-* @see app/Http/Controllers/Admin/UserManagementController.php:44
+* @see app/Http/Controllers/Admin/UserManagementController.php:77
 * @route '/admin/users/{user}'
 */
 const updateForm = (args: { user: number | { id: number } } | [user: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -155,7 +155,7 @@ const updateForm = (args: { user: number | { id: number } } | [user: number | { 
 
 /**
 * @see \App\Http\Controllers\Admin\UserManagementController::update
-* @see app/Http/Controllers/Admin/UserManagementController.php:44
+* @see app/Http/Controllers/Admin/UserManagementController.php:77
 * @route '/admin/users/{user}'
 */
 updateForm.patch = (args: { user: number | { id: number } } | [user: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

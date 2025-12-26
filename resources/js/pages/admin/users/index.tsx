@@ -50,16 +50,27 @@ export default function AdminUsersIndex({
     users,
     roles,
     listMode: _listMode,
+    filters,
 }: {
     users: PaginatedUsers;
     roles: RoleOption[];
     listMode: 'cards' | 'table';
+    filters: {
+        search: string;
+        role: string | null;
+        status: string | null;
+    };
 }) {
     const [activeUser, setActiveUser] = useState<UserItem | null>(null);
     const roleLabels = useMemo(
         () => new Map(roles.map((role) => [role.value, role.label])),
         [roles]
     );
+    const statusOptions = [
+        { value: '', label: 'Semua status' },
+        { value: 'active', label: 'Aktif' },
+        { value: 'inactive', label: 'Nonaktif' },
+    ];
 
     return (
         <AdminSidebarLayout
@@ -82,6 +93,80 @@ export default function AdminUsersIndex({
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3" />
             </header>
+
+            <section className="mt-8 rounded-2xl border border-black/5 bg-white p-6 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5">
+                <div className="flex flex-wrap items-center gap-2">
+                    <h2 className="text-sm font-semibold text-[#123726] dark:text-white">
+                        Pencarian & Filter
+                    </h2>
+                    <p className="text-xs text-[#587166] dark:text-[#b0c2b8]">
+                        Cari user admin berdasarkan nama, email, atau role.
+                    </p>
+                </div>
+                <form
+                    action="/admin/users"
+                    className="mt-4 grid gap-4 md:grid-cols-[1.2fr_1fr_1fr_auto]"
+                >
+                    <div>
+                        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                            Pencarian
+                        </label>
+                        <input
+                            name="q"
+                            placeholder="Cari nama atau email..."
+                            defaultValue={filters.search}
+                            className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                        />
+                    </div>
+                    <div>
+                        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                            Role
+                        </label>
+                        <select
+                            name="role"
+                            defaultValue={filters.role ?? ''}
+                            className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                        >
+                            <option value="">Semua role</option>
+                            {roles.map((role) => (
+                                <option key={role.value} value={role.value}>
+                                    {role.label}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div>
+                        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                            Status
+                        </label>
+                        <select
+                            name="status"
+                            defaultValue={filters.status ?? ''}
+                            className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                        >
+                            {statusOptions.map((option) => (
+                                <option key={option.value} value={option.value}>
+                                    {option.label}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="flex flex-wrap items-end gap-3">
+                        <button
+                            type="submit"
+                            className="rounded-full bg-[#0f6b4f] px-5 py-2 text-xs font-semibold text-white shadow-[0_10px_24px_rgba(15,107,79,0.2)] transition hover:brightness-95"
+                        >
+                            Terapkan
+                        </button>
+                        <a
+                            href="/admin/users"
+                            className="rounded-full border border-black/10 px-4 py-2 text-xs font-semibold text-[#123726] transition hover:border-black/20 dark:border-white/20 dark:text-white"
+                        >
+                            Reset
+                        </a>
+                    </div>
+                </form>
+            </section>
 
             <section className="mt-8">
                 <AdminList

@@ -46,6 +46,37 @@ test('admin can view document management list', function () {
     );
 });
 
+test('admin can search document items', function () {
+    Storage::fake('public');
+
+    DocumentItem::factory()->create([
+        'title' => 'IPKD 2024',
+        'type' => DocumentType::Ipkd,
+        'status' => DocumentStatus::Published,
+        'file_path' => 'documents/ipkd-2024.pdf',
+        'file_disk' => 'public',
+    ]);
+
+    DocumentItem::factory()->create([
+        'title' => 'Laporan Keuangan',
+        'type' => DocumentType::Announcement,
+        'status' => DocumentStatus::Published,
+        'file_path' => 'documents/laporan-keuangan.pdf',
+        'file_disk' => 'public',
+    ]);
+
+    $response = $this->get('/admin/documents?q=ipkd');
+
+    $response->assertOk();
+
+    $response->assertInertia(fn ($page) => $page
+        ->component('admin/documents/index')
+        ->has('items.data', 1)
+        ->where('items.data.0.title', 'IPKD 2024')
+        ->where('filters.search', 'ipkd')
+    );
+});
+
 test('admin can create document item with PDF upload', function () {
     Storage::fake('public');
 

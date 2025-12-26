@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\DocumentStatus;
+use App\Enums\DocumentType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreDocumentItemRequest;
 use App\Http\Requests\Admin\UpdateDocumentItemRequest;
 use App\Models\DocumentItem;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -16,12 +20,33 @@ class DocumentItemController extends Controller
 {
     private const TABLE_THRESHOLD = 6;
 
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $search = trim((string) $request->query('q', ''));
+        $type = DocumentType::tryFrom((string) $request->query('type'));
+        $status = DocumentStatus::tryFrom((string) $request->query('status'));
+
         $itemsQuery = DocumentItem::query()
             ->orderByDesc('published_at')
             ->orderByDesc('issued_at')
             ->orderByDesc('created_at');
+
+        if ($search !== '') {
+            $needle = Str::lower($search);
+
+            $itemsQuery->where(function ($query) use ($needle) {
+                $query->whereRaw('lower(title) like ?', ["%{$needle}%"])
+                    ->orWhereRaw('lower(description) like ?', ["%{$needle}%"]);
+            });
+        }
+
+        if ($type) {
+            $itemsQuery->where('type', $type->value);
+        }
+
+        if ($status) {
+            $itemsQuery->where('status', $status->value);
+        }
 
         $items = $itemsQuery
             ->paginate(10)
@@ -47,13 +72,18 @@ class DocumentItemController extends Controller
 
         return Inertia::render('admin/documents/index', [
             'items' => $items,
-            'types' => \App\Enums\DocumentType::options(),
-            'statuses' => \App\Enums\DocumentStatus::options(),
+            'types' => DocumentType::options(),
+            'statuses' => DocumentStatus::options(),
             'listMode' => $items->total() >= self::TABLE_THRESHOLD ? 'table' : 'cards',
             'listStyle' => 'compact',
             'actionMode' => 'dropdown',
             'modalMode' => 'slide-over',
             'filterMode' => 'drawer',
+            'filters' => [
+                'search' => $search,
+                'type' => $type?->value,
+                'status' => $status?->value,
+            ],
         ]);
     }
 
