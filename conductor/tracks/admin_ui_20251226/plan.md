@@ -6,7 +6,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Layout Admin & Sidebar' (Protocol in workflow.md) (195b25b)
 
 ## Phase 2: Dashboard Ringkas & Quick Actions
-- [ ] Task: TDD - Tambah kartu statistik ringkas di dashboard admin
+- [x] Task: TDD - Tambah kartu statistik ringkas di dashboard admin (76679d4)
 - [ ] Task: TDD - Tambah quick actions untuk modul utama
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Dashboard Ringkas & Quick Actions' (Protocol in workflow.md)
 
