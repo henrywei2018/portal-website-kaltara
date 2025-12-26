@@ -13,7 +13,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Manajemen Menu Navigasi' (Protocol in workflow.md) (7e0c779)
 
 ## Phase 3: Manajemen Halaman Dinamis (Editor Blok)
-- [ ] Task: TDD - Tambah CRUD halaman dinamis (judul, slug, status)
+- [x] Task: TDD - Tambah CRUD halaman dinamis (judul, slug, status) (e9fa366)
 - [ ] Task: TDD - Implementasi editor blok modular untuk halaman
 - [ ] Task: TDD - Render halaman publik berbasis slug
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Manajemen Halaman Dinamis (Editor Blok)' (Protocol in workflow.md)
