@@ -1,5 +1,9 @@
+import { AdminActionMenu } from '@/components/admin/admin-action-menu';
+import { AdminList, AdminListItem } from '@/components/admin/admin-list';
+import { AdminSlideOver } from '@/components/admin/admin-slide-over';
 import AdminSidebarLayout from '@/layouts/admin/admin-sidebar-layout';
-import { Form, Head, Link } from '@inertiajs/react';
+import { Form, Head } from '@inertiajs/react';
+import { useMemo, useState } from 'react';
 
 type RoleOption = {
     value: string;
@@ -12,15 +16,24 @@ type UserItem = {
     email: string;
     role: string;
     is_active: boolean;
+    meta: string;
 };
 
 export default function AdminUsersIndex({
     users,
     roles,
+    listMode: _listMode,
 }: {
     users: UserItem[];
     roles: RoleOption[];
+    listMode: 'cards' | 'table';
 }) {
+    const [activeUser, setActiveUser] = useState<UserItem | null>(null);
+    const roleLabels = useMemo(
+        () => new Map(roles.map((role) => [role.value, role.label])),
+        [roles]
+    );
+
     return (
         <AdminSidebarLayout
             breadcrumbs={[
@@ -40,86 +53,119 @@ export default function AdminUsersIndex({
                 <p className="mt-3 max-w-2xl text-sm text-[#587166] dark:text-[#b0c2b8]">
                     Atur role dan status aktif setiap akun admin dari satu tempat.
                 </p>
-                <div className="mt-6 flex flex-wrap gap-3">
-                    <Link
-                        href="/admin"
-                        className="rounded-full border border-black/10 px-4 py-2 text-sm font-semibold text-[#123726] transition hover:border-black/20 dark:border-white/20 dark:text-white"
-                    >
-                        Kembali ke Dashboard
-                    </Link>
-                </div>
+                <div className="mt-6 flex flex-wrap gap-3" />
             </header>
 
-            <div className="mt-8 space-y-4">
-                {users.map((user) => (
+            <section className="mt-8">
+                <AdminList
+                    title="Daftar Pengguna"
+                    description="Daftar akun admin beserta role dan status aktif."
+                    count={users.length}
+                >
+                    {users.map((user) => (
+                        <AdminListItem
+                            key={user.id}
+                            title={user.name}
+                            subtitle={user.email}
+                            meta={user.meta}
+                            actions={
+                                <AdminActionMenu
+                                    items={[
+                                        {
+                                            label: 'Edit',
+                                            onSelect: () => setActiveUser(user),
+                                        },
+                                    ]}
+                                />
+                            }
+                        >
+                            <span>Role: {roleLabels.get(user.role) ?? user.role}</span>
+                            <span className="ml-3">
+                                Status: {user.is_active ? 'Aktif' : 'Nonaktif'}
+                            </span>
+                        </AdminListItem>
+                    ))}
+                </AdminList>
+            </section>
+
+            <AdminSlideOver
+                open={Boolean(activeUser)}
+                onOpenChange={(open) => {
+                    if (!open) {
+                        setActiveUser(null);
+                    }
+                }}
+                title="Perbarui Role & Status"
+                description="Atur role dan status aktif pengguna admin."
+            >
+                {activeUser ? (
                     <Form
-                        key={user.id}
+                        key={activeUser.id}
                         method="patch"
-                        action={`/admin/users/${user.id}`}
-                        className="rounded-2xl border border-black/5 bg-white p-6 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5"
+                        action={`/admin/users/${activeUser.id}`}
+                        className="grid gap-4"
                     >
                         {({ processing }) => (
-                            <div className="grid gap-4 md:grid-cols-[1.4fr_1fr_1fr_auto] md:items-center">
-                                <div>
-                                    <p className="text-sm font-semibold text-[#123726] dark:text-white">
-                                        {user.name}
-                                    </p>
-                                    <p className="text-xs text-[#587166] dark:text-[#b0c2b8]">
-                                        {user.email}
-                                    </p>
+                            <>
+                                <div className="rounded-2xl border border-black/5 bg-[#f6faf8] px-4 py-3 text-xs text-[#567365] dark:border-white/10 dark:bg-white/5 dark:text-[#b0c2b8]">
+                                    Mengubah akun{' '}
+                                    <span className="font-semibold text-[#123726] dark:text-white">
+                                        {activeUser.name}
+                                    </span>{' '}
+                                    ({activeUser.email})
                                 </div>
-                                <div>
-                                    <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                                        Role
-                                    </label>
-                                    <select
-                                        name="role"
-                                        defaultValue={user.role}
-                                        className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                                    >
-                                        {roles.map((role) => (
-                                            <option key={role.value} value={role.value}>
-                                                {role.label}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
-                                <div>
-                                    <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                                        Status
-                                    </label>
-                                    <div className="mt-3 flex items-center gap-2 text-sm">
-                                        <input type="hidden" name="is_active" value="0" />
-                                        <input
-                                            id={`active-${user.id}`}
-                                            type="checkbox"
-                                            name="is_active"
-                                            value="1"
-                                            defaultChecked={user.is_active}
-                                            className="h-4 w-4 rounded border-black/20 text-[#0f6b4f]"
-                                        />
-                                        <label
-                                            htmlFor={`active-${user.id}`}
-                                            className="text-[#123726] dark:text-white"
-                                        >
-                                            Aktif
+                                <div className="grid gap-4 md:grid-cols-2">
+                                    <div>
+                                        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                                            Role
                                         </label>
+                                        <select
+                                            name="role"
+                                            defaultValue={activeUser.role}
+                                            className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                                        >
+                                            {roles.map((role) => (
+                                                <option key={role.value} value={role.value}>
+                                                    {role.label}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                                            Status
+                                        </label>
+                                        <select
+                                            name="is_active"
+                                            defaultValue={activeUser.is_active ? 1 : 0}
+                                            className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                                        >
+                                            <option value="1">Aktif</option>
+                                            <option value="0">Nonaktif</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div className="flex justify-start md:justify-end">
+                                <div className="flex items-center gap-3">
                                     <button
                                         type="submit"
                                         disabled={processing}
-                                        className="rounded-full bg-[#0f6b4f] px-4 py-2 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(15,107,79,0.2)] transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-70"
+                                        className="rounded-full bg-[#0f6b4f] px-5 py-2 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(15,107,79,0.2)] transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-70"
                                     >
-                                        Simpan
+                                        Simpan Perubahan
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setActiveUser(null)}
+                                        className="rounded-full border border-black/10 px-5 py-2 text-sm font-semibold text-[#123726] transition hover:border-black/20 dark:border-white/20 dark:text-white"
+                                    >
+                                        Batal
                                     </button>
                                 </div>
-                            </div>
+                            </>
                         )}
                     </Form>
-                ))}
-            </div>
+                ) : null}
+            </AdminSlideOver>
         </AdminSidebarLayout>
     );
 }

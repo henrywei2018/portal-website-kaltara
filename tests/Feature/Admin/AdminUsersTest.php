@@ -25,6 +25,7 @@ test('super admins can view admin user management', function () {
         ->component('admin/users/index')
         ->has('users', 1)
         ->where('users.0.email', 'admin@example.com')
+        ->where('users.0.meta', 'Super Admin · Aktif')
         ->has('roles', 3)
     );
 });

@@ -23,6 +23,11 @@ class UserManagementController extends Controller
                 'email' => $user->email,
                 'role' => $user->role?->value ?? UserRole::Viewer->value,
                 'is_active' => $user->is_active,
+                'meta' => sprintf(
+                    '%s · %s',
+                    ($user->role ?? UserRole::Viewer)->label(),
+                    $user->is_active ? 'Aktif' : 'Nonaktif',
+                ),
             ]);
 
         return Inertia::render('admin/users/index', [
