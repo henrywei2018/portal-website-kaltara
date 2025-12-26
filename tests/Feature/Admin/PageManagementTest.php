@@ -78,6 +78,30 @@ test('admin can update a page', function () {
     ]);
 });
 
+test('admin can update page blocks', function () {
+    $page = Page::factory()->create([
+        'title' => 'Profil',
+        'slug' => 'profil',
+        'status' => 'published',
+    ]);
+
+    $blocks = [
+        ['type' => 'heading', 'content' => 'Profil Pemerintah'],
+        ['type' => 'paragraph', 'content' => 'Informasi singkat tentang pemerintah.'],
+    ];
+
+    $response = $this->patch("/admin/pages/{$page->id}", [
+        'title' => 'Profil',
+        'slug' => 'profil',
+        'status' => 'published',
+        'blocks' => $blocks,
+    ]);
+
+    $response->assertRedirect();
+
+    expect(Page::find($page->id)->blocks)->toBe($blocks);
+});
+
 test('admin can delete a page', function () {
     $page = Page::factory()->create([
         'title' => 'Profil',

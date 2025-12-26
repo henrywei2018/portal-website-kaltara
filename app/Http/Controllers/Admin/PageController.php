@@ -22,6 +22,7 @@ class PageController extends Controller
                 'title' => $page->title,
                 'slug' => $page->slug,
                 'status' => $page->status,
+                'blocks' => $page->blocks ?? [],
                 'updated_at' => $page->updated_at?->toDateTimeString(),
             ]);
 
@@ -32,14 +33,20 @@ class PageController extends Controller
 
     public function store(StorePageRequest $request): RedirectResponse
     {
-        Page::query()->create($request->validated());
+        $data = $request->validated();
+        $data['blocks'] = $data['blocks'] ?? [];
+
+        Page::query()->create($data);
 
         return redirect()->back();
     }
 
     public function update(UpdatePageRequest $request, Page $page): RedirectResponse
     {
-        $page->update($request->validated());
+        $data = $request->validated();
+        $data['blocks'] = $data['blocks'] ?? [];
+
+        $page->update($data);
 
         return redirect()->back();
     }

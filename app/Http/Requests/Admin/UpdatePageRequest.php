@@ -32,6 +32,9 @@ class UpdatePageRequest extends FormRequest
                 Rule::unique('pages', 'slug')->ignore($this->route('page')),
             ],
             'status' => ['required', 'string', Rule::in(['draft', 'published'])],
+            'blocks' => ['nullable', 'array'],
+            'blocks.*.type' => ['required', 'string', Rule::in(['heading', 'paragraph', 'list', 'quote'])],
+            'blocks.*.content' => ['required', 'string'],
         ];
     }
 
@@ -47,6 +50,9 @@ class UpdatePageRequest extends FormRequest
             'slug.unique' => 'Slug sudah digunakan.',
             'status.required' => 'Status halaman wajib dipilih.',
             'status.in' => 'Status halaman tidak valid.',
+            'blocks.array' => 'Format blok halaman tidak valid.',
+            'blocks.*.type.in' => 'Tipe blok tidak dikenali.',
+            'blocks.*.content.required' => 'Konten blok wajib diisi.',
         ];
     }
 }

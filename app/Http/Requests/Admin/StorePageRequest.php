@@ -26,6 +26,9 @@ class StorePageRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['required', 'string', 'max:255', 'alpha_dash', 'unique:pages,slug'],
             'status' => ['required', 'string', Rule::in(['draft', 'published'])],
+            'blocks' => ['nullable', 'array'],
+            'blocks.*.type' => ['required', 'string', Rule::in(['heading', 'paragraph', 'list', 'quote'])],
+            'blocks.*.content' => ['required', 'string'],
         ];
     }
 
@@ -41,6 +44,9 @@ class StorePageRequest extends FormRequest
             'slug.unique' => 'Slug sudah digunakan.',
             'status.required' => 'Status halaman wajib dipilih.',
             'status.in' => 'Status halaman tidak valid.',
+            'blocks.array' => 'Format blok halaman tidak valid.',
+            'blocks.*.type.in' => 'Tipe blok tidak dikenali.',
+            'blocks.*.content.required' => 'Konten blok wajib diisi.',
         ];
     }
 }

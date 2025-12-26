@@ -17,5 +17,16 @@ class Page extends Model
         'title',
         'slug',
         'status',
+        'blocks',
     ];
+
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'blocks' => 'array',
+        ];
+    }
 }
