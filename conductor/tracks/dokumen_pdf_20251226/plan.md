@@ -3,7 +3,7 @@
 ## Phase 1: Struktur Data & Validasi
 - [x] Task: TDD - Tambah model & migrasi dokumen PDF (metadata wajib + status + tipe) (65bf16e)
 - [x] Task: TDD - Buat Form Request validasi (judul, deskripsi, file PDF maks 10MB, tanggal terbit, tanggal publikasi) (4ad7b17)
-- [ ] Task: TDD - Implementasi controller admin untuk CRUD dokumen PDF
+- [x] Task: TDD - Implementasi controller admin untuk CRUD dokumen PDF (4c76a17)
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Struktur Data & Validasi' (Protocol in workflow.md)
 
 ## Phase 2: UI Admin & Upload/Preview
