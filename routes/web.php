@@ -192,7 +192,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::middleware(['auth', 'verified', 'can:access-admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', function () {
-        return Inertia::render('admin/dashboard');
+        return Inertia::render('admin/dashboard', [
+            'stats' => [
+                'pages' => Page::query()->count(),
+                'navigation' => NavigationItem::query()->count(),
+                'content' => ContentItem::query()->count(),
+                'published_content' => ContentItem::query()
+                    ->where('status', ContentStatus::Published)
+                    ->count(),
+            ],
+        ]);
     })->name('dashboard');
 
     Route::get('users', [UserManagementController::class, 'index'])

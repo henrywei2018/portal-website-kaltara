@@ -5,26 +5,64 @@ const quickLinks = [
     {
         title: 'Pengguna & Role',
         description: 'Kelola akun admin dan hak akses.',
-        href: '#users',
+        href: '/admin/users',
     },
     {
         title: 'Menu Navigasi',
         description: 'Atur menu utama dan sub-menu portal.',
-        href: '#navigation',
+        href: '/admin/navigation',
     },
     {
         title: 'Halaman Dinamis',
         description: 'Buat dan perbarui halaman publik.',
-        href: '#pages',
+        href: '/admin/pages',
     },
     {
         title: 'Berita & Pengumuman',
         description: 'Kelola konten berita berbasis Markdown.',
-        href: '#content',
+        href: '/admin/content',
     },
 ];
 
-export default function AdminDashboard() {
+const quickActions = [
+    { label: 'Tambah Halaman', href: '/admin/pages' },
+    { label: 'Tambah Konten', href: '/admin/content' },
+    { label: 'Tambah Menu', href: '/admin/navigation' },
+];
+
+export default function AdminDashboard({
+    stats,
+}: {
+    stats: {
+        pages: number;
+        navigation: number;
+        content: number;
+        published_content: number;
+    };
+}) {
+    const cards = [
+        {
+            title: 'Halaman Aktif',
+            value: stats.pages,
+            detail: 'Total halaman dinamis terdaftar.',
+        },
+        {
+            title: 'Menu Navigasi',
+            value: stats.navigation,
+            detail: 'Item navigasi utama dan submenu.',
+        },
+        {
+            title: 'Konten Portal',
+            value: stats.content,
+            detail: 'Total berita, artikel, pengumuman.',
+        },
+        {
+            title: 'Konten Terbit',
+            value: stats.published_content,
+            detail: 'Konten yang sudah dipublikasikan.',
+        },
+    ];
+
     return (
         <AdminSidebarLayout breadcrumbs={[{ title: 'Dashboard', href: '/admin' }]}>
             <Head title="Dashboard Admin" />
@@ -47,7 +85,7 @@ export default function AdminDashboard() {
                         Lihat Portal Publik
                     </Link>
                     <Link
-                        href="#settings"
+                        href="/settings/profile"
                         className="rounded-full bg-[#0f6b4f] px-4 py-2 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(15,107,79,0.2)] transition hover:brightness-95"
                     >
                         Pengaturan Admin
@@ -55,21 +93,61 @@ export default function AdminDashboard() {
                 </div>
             </div>
 
-            <section className="mt-10 grid gap-6 md:grid-cols-2">
-                {quickLinks.map((item) => (
-                    <Link
-                        key={item.title}
-                        href={item.href}
-                        className="rounded-2xl border border-black/5 bg-white p-6 shadow-[0_12px_24px_rgba(15,107,79,0.08)] transition hover:-translate-y-0.5 hover:shadow-[0_20px_40px_rgba(15,107,79,0.12)] dark:border-white/10 dark:bg-white/5"
+            <section className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                {cards.map((card) => (
+                    <div
+                        key={card.title}
+                        className="rounded-2xl border border-black/5 bg-white p-6 shadow-[0_14px_30px_rgba(15,107,79,0.1)] dark:border-white/10 dark:bg-white/5"
                     >
-                        <h2 className="text-lg font-semibold text-[#123726] dark:text-white">
-                            {item.title}
-                        </h2>
-                        <p className="mt-2 text-sm text-[#587166] dark:text-[#b0c2b8]">
-                            {item.description}
+                        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                            {card.title}
                         </p>
-                    </Link>
+                        <p className="mt-4 text-3xl font-semibold text-[#0b2d1d] dark:text-white">
+                            {card.value}
+                        </p>
+                        <p className="mt-2 text-xs text-[#587166] dark:text-[#b0c2b8]">
+                            {card.detail}
+                        </p>
+                    </div>
                 ))}
+            </section>
+
+            <section className="mt-10 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
+                <div className="rounded-2xl border border-black/5 bg-white p-6 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5">
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                        Quick Actions
+                    </p>
+                    <div className="mt-4 flex flex-wrap gap-3">
+                        {quickActions.map((action) => (
+                            <Link
+                                key={action.label}
+                                href={action.href}
+                                className="rounded-full bg-[#0f6b4f] px-4 py-2 text-xs font-semibold text-white shadow-[0_10px_24px_rgba(15,107,79,0.2)] transition hover:brightness-95"
+                            >
+                                {action.label}
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+                <div className="rounded-2xl border border-black/5 bg-white p-6 shadow-[0_12px_24px_rgba(15,107,79,0.08)] dark:border-white/10 dark:bg-white/5">
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                        Modul Utama
+                    </p>
+                    <div className="mt-4 grid gap-3">
+                        {quickLinks.map((item) => (
+                            <Link
+                                key={item.title}
+                                href={item.href}
+                                className="rounded-xl border border-black/5 bg-white/80 px-4 py-3 text-sm font-semibold text-[#123726] shadow-[0_10px_20px_rgba(15,107,79,0.08)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_30px_rgba(15,107,79,0.16)] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                            >
+                                <span>{item.title}</span>
+                                <p className="mt-1 text-xs font-normal text-[#587166] dark:text-[#b0c2b8]">
+                                    {item.description}
+                                </p>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
             </section>
         </AdminSidebarLayout>
     );
