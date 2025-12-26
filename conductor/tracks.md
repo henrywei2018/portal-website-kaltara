@@ -7,3 +7,8 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 
 
+
+---
+
+## [x] Track: Manajemen dokumen PDF (pengumuman, IPKD, dokumen lain) dengan preview dan metadata
+*Link: [./conductor/tracks/dokumen_pdf_20251226/](./conductor/tracks/dokumen_pdf_20251226/)*
