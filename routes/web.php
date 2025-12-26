@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\NavigationController;
+use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Models\NavigationItem;
 use Illuminate\Http\Request;
@@ -206,6 +207,19 @@ Route::middleware(['auth', 'verified', 'can:access-admin'])->prefix('admin')->na
     Route::delete('navigation/{navigationItem}', [NavigationController::class, 'destroy'])
         ->middleware('can:manage-navigation')
         ->name('navigation.destroy');
+
+    Route::get('pages', [PageController::class, 'index'])
+        ->middleware('can:manage-pages')
+        ->name('pages.index');
+    Route::post('pages', [PageController::class, 'store'])
+        ->middleware('can:manage-pages')
+        ->name('pages.store');
+    Route::patch('pages/{page}', [PageController::class, 'update'])
+        ->middleware('can:manage-pages')
+        ->name('pages.update');
+    Route::delete('pages/{page}', [PageController::class, 'destroy'])
+        ->middleware('can:manage-pages')
+        ->name('pages.destroy');
 });
 
 require __DIR__.'/settings.php';

@@ -24,6 +24,9 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        $this->call(NavigationItemSeeder::class);
+        $this->call([
+            NavigationItemSeeder::class,
+            PageSeeder::class,
+        ]);
     }
 }
