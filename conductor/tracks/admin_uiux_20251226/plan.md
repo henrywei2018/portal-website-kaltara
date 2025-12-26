@@ -2,7 +2,7 @@
 
 ## Phase 1: Fondasi UI Admin
 - [x] Task: TDD - Standarkan komponen list ringkas + dropdown aksi (6a07376)
-- [ ] Task: TDD - Buat komponen modal slide-over CRUD yang konsisten
+- [x] Task: TDD - Buat komponen modal slide-over CRUD yang konsisten (904cf5f)
 - [ ] Task: TDD - Implementasikan drawer filter untuk layar kecil
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Fondasi UI Admin' (Protocol in workflow.md)
 
