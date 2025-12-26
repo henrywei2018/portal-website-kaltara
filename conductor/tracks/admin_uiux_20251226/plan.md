@@ -8,7 +8,7 @@
 
 ## Phase 2: Refactor Modul Admin
 - [x] Task: TDD - Terapkan list + modal CRUD pada Navigasi (2a14ab2)
-- [ ] Task: TDD - Terapkan list + modal CRUD pada Halaman
+- [x] Task: TDD - Terapkan list + modal CRUD pada Halaman (8f4fc9f)
 - [ ] Task: TDD - Terapkan list + modal CRUD pada Konten
 - [ ] Task: TDD - Terapkan list + modal CRUD pada Dokumen PDF
 - [ ] Task: TDD - Terapkan list + modal CRUD pada Pengguna & Role
