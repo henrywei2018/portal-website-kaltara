@@ -47,11 +47,10 @@ class NavigationController extends Controller
             $itemsQuery->where('is_visible', false);
         }
 
-        $itemCount = (clone $itemsQuery)->count();
-
         $items = $itemsQuery
-            ->get()
-            ->map(fn (NavigationItem $item): array => [
+            ->paginate(10)
+            ->withQueryString()
+            ->through(fn (NavigationItem $item): array => [
                 'id' => $item->id,
                 'parent_id' => $item->parent_id,
                 'parent_label' => $item->parent?->label,
@@ -80,7 +79,7 @@ class NavigationController extends Controller
         return Inertia::render('admin/navigation/index', [
             'items' => $items,
             'parents' => $parents,
-            'listMode' => $itemCount >= self::TABLE_THRESHOLD ? 'table' : 'cards',
+            'listMode' => $items->total() >= self::TABLE_THRESHOLD ? 'table' : 'cards',
             'listStyle' => 'compact',
             'actionMode' => 'dropdown',
             'modalMode' => 'slide-over',

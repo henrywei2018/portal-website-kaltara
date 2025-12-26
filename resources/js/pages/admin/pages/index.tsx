@@ -1,5 +1,6 @@
 import { AdminActionMenu } from '@/components/admin/admin-action-menu';
 import { AdminList, AdminListItem } from '@/components/admin/admin-list';
+import { AdminPagination } from '@/components/admin/admin-pagination';
 import { AdminSlideOver } from '@/components/admin/admin-slide-over';
 import AdminSidebarLayout from '@/layouts/admin/admin-sidebar-layout';
 import { Form, Head, useForm } from '@inertiajs/react';
@@ -18,6 +19,32 @@ type PageItem = {
     blocks: BlockItem[];
     updated_at: string | null;
     meta: string;
+};
+
+type PaginationLink = {
+    url: string | null;
+    label: string;
+    active: boolean;
+};
+
+type PaginationMeta = {
+    current_page: number;
+    last_page: number;
+    per_page: number;
+    total: number;
+    from: number | null;
+    to: number | null;
+};
+
+type PaginatedPages = {
+    data: PageItem[];
+    links: PaginationLink[];
+    current_page: PaginationMeta['current_page'];
+    last_page: PaginationMeta['last_page'];
+    per_page: PaginationMeta['per_page'];
+    total: PaginationMeta['total'];
+    from: PaginationMeta['from'];
+    to: PaginationMeta['to'];
 };
 
 type PageFormData = {
@@ -51,7 +78,7 @@ export default function AdminPagesIndex({
     listMode: _listMode,
     filters,
 }: {
-    pages: PageItem[];
+    pages: PaginatedPages;
     listMode: 'cards' | 'table';
     filters: {
         search: string;
@@ -201,9 +228,9 @@ export default function AdminPagesIndex({
                 <AdminList
                     title="Daftar Halaman"
                     description="List ringkas agar cepat melihat status dan aktivitas halaman."
-                    count={pages.length}
+                    count={pages.total}
                 >
-                    {pages.map((page) => (
+                    {pages.data.map((page) => (
                         <AdminListItem
                             key={page.id}
                             title={page.title}
@@ -245,6 +272,7 @@ export default function AdminPagesIndex({
                         </AdminListItem>
                     ))}
                 </AdminList>
+                <AdminPagination pagination={pages} />
             </section>
 
             <AdminSlideOver

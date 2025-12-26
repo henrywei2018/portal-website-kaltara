@@ -30,10 +30,11 @@ test('admin can view content management list', function () {
 
     $response->assertInertia(fn (Assert $page) => $page
         ->component('admin/content/index')
-        ->has('items', 1)
-        ->where('items.0.title', 'Pengumuman Resmi')
-        ->where('items.0.meta', 'Pengumuman · Terbit')
-        ->where('items.0.body', "# Pengumuman\n\nKonten markdown.")
+        ->has('items.data', 1)
+        ->where('items.data.0.title', 'Pengumuman Resmi')
+        ->where('items.data.0.meta', 'Pengumuman · Terbit')
+        ->where('items.data.0.body', "# Pengumuman\n\nKonten markdown.")
+        ->where('items.per_page', 10)
         ->where('listMode', 'cards')
     );
 });
@@ -72,8 +73,8 @@ test('admin can search content by query', function () {
 
     $response->assertInertia(fn (Assert $page) => $page
         ->component('admin/content/index')
-        ->has('items', 1)
-        ->where('items.0.title', 'Agenda Gubernur')
+        ->has('items.data', 1)
+        ->where('items.data.0.title', 'Agenda Gubernur')
         ->where('filters.search', 'agenda')
     );
 });
@@ -99,8 +100,8 @@ test('admin can filter content by type and status', function () {
 
     $response->assertInertia(fn (Assert $page) => $page
         ->component('admin/content/index')
-        ->has('items', 1)
-        ->where('items.0.title', 'Terbit Pengumuman')
+        ->has('items.data', 1)
+        ->where('items.data.0.title', 'Terbit Pengumuman')
         ->where('filters.type', 'announcement')
         ->where('filters.status', 'published')
     );

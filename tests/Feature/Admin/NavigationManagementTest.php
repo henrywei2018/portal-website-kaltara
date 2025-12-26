@@ -27,9 +27,10 @@ test('admin can view navigation management list', function () {
 
     $response->assertInertia(fn (Assert $page) => $page
         ->component('admin/navigation/index')
-        ->has('items', 1)
-        ->where('items.0.meta', 'Urutan 1 · Tampil')
-        ->where('items.0.label', 'Beranda')
+        ->has('items.data', 1)
+        ->where('items.data.0.meta', 'Urutan 1 · Tampil')
+        ->where('items.data.0.label', 'Beranda')
+        ->where('items.per_page', 10)
         ->where('listMode', 'cards')
     );
 });
@@ -68,8 +69,8 @@ test('admin can search navigation items', function () {
 
     $response->assertInertia(fn (Assert $page) => $page
         ->component('admin/navigation/index')
-        ->has('items', 1)
-        ->where('items.0.label', 'Beranda')
+        ->has('items.data', 1)
+        ->where('items.data.0.label', 'Beranda')
         ->where('filters.search', 'beranda')
     );
 });
@@ -97,8 +98,8 @@ test('admin can filter navigation by visibility', function () {
 
     $response->assertInertia(fn (Assert $page) => $page
         ->component('admin/navigation/index')
-        ->has('items', 1)
-        ->where('items.0.label', 'Internal')
+        ->has('items.data', 1)
+        ->where('items.data.0.label', 'Internal')
         ->where('filters.visibility', 'hidden')
     );
 });

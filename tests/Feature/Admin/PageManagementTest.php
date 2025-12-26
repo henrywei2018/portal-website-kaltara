@@ -26,9 +26,10 @@ test('admin can view page management list', function () {
 
     $response->assertInertia(fn (Assert $page) => $page
         ->component('admin/pages/index')
-        ->has('pages', 1)
-        ->where('pages.0.title', 'Profil Pemerintah')
-        ->where('pages.0.meta', 'Status: Terbit')
+        ->has('pages.data', 1)
+        ->where('pages.data.0.title', 'Profil Pemerintah')
+        ->where('pages.data.0.meta', 'Status: Terbit')
+        ->where('pages.meta.per_page', 10)
         ->where('listMode', 'cards')
     );
 });
@@ -65,8 +66,8 @@ test('admin can search pages by query', function () {
 
     $response->assertInertia(fn (Assert $page) => $page
         ->component('admin/pages/index')
-        ->has('pages', 1)
-        ->where('pages.0.title', 'Profil Pemprov')
+        ->has('pages.data', 1)
+        ->where('pages.data.0.title', 'Profil Pemprov')
         ->where('filters.search', 'profil')
     );
 });
@@ -90,8 +91,8 @@ test('admin can filter pages by status', function () {
 
     $response->assertInertia(fn (Assert $page) => $page
         ->component('admin/pages/index')
-        ->has('pages', 1)
-        ->where('pages.0.title', 'Publik Satu')
+        ->has('pages.data', 1)
+        ->where('pages.data.0.title', 'Publik Satu')
         ->where('filters.status', 'published')
     );
 });

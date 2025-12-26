@@ -35,10 +35,11 @@ test('admin can view document management list', function () {
 
     $response->assertInertia(fn ($page) => $page
         ->component('admin/documents/index')
-        ->has('items', 1)
-        ->where('items.0.title', 'IPKD 2024')
-        ->where('items.0.meta', 'IPKD · Terbit')
-        ->where('items.0.preview_url', $expectedPreviewUrl)
+        ->has('items.data', 1)
+        ->where('items.data.0.title', 'IPKD 2024')
+        ->where('items.data.0.meta', 'IPKD · Terbit')
+        ->where('items.data.0.preview_url', $expectedPreviewUrl)
+        ->where('items.meta.per_page', 10)
         ->where('listMode', 'cards')
         ->has('types')
         ->has('statuses')

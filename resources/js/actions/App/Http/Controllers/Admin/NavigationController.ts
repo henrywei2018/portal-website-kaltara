@@ -82,7 +82,7 @@ index.form = indexForm
 
 /**
 * @see \App\Http\Controllers\Admin\NavigationController::store
-* @see app/Http/Controllers/Admin/NavigationController.php:86
+* @see app/Http/Controllers/Admin/NavigationController.php:94
 * @route '/admin/navigation'
 */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -97,7 +97,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\NavigationController::store
-* @see app/Http/Controllers/Admin/NavigationController.php:86
+* @see app/Http/Controllers/Admin/NavigationController.php:94
 * @route '/admin/navigation'
 */
 store.url = (options?: RouteQueryOptions) => {
@@ -106,7 +106,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\NavigationController::store
-* @see app/Http/Controllers/Admin/NavigationController.php:86
+* @see app/Http/Controllers/Admin/NavigationController.php:94
 * @route '/admin/navigation'
 */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -116,7 +116,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\NavigationController::store
-* @see app/Http/Controllers/Admin/NavigationController.php:86
+* @see app/Http/Controllers/Admin/NavigationController.php:94
 * @route '/admin/navigation'
 */
 const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -126,7 +126,7 @@ const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => 
 
 /**
 * @see \App\Http\Controllers\Admin\NavigationController::store
-* @see app/Http/Controllers/Admin/NavigationController.php:86
+* @see app/Http/Controllers/Admin/NavigationController.php:94
 * @route '/admin/navigation'
 */
 storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -138,7 +138,7 @@ store.form = storeForm
 
 /**
 * @see \App\Http\Controllers\Admin\NavigationController::update
-* @see app/Http/Controllers/Admin/NavigationController.php:93
+* @see app/Http/Controllers/Admin/NavigationController.php:101
 * @route '/admin/navigation/{navigationItem}'
 */
 export const update = (args: { navigationItem: number | { id: number } } | [navigationItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -153,7 +153,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\NavigationController::update
-* @see app/Http/Controllers/Admin/NavigationController.php:93
+* @see app/Http/Controllers/Admin/NavigationController.php:101
 * @route '/admin/navigation/{navigationItem}'
 */
 update.url = (args: { navigationItem: number | { id: number } } | [navigationItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -186,7 +186,7 @@ update.url = (args: { navigationItem: number | { id: number } } | [navigationIte
 
 /**
 * @see \App\Http\Controllers\Admin\NavigationController::update
-* @see app/Http/Controllers/Admin/NavigationController.php:93
+* @see app/Http/Controllers/Admin/NavigationController.php:101
 * @route '/admin/navigation/{navigationItem}'
 */
 update.patch = (args: { navigationItem: number | { id: number } } | [navigationItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -196,7 +196,7 @@ update.patch = (args: { navigationItem: number | { id: number } } | [navigationI
 
 /**
 * @see \App\Http\Controllers\Admin\NavigationController::update
-* @see app/Http/Controllers/Admin/NavigationController.php:93
+* @see app/Http/Controllers/Admin/NavigationController.php:101
 * @route '/admin/navigation/{navigationItem}'
 */
 const updateForm = (args: { navigationItem: number | { id: number } } | [navigationItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -211,7 +211,7 @@ const updateForm = (args: { navigationItem: number | { id: number } } | [navigat
 
 /**
 * @see \App\Http\Controllers\Admin\NavigationController::update
-* @see app/Http/Controllers/Admin/NavigationController.php:93
+* @see app/Http/Controllers/Admin/NavigationController.php:101
 * @route '/admin/navigation/{navigationItem}'
 */
 updateForm.patch = (args: { navigationItem: number | { id: number } } | [navigationItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -228,7 +228,7 @@ update.form = updateForm
 
 /**
 * @see \App\Http\Controllers\Admin\NavigationController::destroy
-* @see app/Http/Controllers/Admin/NavigationController.php:100
+* @see app/Http/Controllers/Admin/NavigationController.php:108
 * @route '/admin/navigation/{navigationItem}'
 */
 export const destroy = (args: { navigationItem: number | { id: number } } | [navigationItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -243,7 +243,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\NavigationController::destroy
-* @see app/Http/Controllers/Admin/NavigationController.php:100
+* @see app/Http/Controllers/Admin/NavigationController.php:108
 * @route '/admin/navigation/{navigationItem}'
 */
 destroy.url = (args: { navigationItem: number | { id: number } } | [navigationItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -276,7 +276,7 @@ destroy.url = (args: { navigationItem: number | { id: number } } | [navigationIt
 
 /**
 * @see \App\Http\Controllers\Admin\NavigationController::destroy
-* @see app/Http/Controllers/Admin/NavigationController.php:100
+* @see app/Http/Controllers/Admin/NavigationController.php:108
 * @route '/admin/navigation/{navigationItem}'
 */
 destroy.delete = (args: { navigationItem: number | { id: number } } | [navigationItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -286,7 +286,7 @@ destroy.delete = (args: { navigationItem: number | { id: number } } | [navigatio
 
 /**
 * @see \App\Http\Controllers\Admin\NavigationController::destroy
-* @see app/Http/Controllers/Admin/NavigationController.php:100
+* @see app/Http/Controllers/Admin/NavigationController.php:108
 * @route '/admin/navigation/{navigationItem}'
 */
 const destroyForm = (args: { navigationItem: number | { id: number } } | [navigationItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -301,7 +301,7 @@ const destroyForm = (args: { navigationItem: number | { id: number } } | [naviga
 
 /**
 * @see \App\Http\Controllers\Admin\NavigationController::destroy
-* @see app/Http/Controllers/Admin/NavigationController.php:100
+* @see app/Http/Controllers/Admin/NavigationController.php:108
 * @route '/admin/navigation/{navigationItem}'
 */
 destroyForm.delete = (args: { navigationItem: number | { id: number } } | [navigationItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

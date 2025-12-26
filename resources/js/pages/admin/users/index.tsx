@@ -1,5 +1,6 @@
 import { AdminActionMenu } from '@/components/admin/admin-action-menu';
 import { AdminList, AdminListItem } from '@/components/admin/admin-list';
+import { AdminPagination } from '@/components/admin/admin-pagination';
 import { AdminSlideOver } from '@/components/admin/admin-slide-over';
 import AdminSidebarLayout from '@/layouts/admin/admin-sidebar-layout';
 import { Form, Head } from '@inertiajs/react';
@@ -19,12 +20,38 @@ type UserItem = {
     meta: string;
 };
 
+type PaginationLink = {
+    url: string | null;
+    label: string;
+    active: boolean;
+};
+
+type PaginationMeta = {
+    current_page: number;
+    last_page: number;
+    per_page: number;
+    total: number;
+    from: number | null;
+    to: number | null;
+};
+
+type PaginatedUsers = {
+    data: UserItem[];
+    links: PaginationLink[];
+    current_page: PaginationMeta['current_page'];
+    last_page: PaginationMeta['last_page'];
+    per_page: PaginationMeta['per_page'];
+    total: PaginationMeta['total'];
+    from: PaginationMeta['from'];
+    to: PaginationMeta['to'];
+};
+
 export default function AdminUsersIndex({
     users,
     roles,
     listMode: _listMode,
 }: {
-    users: UserItem[];
+    users: PaginatedUsers;
     roles: RoleOption[];
     listMode: 'cards' | 'table';
 }) {
@@ -60,9 +87,9 @@ export default function AdminUsersIndex({
                 <AdminList
                     title="Daftar Pengguna"
                     description="Daftar akun admin beserta role dan status aktif."
-                    count={users.length}
+                    count={users.total}
                 >
-                    {users.map((user) => (
+                    {users.data.map((user) => (
                         <AdminListItem
                             key={user.id}
                             title={user.name}
@@ -86,6 +113,7 @@ export default function AdminUsersIndex({
                         </AdminListItem>
                     ))}
                 </AdminList>
+                <AdminPagination pagination={users} />
             </section>
 
             <AdminSlideOver

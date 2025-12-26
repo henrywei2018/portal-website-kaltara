@@ -46,11 +46,10 @@ class ContentController extends Controller
             $itemsQuery->where('status', $status->value);
         }
 
-        $itemCount = (clone $itemsQuery)->count();
-
         $items = $itemsQuery
-            ->get()
-            ->map(fn (ContentItem $item): array => [
+            ->paginate(10)
+            ->withQueryString()
+            ->through(fn (ContentItem $item): array => [
                 'id' => $item->id,
                 'title' => $item->title,
                 'slug' => $item->slug,
@@ -70,7 +69,7 @@ class ContentController extends Controller
             'items' => $items,
             'types' => ContentType::options(),
             'statuses' => ContentStatus::options(),
-            'listMode' => $itemCount >= self::TABLE_THRESHOLD ? 'table' : 'cards',
+            'listMode' => $items->total() >= self::TABLE_THRESHOLD ? 'table' : 'cards',
             'listStyle' => 'compact',
             'actionMode' => 'dropdown',
             'modalMode' => 'slide-over',

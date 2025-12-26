@@ -16,8 +16,9 @@ class UserManagementController extends Controller
     {
         $users = User::query()
             ->orderBy('name')
-            ->get()
-            ->map(fn (User $user): array => [
+            ->paginate(10)
+            ->withQueryString()
+            ->through(fn (User $user): array => [
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,

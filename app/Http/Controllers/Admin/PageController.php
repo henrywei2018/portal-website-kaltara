@@ -39,11 +39,10 @@ class PageController extends Controller
             $pagesQuery->where('status', $selectedStatus);
         }
 
-        $pageCount = (clone $pagesQuery)->count();
-
         $pages = $pagesQuery
-            ->get()
-            ->map(fn (Page $page): array => [
+            ->paginate(10)
+            ->withQueryString()
+            ->through(fn (Page $page): array => [
                 'id' => $page->id,
                 'title' => $page->title,
                 'slug' => $page->slug,
@@ -58,7 +57,7 @@ class PageController extends Controller
 
         return Inertia::render('admin/pages/index', [
             'pages' => $pages,
-            'listMode' => $pageCount >= self::TABLE_THRESHOLD ? 'table' : 'cards',
+            'listMode' => $pages->total() >= self::TABLE_THRESHOLD ? 'table' : 'cards',
             'listStyle' => 'compact',
             'actionMode' => 'dropdown',
             'modalMode' => 'slide-over',

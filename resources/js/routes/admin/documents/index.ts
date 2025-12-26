@@ -82,7 +82,7 @@ index.form = indexForm
 
 /**
 * @see \App\Http\Controllers\Admin\DocumentItemController::store
-* @see app/Http/Controllers/Admin/DocumentItemController.php:52
+* @see app/Http/Controllers/Admin/DocumentItemController.php:60
 * @route '/admin/documents'
 */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -97,7 +97,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\DocumentItemController::store
-* @see app/Http/Controllers/Admin/DocumentItemController.php:52
+* @see app/Http/Controllers/Admin/DocumentItemController.php:60
 * @route '/admin/documents'
 */
 store.url = (options?: RouteQueryOptions) => {
@@ -106,7 +106,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\DocumentItemController::store
-* @see app/Http/Controllers/Admin/DocumentItemController.php:52
+* @see app/Http/Controllers/Admin/DocumentItemController.php:60
 * @route '/admin/documents'
 */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -116,7 +116,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\DocumentItemController::store
-* @see app/Http/Controllers/Admin/DocumentItemController.php:52
+* @see app/Http/Controllers/Admin/DocumentItemController.php:60
 * @route '/admin/documents'
 */
 const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -126,7 +126,7 @@ const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => 
 
 /**
 * @see \App\Http\Controllers\Admin\DocumentItemController::store
-* @see app/Http/Controllers/Admin/DocumentItemController.php:52
+* @see app/Http/Controllers/Admin/DocumentItemController.php:60
 * @route '/admin/documents'
 */
 storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -138,7 +138,7 @@ store.form = storeForm
 
 /**
 * @see \App\Http\Controllers\Admin\DocumentItemController::update
-* @see app/Http/Controllers/Admin/DocumentItemController.php:68
+* @see app/Http/Controllers/Admin/DocumentItemController.php:76
 * @route '/admin/documents/{documentItem}'
 */
 export const update = (args: { documentItem: number | { id: number } } | [documentItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -153,7 +153,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\DocumentItemController::update
-* @see app/Http/Controllers/Admin/DocumentItemController.php:68
+* @see app/Http/Controllers/Admin/DocumentItemController.php:76
 * @route '/admin/documents/{documentItem}'
 */
 update.url = (args: { documentItem: number | { id: number } } | [documentItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -186,7 +186,7 @@ update.url = (args: { documentItem: number | { id: number } } | [documentItem: n
 
 /**
 * @see \App\Http\Controllers\Admin\DocumentItemController::update
-* @see app/Http/Controllers/Admin/DocumentItemController.php:68
+* @see app/Http/Controllers/Admin/DocumentItemController.php:76
 * @route '/admin/documents/{documentItem}'
 */
 update.patch = (args: { documentItem: number | { id: number } } | [documentItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -196,7 +196,7 @@ update.patch = (args: { documentItem: number | { id: number } } | [documentItem:
 
 /**
 * @see \App\Http\Controllers\Admin\DocumentItemController::update
-* @see app/Http/Controllers/Admin/DocumentItemController.php:68
+* @see app/Http/Controllers/Admin/DocumentItemController.php:76
 * @route '/admin/documents/{documentItem}'
 */
 const updateForm = (args: { documentItem: number | { id: number } } | [documentItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -211,7 +211,7 @@ const updateForm = (args: { documentItem: number | { id: number } } | [documentI
 
 /**
 * @see \App\Http\Controllers\Admin\DocumentItemController::update
-* @see app/Http/Controllers/Admin/DocumentItemController.php:68
+* @see app/Http/Controllers/Admin/DocumentItemController.php:76
 * @route '/admin/documents/{documentItem}'
 */
 updateForm.patch = (args: { documentItem: number | { id: number } } | [documentItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -228,7 +228,7 @@ update.form = updateForm
 
 /**
 * @see \App\Http\Controllers\Admin\DocumentItemController::destroy
-* @see app/Http/Controllers/Admin/DocumentItemController.php:85
+* @see app/Http/Controllers/Admin/DocumentItemController.php:93
 * @route '/admin/documents/{documentItem}'
 */
 export const destroy = (args: { documentItem: number | { id: number } } | [documentItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -243,7 +243,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\DocumentItemController::destroy
-* @see app/Http/Controllers/Admin/DocumentItemController.php:85
+* @see app/Http/Controllers/Admin/DocumentItemController.php:93
 * @route '/admin/documents/{documentItem}'
 */
 destroy.url = (args: { documentItem: number | { id: number } } | [documentItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -276,7 +276,7 @@ destroy.url = (args: { documentItem: number | { id: number } } | [documentItem: 
 
 /**
 * @see \App\Http\Controllers\Admin\DocumentItemController::destroy
-* @see app/Http/Controllers/Admin/DocumentItemController.php:85
+* @see app/Http/Controllers/Admin/DocumentItemController.php:93
 * @route '/admin/documents/{documentItem}'
 */
 destroy.delete = (args: { documentItem: number | { id: number } } | [documentItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -286,7 +286,7 @@ destroy.delete = (args: { documentItem: number | { id: number } } | [documentIte
 
 /**
 * @see \App\Http\Controllers\Admin\DocumentItemController::destroy
-* @see app/Http/Controllers/Admin/DocumentItemController.php:85
+* @see app/Http/Controllers/Admin/DocumentItemController.php:93
 * @route '/admin/documents/{documentItem}'
 */
 const destroyForm = (args: { documentItem: number | { id: number } } | [documentItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -301,7 +301,7 @@ const destroyForm = (args: { documentItem: number | { id: number } } | [document
 
 /**
 * @see \App\Http\Controllers\Admin\DocumentItemController::destroy
-* @see app/Http/Controllers/Admin/DocumentItemController.php:85
+* @see app/Http/Controllers/Admin/DocumentItemController.php:93
 * @route '/admin/documents/{documentItem}'
 */
 destroyForm.delete = (args: { documentItem: number | { id: number } } | [documentItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

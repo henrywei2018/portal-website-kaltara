@@ -23,11 +23,10 @@ class DocumentItemController extends Controller
             ->orderByDesc('issued_at')
             ->orderByDesc('created_at');
 
-        $itemCount = (clone $itemsQuery)->count();
-
         $items = $itemsQuery
-            ->get()
-            ->map(fn (DocumentItem $item): array => [
+            ->paginate(10)
+            ->withQueryString()
+            ->through(fn (DocumentItem $item): array => [
                 'id' => $item->id,
                 'title' => $item->title,
                 'description' => $item->description,
@@ -50,7 +49,7 @@ class DocumentItemController extends Controller
             'items' => $items,
             'types' => \App\Enums\DocumentType::options(),
             'statuses' => \App\Enums\DocumentStatus::options(),
-            'listMode' => $itemCount >= self::TABLE_THRESHOLD ? 'table' : 'cards',
+            'listMode' => $items->total() >= self::TABLE_THRESHOLD ? 'table' : 'cards',
             'listStyle' => 'compact',
             'actionMode' => 'dropdown',
             'modalMode' => 'slide-over',

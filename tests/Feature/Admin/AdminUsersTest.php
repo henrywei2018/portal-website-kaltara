@@ -23,9 +23,10 @@ test('super admins can view admin user management', function () {
 
     $response->assertInertia(fn (Assert $page) => $page
         ->component('admin/users/index')
-        ->has('users', 1)
-        ->where('users.0.email', 'admin@example.com')
-        ->where('users.0.meta', 'Super Admin · Aktif')
+        ->has('users.data', 1)
+        ->where('users.data.0.email', 'admin@example.com')
+        ->where('users.data.0.meta', 'Super Admin · Aktif')
+        ->where('users.meta.per_page', 10)
         ->has('roles', 3)
     );
 });

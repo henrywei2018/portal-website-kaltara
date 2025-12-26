@@ -1,5 +1,6 @@
 import { AdminActionMenu } from '@/components/admin/admin-action-menu';
 import { AdminList, AdminListItem } from '@/components/admin/admin-list';
+import { AdminPagination } from '@/components/admin/admin-pagination';
 import { AdminSlideOver } from '@/components/admin/admin-slide-over';
 import AdminSidebarLayout from '@/layouts/admin/admin-sidebar-layout';
 import { Form, Head, useForm } from '@inertiajs/react';
@@ -23,6 +24,32 @@ type DocumentItem = {
     issued_at: string | null;
     published_at: string | null;
     meta: string;
+};
+
+type PaginationLink = {
+    url: string | null;
+    label: string;
+    active: boolean;
+};
+
+type PaginationMeta = {
+    current_page: number;
+    last_page: number;
+    per_page: number;
+    total: number;
+    from: number | null;
+    to: number | null;
+};
+
+type PaginatedDocuments = {
+    data: DocumentItem[];
+    links: PaginationLink[];
+    current_page: PaginationMeta['current_page'];
+    last_page: PaginationMeta['last_page'];
+    per_page: PaginationMeta['per_page'];
+    total: PaginationMeta['total'];
+    from: PaginationMeta['from'];
+    to: PaginationMeta['to'];
 };
 
 type DocumentForm = {
@@ -63,7 +90,7 @@ export default function AdminDocumentIndex({
     statuses,
     listMode: _listMode,
 }: {
-    items: DocumentItem[];
+    items: PaginatedDocuments;
     types: OptionItem[];
     statuses: OptionItem[];
     listMode: 'cards' | 'table';
@@ -150,9 +177,9 @@ export default function AdminDocumentIndex({
                 <AdminList
                     title="Daftar Dokumen"
                     description="List ringkas untuk mengelola dokumen publikasi dan arsip."
-                    count={items.length}
+                    count={items.total}
                 >
-                    {items.map((item) => (
+                    {items.data.map((item) => (
                         <AdminListItem
                             key={item.id}
                             title={item.title}
@@ -195,6 +222,7 @@ export default function AdminDocumentIndex({
                         </AdminListItem>
                     ))}
                 </AdminList>
+                <AdminPagination pagination={items} />
             </section>
 
             <AdminSlideOver

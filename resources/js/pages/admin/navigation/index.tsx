@@ -1,5 +1,6 @@
 import { AdminActionMenu } from '@/components/admin/admin-action-menu';
 import { AdminList, AdminListItem } from '@/components/admin/admin-list';
+import { AdminPagination } from '@/components/admin/admin-pagination';
 import { AdminSlideOver } from '@/components/admin/admin-slide-over';
 import AdminSidebarLayout from '@/layouts/admin/admin-sidebar-layout';
 import { Form, Head } from '@inertiajs/react';
@@ -23,13 +24,39 @@ type NavigationItem = {
     meta: string;
 };
 
+type PaginationLink = {
+    url: string | null;
+    label: string;
+    active: boolean;
+};
+
+type PaginationMeta = {
+    current_page: number;
+    last_page: number;
+    per_page: number;
+    total: number;
+    from: number | null;
+    to: number | null;
+};
+
+type PaginatedNavigation = {
+    data: NavigationItem[];
+    links: PaginationLink[];
+    current_page: PaginationMeta['current_page'];
+    last_page: PaginationMeta['last_page'];
+    per_page: PaginationMeta['per_page'];
+    total: PaginationMeta['total'];
+    from: PaginationMeta['from'];
+    to: PaginationMeta['to'];
+};
+
 export default function NavigationIndex({
     items,
     parents,
     listMode,
     filters,
 }: {
-    items: NavigationItem[];
+    items: PaginatedNavigation;
     parents: ParentOption[];
     listMode: 'cards' | 'table';
     filters: {
@@ -74,9 +101,9 @@ export default function NavigationIndex({
                 <AdminList
                     title="Daftar Menu"
                     description="List ringkas dengan aksi cepat untuk mengelola navigasi."
-                    count={items.length}
+                    count={items.total}
                 >
-                    {items.map((item) => (
+                    {items.data.map((item) => (
                         <AdminListItem
                             key={item.id}
                             title={item.label}
@@ -140,6 +167,7 @@ export default function NavigationIndex({
                         </AdminListItem>
                     ))}
                 </AdminList>
+                <AdminPagination pagination={items} />
             </section>
 
             <AdminSlideOver
