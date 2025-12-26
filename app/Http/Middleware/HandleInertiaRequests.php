@@ -37,36 +37,83 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
+        $currentPath = '/'.$request->path();
+        $normalizePath = static function (string $url): string {
+            $path = parse_url($url, PHP_URL_PATH);
+
+            return $path ?: $url;
+        };
+        $isActive = static function (string $currentPath, string $url) use ($normalizePath): bool {
+            $path = $normalizePath($url);
+
+            return $currentPath === $path || str_starts_with($currentPath, $path.'/');
+        };
         $adminNav = $request->is('admin*')
             ? [
                 'groups' => [
                     [
                         'title' => 'Konten',
                         'items' => [
-                            ['title' => 'Dashboard', 'href' => route('admin.dashboard')],
-                            ['title' => 'Halaman Dinamis', 'href' => route('admin.pages.index')],
-                            ['title' => 'Berita & Pengumuman', 'href' => route('admin.content.index')],
-                            ['title' => 'Menu Navigasi', 'href' => route('admin.navigation.index')],
+                            [
+                                'title' => 'Dashboard',
+                                'href' => route('admin.dashboard'),
+                                'isActive' => $isActive($currentPath, route('admin.dashboard')),
+                            ],
+                            [
+                                'title' => 'Halaman Dinamis',
+                                'href' => route('admin.pages.index'),
+                                'isActive' => $isActive($currentPath, route('admin.pages.index')),
+                            ],
+                            [
+                                'title' => 'Berita & Pengumuman',
+                                'href' => route('admin.content.index'),
+                                'isActive' => $isActive($currentPath, route('admin.content.index')),
+                            ],
+                            [
+                                'title' => 'Menu Navigasi',
+                                'href' => route('admin.navigation.index'),
+                                'isActive' => $isActive($currentPath, route('admin.navigation.index')),
+                            ],
                         ],
                     ],
                     [
                         'title' => 'Statistik',
                         'items' => [
-                            ['title' => 'Ringkasan Portal', 'href' => route('stats.index')],
+                            [
+                                'title' => 'Ringkasan Portal',
+                                'href' => route('stats.index'),
+                                'isActive' => $isActive($currentPath, route('stats.index')),
+                            ],
                         ],
                     ],
                     [
                         'title' => 'Pengguna',
                         'items' => [
-                            ['title' => 'Manajemen Pengguna', 'href' => route('admin.users.index')],
+                            [
+                                'title' => 'Manajemen Pengguna',
+                                'href' => route('admin.users.index'),
+                                'isActive' => $isActive($currentPath, route('admin.users.index')),
+                            ],
                         ],
                     ],
                     [
                         'title' => 'Pengaturan',
                         'items' => [
-                            ['title' => 'Profil', 'href' => route('profile.edit')],
-                            ['title' => 'Password', 'href' => route('user-password.edit')],
-                            ['title' => 'Tampilan', 'href' => route('appearance.edit')],
+                            [
+                                'title' => 'Profil',
+                                'href' => route('profile.edit'),
+                                'isActive' => $isActive($currentPath, route('profile.edit')),
+                            ],
+                            [
+                                'title' => 'Password',
+                                'href' => route('user-password.edit'),
+                                'isActive' => $isActive($currentPath, route('user-password.edit')),
+                            ],
+                            [
+                                'title' => 'Tampilan',
+                                'href' => route('appearance.edit'),
+                                'isActive' => $isActive($currentPath, route('appearance.edit')),
+                            ],
                         ],
                     ],
                 ],

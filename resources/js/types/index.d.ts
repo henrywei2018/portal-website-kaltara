@@ -25,6 +25,7 @@ export interface NavItem {
 export interface AdminNavItem {
     title: string;
     href: NonNullable<InertiaLinkProps['href']>;
+    isActive?: boolean;
 }
 
 export interface AdminNavGroup {

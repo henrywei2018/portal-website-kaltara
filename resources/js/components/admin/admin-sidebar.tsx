@@ -93,7 +93,10 @@ export function AdminSidebar() {
                                         <SidebarMenu>
                                             {group.items.map((item) => {
                                                 const path = resolvePath(String(item.href));
-                                                const isActive = currentPath === path || currentPath.startsWith(`${path}/`);
+                                                const isActive =
+                                                    item.isActive ??
+                                                    currentPath === path ||
+                                                    currentPath.startsWith(`${path}/`);
 
                                                 return (
                                                     <SidebarMenuItem key={item.title}>

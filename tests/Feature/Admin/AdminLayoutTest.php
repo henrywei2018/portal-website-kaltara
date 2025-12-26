@@ -24,3 +24,20 @@ it('shares admin navigation groups for admin pages', function () {
         ->where('adminNav.groups.2.title', 'Pengguna')
     );
 });
+
+it('marks active admin navigation item based on current route', function () {
+    actingAs(User::factory()->create([
+        'role' => UserRole::Editor,
+        'is_active' => true,
+        'email_verified_at' => now(),
+    ]));
+
+    $response = $this->get('/admin');
+
+    $response->assertOk();
+
+    $response->assertInertia(fn (Assert $page) => $page
+        ->component('admin/dashboard')
+        ->where('adminNav.groups.0.items.0.isActive', true)
+    );
+});
