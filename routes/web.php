@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\ServiceCatalogItemController;
 use App\Http\Controllers\Admin\ServiceSectorController;
 use App\Http\Controllers\Admin\UserManagementController;
+use App\Http\Controllers\Public\ServiceCatalogController as PublicServiceCatalogController;
 use App\Models\ContentItem;
 use App\Models\DocumentItem;
 use App\Models\NavigationItem;
@@ -210,6 +211,11 @@ Route::get('/ipkd', function () {
         'items' => $items,
     ]);
 })->name('ipkd.index');
+
+Route::get('/layanan', [PublicServiceCatalogController::class, 'index'])
+    ->name('services.index');
+Route::get('/layanan/{serviceCatalogItem:slug}', [PublicServiceCatalogController::class, 'show'])
+    ->name('services.show');
 
 Route::get('/data', function (Request $request) {
     $isLoading = $request->boolean('loading');
