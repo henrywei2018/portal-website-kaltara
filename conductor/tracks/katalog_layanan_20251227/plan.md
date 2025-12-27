@@ -20,5 +20,5 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 3: Publik UI Katalog Layanan' (Protocol in workflow.md) (55e6afa)
 
 ## Phase 4: Navigasi Admin Katalog Layanan
-- [~] Task: TDD - Tambahkan menu Katalog Layanan dan Sektor Layanan di sidebar admin
+- [x] Task: TDD - Tambahkan menu Katalog Layanan dan Sektor Layanan di sidebar admin (62d54d8)
 - [ ] Task: Conductor - User Manual Verification 'Phase 4: Navigasi Admin Katalog Layanan' (Protocol in workflow.md)
