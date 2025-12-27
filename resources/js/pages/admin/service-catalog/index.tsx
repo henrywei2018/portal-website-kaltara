@@ -1,5 +1,6 @@
 import { AdminActionMenu } from '@/components/admin/admin-action-menu';
 import { AdminList, AdminListItem } from '@/components/admin/admin-list';
+import { AdminRichTextEditor } from '@/components/admin/admin-rich-text-editor';
 import { AdminSlideOver } from '@/components/admin/admin-slide-over';
 import AdminSidebarLayout from '@/layouts/admin/admin-sidebar-layout';
 import { Form, Head, useForm } from '@inertiajs/react';
@@ -386,66 +387,36 @@ export default function AdminServiceCatalogIndex({
                     ) : null}
 
                     <div className="grid gap-4">
-                        <div>
-                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                                Media dan Informasi
-                            </label>
-                            <textarea
-                                name="media_information"
-                                value={form.data.media_information}
-                                onChange={(event) => form.setData('media_information', event.target.value)}
-                                rows={3}
-                                className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                            />
-                        </div>
-                        <div>
-                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                                Manfaat bagi masyarakat
-                            </label>
-                            <textarea
-                                name="community_benefits"
-                                value={form.data.community_benefits}
-                                onChange={(event) => form.setData('community_benefits', event.target.value)}
-                                rows={3}
-                                className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                            />
-                        </div>
-                        <div>
-                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                                Fitur Aplikasi SIDATUK
-                            </label>
-                            <textarea
-                                name="sidatuk_features"
-                                value={form.data.sidatuk_features}
-                                onChange={(event) => form.setData('sidatuk_features', event.target.value)}
-                                rows={3}
-                                className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                            />
-                        </div>
-                        <div>
-                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                                Ketentuan layanan
-                            </label>
-                            <textarea
-                                name="service_terms"
-                                value={form.data.service_terms}
-                                onChange={(event) => form.setData('service_terms', event.target.value)}
-                                rows={3}
-                                className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                            />
-                        </div>
-                        <div>
-                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                                Alur pengguna layanan
-                            </label>
-                            <textarea
-                                name="service_flow"
-                                value={form.data.service_flow}
-                                onChange={(event) => form.setData('service_flow', event.target.value)}
-                                rows={3}
-                                className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                            />
-                        </div>
+                        <AdminRichTextEditor
+                            label="Media dan Informasi"
+                            description="Tuliskan informasi singkat dengan format rich text."
+                            value={form.data.media_information}
+                            onChange={(value) => form.setData('media_information', value)}
+                        />
+                        <AdminRichTextEditor
+                            label="Manfaat bagi masyarakat"
+                            description="Sorot manfaat utama layanan."
+                            value={form.data.community_benefits}
+                            onChange={(value) => form.setData('community_benefits', value)}
+                        />
+                        <AdminRichTextEditor
+                            label="Fitur Aplikasi SIDATUK"
+                            description="Cantumkan fitur yang relevan untuk layanan ini."
+                            value={form.data.sidatuk_features}
+                            onChange={(value) => form.setData('sidatuk_features', value)}
+                        />
+                        <AdminRichTextEditor
+                            label="Ketentuan layanan"
+                            description="Jelaskan syarat dan ketentuan layanan."
+                            value={form.data.service_terms}
+                            onChange={(value) => form.setData('service_terms', value)}
+                        />
+                        <AdminRichTextEditor
+                            label="Alur pengguna layanan"
+                            description="Tuliskan langkah-langkah utama."
+                            value={form.data.service_flow}
+                            onChange={(value) => form.setData('service_flow', value)}
+                        />
                     </div>
 
                     <div className="rounded-2xl border border-black/5 bg-white/80 p-4 dark:border-white/10 dark:bg-white/5">

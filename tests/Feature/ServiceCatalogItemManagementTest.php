@@ -21,6 +21,7 @@ test('admin can view service catalog items', function () {
     ServiceCatalogItem::factory()->create([
         'service_sector_id' => $sector->id,
         'title' => 'Layanan Keluarga',
+        'media_information' => 'Media informasi pendidikan.',
     ]);
 
     $response = $this->get('/admin/service-catalog');
@@ -31,6 +32,7 @@ test('admin can view service catalog items', function () {
         ->component('admin/service-catalog/index')
         ->has('items', 1)
         ->where('items.0.title', 'Layanan Keluarga')
+        ->where('items.0.media_information', '<p>Media informasi pendidikan.</p>')
         ->has('sectors', 1)
     );
 });

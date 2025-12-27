@@ -38,11 +38,11 @@ class ServiceCatalogItemController extends Controller
                 'sector_name' => $item->sector?->name,
                 'title' => $item->title,
                 'slug' => $item->slug,
-                'media_information' => $item->media_information,
-                'community_benefits' => $item->community_benefits,
-                'sidatuk_features' => $item->sidatuk_features,
-                'service_terms' => $item->service_terms,
-                'service_flow' => $item->service_flow,
+                'media_information' => $this->formatRichText($item->media_information),
+                'community_benefits' => $this->formatRichText($item->community_benefits),
+                'sidatuk_features' => $this->formatRichText($item->sidatuk_features),
+                'service_terms' => $this->formatRichText($item->service_terms),
+                'service_flow' => $this->formatRichText($item->service_flow),
                 'infographic_url' => $item->infographic_path
                     ? Storage::disk($item->infographic_disk)->url($item->infographic_path)
                     : null,
@@ -200,5 +200,23 @@ class ServiceCatalogItemController extends Controller
         }
 
         return $query->exists();
+    }
+
+    protected function formatRichText(?string $value): string
+    {
+        $value = (string) $value;
+
+        if ($value === '') {
+            return '';
+        }
+
+        if (strip_tags($value) !== $value) {
+            return $value;
+        }
+
+        $escaped = e($value);
+        $escaped = nl2br($escaped, false);
+
+        return "<p>{$escaped}</p>";
     }
 }
