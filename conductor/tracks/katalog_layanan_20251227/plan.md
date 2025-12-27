@@ -18,3 +18,7 @@
 - [x] Task: TDD - Tampilan detail layanan publik (semua section + FAQ + infografis) (b2a0658)
 - [x] Task: TDD - Tambahkan test publik untuk search/filter (b2a0658)
 - [x] Task: Conductor - User Manual Verification 'Phase 3: Publik UI Katalog Layanan' (Protocol in workflow.md) (55e6afa)
+
+## Phase 4: Navigasi Admin Katalog Layanan
+- [~] Task: TDD - Tambahkan menu Katalog Layanan dan Sektor Layanan di sidebar admin
+- [ ] Task: Conductor - User Manual Verification 'Phase 4: Navigasi Admin Katalog Layanan' (Protocol in workflow.md)
