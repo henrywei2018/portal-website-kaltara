@@ -22,4 +22,10 @@
 ## Phase 4: Navigasi Admin Katalog Layanan
 - [x] Task: TDD - Tambahkan menu Katalog Layanan dan Sektor Layanan di sidebar admin (62d54d8)
 - [x] Task: TDD - Perbaiki scroll pada modal slide-over admin (e100a24)
-- [ ] Task: Conductor - User Manual Verification 'Phase 4: Navigasi Admin Katalog Layanan' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Phase 4: Navigasi Admin Katalog Layanan' (Protocol in workflow.md)
+
+## Phase 5: Detail Layanan Publik (Hero + Anchor + Metadata)
+- [ ] Task: TDD - Tambahkan metadata layanan publik (logo, instansi, status, CTA, hotline, jam layanan, website, alamat, sosial) (migrasi + model + request + admin)
+- [ ] Task: TDD - Perbarui tampilan publik detail layanan dengan layout hero + anchor sidebar + section cards
+- [ ] Task: TDD - Tambahkan test untuk metadata dan rendering publik
+- [ ] Task: Conductor - User Manual Verification 'Phase 5: Detail Layanan Publik (Hero + Anchor + Metadata)' (Protocol in workflow.md)
