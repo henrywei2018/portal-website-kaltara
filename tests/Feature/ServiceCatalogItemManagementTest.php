@@ -74,6 +74,22 @@ test('admin can create service catalog item with faq and infographic', function 
     Storage::disk('public')->assertExists($item->infographic_path);
 });
 
+test('service catalog item requires mandatory fields', function () {
+    $response = $this->post('/admin/service-catalog', [
+        'title' => 'Layanan Tanpa Sektor',
+        'is_active' => true,
+    ]);
+
+    $response->assertSessionHasErrors([
+        'service_sector_id',
+        'media_information',
+        'community_benefits',
+        'sidatuk_features',
+        'service_terms',
+        'service_flow',
+    ]);
+});
+
 test('admin can update service catalog item and faqs', function () {
     $sector = ServiceSector::factory()->create();
     $item = ServiceCatalogItem::factory()->create([

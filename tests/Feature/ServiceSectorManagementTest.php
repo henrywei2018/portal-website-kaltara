@@ -52,6 +52,16 @@ test('admin can create a service sector', function () {
     ]);
 });
 
+test('service sector requires mandatory fields', function () {
+    $response = $this->post('/admin/service-sectors', [
+        'description' => 'Deskripsi kosong nama.',
+        'sort_order' => 1,
+        'is_active' => true,
+    ]);
+
+    $response->assertSessionHasErrors(['name']);
+});
+
 test('admin can update a service sector', function () {
     $sector = ServiceSector::factory()->create([
         'name' => 'Karier',
