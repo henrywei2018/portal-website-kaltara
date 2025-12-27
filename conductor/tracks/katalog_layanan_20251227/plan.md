@@ -29,4 +29,6 @@
 - [x] Task: TDD - Perbarui tampilan publik detail layanan dengan layout hero + anchor sidebar + section cards (263e73b)
 - [x] Task: TDD - Tambahkan test untuk metadata dan rendering publik (e8af707)
 - [x] Task: TDD - Tambahkan seeder katalog layanan (sektor + layanan demo + FAQ) (e028cfa)
+- [x] Task: TDD - Tambahkan seeder konten publik (berita, artikel, pengumuman) + dokumen (pengumuman, IPKD) (5c23684)
+- [ ] Task: TDD - Selaraskan navigasi portal dengan konten publik dan halaman statis
 - [ ] Task: Conductor - User Manual Verification 'Phase 5: Detail Layanan Publik (Hero + Anchor + Metadata)' (Protocol in workflow.md)
