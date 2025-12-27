@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\DocumentItemController;
 use App\Http\Controllers\Admin\NavigationController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\ServiceSectorController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Models\ContentItem;
 use App\Models\DocumentItem;
@@ -310,6 +311,19 @@ Route::middleware(['auth', 'verified', 'can:access-admin'])->prefix('admin')->na
     Route::patch('users/{user}', [UserManagementController::class, 'update'])
         ->middleware('can:manage-users')
         ->name('users.update');
+
+    Route::get('service-sectors', [ServiceSectorController::class, 'index'])
+        ->middleware('can:manage-content')
+        ->name('service-sectors.index');
+    Route::post('service-sectors', [ServiceSectorController::class, 'store'])
+        ->middleware('can:manage-content')
+        ->name('service-sectors.store');
+    Route::patch('service-sectors/{serviceSector}', [ServiceSectorController::class, 'update'])
+        ->middleware('can:manage-content')
+        ->name('service-sectors.update');
+    Route::delete('service-sectors/{serviceSector}', [ServiceSectorController::class, 'destroy'])
+        ->middleware('can:manage-content')
+        ->name('service-sectors.destroy');
 
     Route::get('navigation', [NavigationController::class, 'index'])
         ->middleware('can:manage-navigation')
