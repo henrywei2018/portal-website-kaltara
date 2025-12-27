@@ -15,6 +15,6 @@
 
 ## Phase 3: Publik UI Katalog Layanan
 - [x] Task: TDD - Halaman publik katalog layanan (search global + filter sektor chips) (b2a0658)
-- [ ] Task: TDD - Tampilan detail layanan publik (semua section + FAQ + infografis)
-- [ ] Task: TDD - Tambahkan test publik untuk search/filter
+- [x] Task: TDD - Tampilan detail layanan publik (semua section + FAQ + infografis) (b2a0658)
+- [x] Task: TDD - Tambahkan test publik untuk search/filter (b2a0658)
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Publik UI Katalog Layanan' (Protocol in workflow.md)
