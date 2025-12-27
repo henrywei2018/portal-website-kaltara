@@ -25,7 +25,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 4: Navigasi Admin Katalog Layanan' (Protocol in workflow.md) (10fd8d9)
 
 ## Phase 5: Detail Layanan Publik (Hero + Anchor + Metadata)
-- [ ] Task: TDD - Tambahkan metadata layanan publik (logo, instansi, status, CTA, hotline, jam layanan, website, alamat, sosial) (migrasi + model + request + admin)
+- [x] Task: TDD - Tambahkan metadata layanan publik (logo, instansi, status, CTA, hotline, jam layanan, website, alamat, sosial) (migrasi + model + request + admin) (695a543)
 - [ ] Task: TDD - Perbarui tampilan publik detail layanan dengan layout hero + anchor sidebar + section cards
 - [ ] Task: TDD - Tambahkan test untuk metadata dan rendering publik
 - [ ] Task: Conductor - User Manual Verification 'Phase 5: Detail Layanan Publik (Hero + Anchor + Metadata)' (Protocol in workflow.md)
