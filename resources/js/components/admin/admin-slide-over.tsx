@@ -24,7 +24,10 @@ export function AdminSlideOver({
 }: AdminSlideOverProps) {
     return (
         <Sheet open={open} onOpenChange={onOpenChange}>
-            <SheetContent side="right" className="w-full max-w-xl p-0 sm:max-w-2xl">
+            <SheetContent
+                side="right"
+                className="w-full max-w-xl overflow-hidden p-0 sm:max-w-2xl"
+            >
                 <SheetHeader className="border-b border-black/5 px-6 py-5 dark:border-white/10">
                     <SheetTitle className="text-lg font-semibold text-[#123726] dark:text-white">
                         {title}
@@ -35,7 +38,7 @@ export function AdminSlideOver({
                         </SheetDescription>
                     ) : null}
                 </SheetHeader>
-                <div className="px-6 py-6">{children}</div>
+                <div className="flex-1 overflow-y-auto px-6 py-6">{children}</div>
             </SheetContent>
         </Sheet>
     );

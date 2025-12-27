@@ -21,4 +21,5 @@
 
 ## Phase 4: Navigasi Admin Katalog Layanan
 - [x] Task: TDD - Tambahkan menu Katalog Layanan dan Sektor Layanan di sidebar admin (62d54d8)
+- [~] Task: TDD - Perbaiki scroll pada modal slide-over admin
 - [ ] Task: Conductor - User Manual Verification 'Phase 4: Navigasi Admin Katalog Layanan' (Protocol in workflow.md)
