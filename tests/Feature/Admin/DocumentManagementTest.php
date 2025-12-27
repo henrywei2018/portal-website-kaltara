@@ -109,6 +109,18 @@ test('admin can filter document items by type and status', function () {
     );
 });
 
+test('admin must fill required document fields', function () {
+    Storage::fake('public');
+
+    $response = $this->post('/admin/documents', [
+        'title' => 'Dokumen Baru',
+        'type' => DocumentType::Announcement->value,
+        'status' => DocumentStatus::Draft->value,
+    ]);
+
+    $response->assertSessionHasErrors(['description', 'file', 'issued_at']);
+});
+
 test('admin can create document item with PDF upload', function () {
     Storage::fake('public');
 

@@ -140,14 +140,20 @@ export default function AdminDocumentIndex({
         if (activeItem) {
             form.patch(`/admin/documents/${activeItem.id}`, {
                 forceFormData: true,
+                preserveScroll: true,
+                onSuccess: () => closeModal(),
             });
             return;
         }
 
         form.post('/admin/documents', {
             forceFormData: true,
+            preserveScroll: true,
+            onSuccess: () => closeModal(),
         });
     };
+
+    const hasErrors = Object.keys(form.errors).length > 0;
 
     return (
         <AdminSidebarLayout
@@ -321,6 +327,11 @@ export default function AdminDocumentIndex({
                 }
             >
                 <form onSubmit={submit} className="grid gap-4">
+                    {hasErrors ? (
+                        <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-xs text-red-700">
+                            Mohon periksa kembali isian yang wajib diisi sebelum menyimpan.
+                        </div>
+                    ) : null}
                     <div className="grid gap-4 md:grid-cols-2">
                         <div>
                             <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
@@ -333,6 +344,9 @@ export default function AdminDocumentIndex({
                                 onChange={(event) => form.setData('title', event.target.value)}
                                 className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
                             />
+                            {form.errors.title ? (
+                                <p className="mt-2 text-xs text-red-600">{form.errors.title}</p>
+                            ) : null}
                         </div>
                         <div>
                             <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
@@ -350,6 +364,9 @@ export default function AdminDocumentIndex({
                                     </option>
                                 ))}
                             </select>
+                            {form.errors.type ? (
+                                <p className="mt-2 text-xs text-red-600">{form.errors.type}</p>
+                            ) : null}
                         </div>
                     </div>
                     <div>
@@ -358,11 +375,15 @@ export default function AdminDocumentIndex({
                         </label>
                         <textarea
                             name="description"
+                            required
                             value={form.data.description}
                             onChange={(event) => form.setData('description', event.target.value)}
                             rows={3}
                             className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
                         />
+                        {form.errors.description ? (
+                            <p className="mt-2 text-xs text-red-600">{form.errors.description}</p>
+                        ) : null}
                     </div>
                     <div className="grid gap-4 md:grid-cols-3">
                         <div>
@@ -381,6 +402,9 @@ export default function AdminDocumentIndex({
                                     </option>
                                 ))}
                             </select>
+                            {form.errors.status ? (
+                                <p className="mt-2 text-xs text-red-600">{form.errors.status}</p>
+                            ) : null}
                         </div>
                         <div>
                             <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
@@ -389,10 +413,14 @@ export default function AdminDocumentIndex({
                             <input
                                 type="date"
                                 name="issued_at"
+                                required
                                 value={form.data.issued_at}
                                 onChange={(event) => form.setData('issued_at', event.target.value)}
                                 className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
                             />
+                            {form.errors.issued_at ? (
+                                <p className="mt-2 text-xs text-red-600">{form.errors.issued_at}</p>
+                            ) : null}
                         </div>
                         <div>
                             <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
@@ -401,10 +429,14 @@ export default function AdminDocumentIndex({
                             <input
                                 type="date"
                                 name="published_at"
+                                required={form.data.status === 'published'}
                                 value={form.data.published_at}
                                 onChange={(event) => form.setData('published_at', event.target.value)}
                                 className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
                             />
+                            {form.errors.published_at ? (
+                                <p className="mt-2 text-xs text-red-600">{form.errors.published_at}</p>
+                            ) : null}
                         </div>
                     </div>
                     <div>
@@ -419,6 +451,9 @@ export default function AdminDocumentIndex({
                             required={!activeItem}
                             className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#123726] file:mr-4 file:rounded-full file:border-0 file:bg-[#0f6b4f] file:px-4 file:py-2 file:text-xs file:font-semibold file:text-white dark:border-white/10 dark:bg-white/5 dark:text-white"
                         />
+                        {form.errors.file ? (
+                            <p className="mt-2 text-xs text-red-600">{form.errors.file}</p>
+                        ) : null}
                     </div>
 
                     {activeItem ? (
