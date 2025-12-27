@@ -15,10 +15,5 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-## [~] Track: Standarisasi UI/UX admin dengan list ringkas, search/filter/pagination, dan CRUD modal slide-over
-*Link: [./conductor/tracks/admin_uiux_20251226/](./conductor/tracks/admin_uiux_20251226/)*
-
----
-
 ## [~] Track: Katalog layanan publik/administrasi dengan sektor dan detail layanan lengkap
 *Link: [./conductor/tracks/katalog_layanan_20251227/](./conductor/tracks/katalog_layanan_20251227/)*
