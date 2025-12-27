@@ -30,5 +30,5 @@
 - [x] Task: TDD - Tambahkan test untuk metadata dan rendering publik (e8af707)
 - [x] Task: TDD - Tambahkan seeder katalog layanan (sektor + layanan demo + FAQ) (e028cfa)
 - [x] Task: TDD - Tambahkan seeder konten publik (berita, artikel, pengumuman) + dokumen (pengumuman, IPKD) (5c23684)
-- [ ] Task: TDD - Selaraskan navigasi portal dengan konten publik dan halaman statis
+- [x] Task: TDD - Selaraskan navigasi portal dengan konten publik dan halaman statis (d0ad2ea)
 - [ ] Task: Conductor - User Manual Verification 'Phase 5: Detail Layanan Publik (Hero + Anchor + Metadata)' (Protocol in workflow.md)
