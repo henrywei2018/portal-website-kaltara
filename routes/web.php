@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\DocumentItemController;
 use App\Http\Controllers\Admin\NavigationController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\ServiceCatalogItemController;
 use App\Http\Controllers\Admin\ServiceSectorController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Models\ContentItem;
@@ -324,6 +325,19 @@ Route::middleware(['auth', 'verified', 'can:access-admin'])->prefix('admin')->na
     Route::delete('service-sectors/{serviceSector}', [ServiceSectorController::class, 'destroy'])
         ->middleware('can:manage-content')
         ->name('service-sectors.destroy');
+
+    Route::get('service-catalog', [ServiceCatalogItemController::class, 'index'])
+        ->middleware('can:manage-content')
+        ->name('service-catalog.index');
+    Route::post('service-catalog', [ServiceCatalogItemController::class, 'store'])
+        ->middleware('can:manage-content')
+        ->name('service-catalog.store');
+    Route::patch('service-catalog/{serviceCatalogItem}', [ServiceCatalogItemController::class, 'update'])
+        ->middleware('can:manage-content')
+        ->name('service-catalog.update');
+    Route::delete('service-catalog/{serviceCatalogItem}', [ServiceCatalogItemController::class, 'destroy'])
+        ->middleware('can:manage-content')
+        ->name('service-catalog.destroy');
 
     Route::get('navigation', [NavigationController::class, 'index'])
         ->middleware('can:manage-navigation')

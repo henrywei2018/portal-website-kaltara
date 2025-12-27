@@ -1,12 +1,13 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../wayfinder'
 import users from './users'
 import serviceSectors from './service-sectors'
+import serviceCatalog from './service-catalog'
 import navigation from './navigation'
 import pages from './pages'
 import content from './content'
 import documents from './documents'
 /**
-* @see routes/web.php:259
+* @see routes/web.php:260
 * @route '/admin'
 */
 export const dashboard = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -20,7 +21,7 @@ dashboard.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see routes/web.php:259
+* @see routes/web.php:260
 * @route '/admin'
 */
 dashboard.url = (options?: RouteQueryOptions) => {
@@ -28,7 +29,7 @@ dashboard.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see routes/web.php:259
+* @see routes/web.php:260
 * @route '/admin'
 */
 dashboard.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -37,7 +38,7 @@ dashboard.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see routes/web.php:259
+* @see routes/web.php:260
 * @route '/admin'
 */
 dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -46,7 +47,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see routes/web.php:259
+* @see routes/web.php:260
 * @route '/admin'
 */
 const dashboardForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -55,7 +56,7 @@ const dashboardForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> 
 })
 
 /**
-* @see routes/web.php:259
+* @see routes/web.php:260
 * @route '/admin'
 */
 dashboardForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -64,7 +65,7 @@ dashboardForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> =>
 })
 
 /**
-* @see routes/web.php:259
+* @see routes/web.php:260
 * @route '/admin'
 */
 dashboardForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -83,6 +84,7 @@ const admin = {
     dashboard: Object.assign(dashboard, dashboard),
     users: Object.assign(users, users),
     serviceSectors: Object.assign(serviceSectors, serviceSectors),
+    serviceCatalog: Object.assign(serviceCatalog, serviceCatalog),
     navigation: Object.assign(navigation, navigation),
     pages: Object.assign(pages, pages),
     content: Object.assign(content, content),
