@@ -2,7 +2,7 @@
 
 ## Phase 1: Fondasi Data & Backend
 - [x] Task: TDD - Desain dan implementasi model data sektor + layanan + FAQ (migrasi, model, factory, seeder) (7784cad)
-- [ ] Task: TDD - Implementasi CRUD admin untuk sektor layanan (controller + request validation)
+- [x] Task: TDD - Implementasi CRUD admin untuk sektor layanan (controller + request validation) (d60051d)
 - [ ] Task: TDD - Implementasi CRUD admin untuk layanan + FAQ + upload infografis
 - [ ] Task: TDD - Tambahkan test validasi dan akses admin untuk sektor & layanan
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Fondasi Data & Backend' (Protocol in workflow.md)
