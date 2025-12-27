@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             NavigationItemSeeder::class,
             PageSeeder::class,
+            ServiceCatalogSeeder::class,
         ]);
     }
 }
