@@ -27,5 +27,5 @@
 ## Phase 5: Detail Layanan Publik (Hero + Anchor + Metadata)
 - [x] Task: TDD - Tambahkan metadata layanan publik (logo, instansi, status, CTA, hotline, jam layanan, website, alamat, sosial) (migrasi + model + request + admin) (695a543)
 - [x] Task: TDD - Perbarui tampilan publik detail layanan dengan layout hero + anchor sidebar + section cards (263e73b)
-- [ ] Task: TDD - Tambahkan test untuk metadata dan rendering publik
+- [x] Task: TDD - Tambahkan test untuk metadata dan rendering publik (e8af707)
 - [ ] Task: Conductor - User Manual Verification 'Phase 5: Detail Layanan Publik (Hero + Anchor + Metadata)' (Protocol in workflow.md)
