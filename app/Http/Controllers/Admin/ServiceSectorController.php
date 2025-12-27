@@ -30,6 +30,11 @@ class ServiceSectorController extends Controller
                 'icon_url' => $sector->icon_path
                     ? Storage::disk($sector->icon_disk)->url($sector->icon_path)
                     : null,
+                'meta' => sprintf(
+                    'Urutan %d · %s',
+                    $sector->sort_order,
+                    $sector->is_active ? 'Aktif' : 'Nonaktif'
+                ),
             ]);
 
         return Inertia::render('admin/service-sectors/index', [

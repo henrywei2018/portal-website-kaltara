@@ -29,6 +29,7 @@ test('admin can view service sector management', function () {
         ->has('sectors', 1)
         ->where('sectors.0.name', 'Keluarga')
         ->where('sectors.0.slug', 'keluarga')
+        ->where('sectors.0.meta', 'Urutan 1 · Aktif')
     );
 });
 

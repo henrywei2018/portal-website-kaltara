@@ -82,7 +82,7 @@ index.form = indexForm
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceSectorController::store
-* @see app/Http/Controllers/Admin/ServiceSectorController.php:40
+* @see app/Http/Controllers/Admin/ServiceSectorController.php:45
 * @route '/admin/service-sectors'
 */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -97,7 +97,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceSectorController::store
-* @see app/Http/Controllers/Admin/ServiceSectorController.php:40
+* @see app/Http/Controllers/Admin/ServiceSectorController.php:45
 * @route '/admin/service-sectors'
 */
 store.url = (options?: RouteQueryOptions) => {
@@ -106,7 +106,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceSectorController::store
-* @see app/Http/Controllers/Admin/ServiceSectorController.php:40
+* @see app/Http/Controllers/Admin/ServiceSectorController.php:45
 * @route '/admin/service-sectors'
 */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -116,7 +116,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceSectorController::store
-* @see app/Http/Controllers/Admin/ServiceSectorController.php:40
+* @see app/Http/Controllers/Admin/ServiceSectorController.php:45
 * @route '/admin/service-sectors'
 */
 const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -126,7 +126,7 @@ const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => 
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceSectorController::store
-* @see app/Http/Controllers/Admin/ServiceSectorController.php:40
+* @see app/Http/Controllers/Admin/ServiceSectorController.php:45
 * @route '/admin/service-sectors'
 */
 storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -138,7 +138,7 @@ store.form = storeForm
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceSectorController::update
-* @see app/Http/Controllers/Admin/ServiceSectorController.php:56
+* @see app/Http/Controllers/Admin/ServiceSectorController.php:61
 * @route '/admin/service-sectors/{serviceSector}'
 */
 export const update = (args: { serviceSector: string | number | { id: string | number } } | [serviceSector: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -153,7 +153,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceSectorController::update
-* @see app/Http/Controllers/Admin/ServiceSectorController.php:56
+* @see app/Http/Controllers/Admin/ServiceSectorController.php:61
 * @route '/admin/service-sectors/{serviceSector}'
 */
 update.url = (args: { serviceSector: string | number | { id: string | number } } | [serviceSector: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
@@ -186,7 +186,7 @@ update.url = (args: { serviceSector: string | number | { id: string | number } }
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceSectorController::update
-* @see app/Http/Controllers/Admin/ServiceSectorController.php:56
+* @see app/Http/Controllers/Admin/ServiceSectorController.php:61
 * @route '/admin/service-sectors/{serviceSector}'
 */
 update.patch = (args: { serviceSector: string | number | { id: string | number } } | [serviceSector: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -196,7 +196,7 @@ update.patch = (args: { serviceSector: string | number | { id: string | number }
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceSectorController::update
-* @see app/Http/Controllers/Admin/ServiceSectorController.php:56
+* @see app/Http/Controllers/Admin/ServiceSectorController.php:61
 * @route '/admin/service-sectors/{serviceSector}'
 */
 const updateForm = (args: { serviceSector: string | number | { id: string | number } } | [serviceSector: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -211,7 +211,7 @@ const updateForm = (args: { serviceSector: string | number | { id: string | numb
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceSectorController::update
-* @see app/Http/Controllers/Admin/ServiceSectorController.php:56
+* @see app/Http/Controllers/Admin/ServiceSectorController.php:61
 * @route '/admin/service-sectors/{serviceSector}'
 */
 updateForm.patch = (args: { serviceSector: string | number | { id: string | number } } | [serviceSector: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -228,7 +228,7 @@ update.form = updateForm
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceSectorController::destroy
-* @see app/Http/Controllers/Admin/ServiceSectorController.php:73
+* @see app/Http/Controllers/Admin/ServiceSectorController.php:78
 * @route '/admin/service-sectors/{serviceSector}'
 */
 export const destroy = (args: { serviceSector: string | number | { id: string | number } } | [serviceSector: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -243,7 +243,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceSectorController::destroy
-* @see app/Http/Controllers/Admin/ServiceSectorController.php:73
+* @see app/Http/Controllers/Admin/ServiceSectorController.php:78
 * @route '/admin/service-sectors/{serviceSector}'
 */
 destroy.url = (args: { serviceSector: string | number | { id: string | number } } | [serviceSector: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
@@ -276,7 +276,7 @@ destroy.url = (args: { serviceSector: string | number | { id: string | number } 
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceSectorController::destroy
-* @see app/Http/Controllers/Admin/ServiceSectorController.php:73
+* @see app/Http/Controllers/Admin/ServiceSectorController.php:78
 * @route '/admin/service-sectors/{serviceSector}'
 */
 destroy.delete = (args: { serviceSector: string | number | { id: string | number } } | [serviceSector: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -286,7 +286,7 @@ destroy.delete = (args: { serviceSector: string | number | { id: string | number
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceSectorController::destroy
-* @see app/Http/Controllers/Admin/ServiceSectorController.php:73
+* @see app/Http/Controllers/Admin/ServiceSectorController.php:78
 * @route '/admin/service-sectors/{serviceSector}'
 */
 const destroyForm = (args: { serviceSector: string | number | { id: string | number } } | [serviceSector: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -301,7 +301,7 @@ const destroyForm = (args: { serviceSector: string | number | { id: string | num
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceSectorController::destroy
-* @see app/Http/Controllers/Admin/ServiceSectorController.php:73
+* @see app/Http/Controllers/Admin/ServiceSectorController.php:78
 * @route '/admin/service-sectors/{serviceSector}'
 */
 destroyForm.delete = (args: { serviceSector: string | number | { id: string | number } } | [serviceSector: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
