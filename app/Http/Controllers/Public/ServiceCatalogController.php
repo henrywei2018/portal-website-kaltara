@@ -93,13 +93,15 @@ class ServiceCatalogController extends Controller
             abort(404);
         }
 
+        $serviceStatus = $this->normalizeServiceStatus($serviceCatalogItem->service_status);
+
         return Inertia::render('portal/service-catalog/show', [
             'item' => [
                 'title' => $serviceCatalogItem->title,
                 'slug' => $serviceCatalogItem->slug,
                 'provider_name' => $serviceCatalogItem->provider_name,
                 'summary' => $serviceCatalogItem->summary,
-                'service_status' => $serviceCatalogItem->service_status ?? 'online',
+                'service_status' => $serviceStatus,
                 'service_cta_label' => $serviceCatalogItem->service_cta_label ?? 'Akses Layanan',
                 'service_cta_url' => $serviceCatalogItem->service_cta_url,
                 'hotline_phone' => $serviceCatalogItem->hotline_phone,
@@ -154,5 +156,21 @@ class ServiceCatalogController extends Controller
         $escaped = nl2br($escaped, false);
 
         return "<p>{$escaped}</p>";
+    }
+
+    protected function normalizeServiceStatus(?string $status): string
+    {
+        if (! is_string($status)) {
+            return 'online';
+        }
+
+        $normalized = strtolower($status);
+        $allowed = ['online', 'limited', 'offline'];
+
+        if (! in_array($normalized, $allowed, true)) {
+            return 'online';
+        }
+
+        return $normalized;
     }
 }

@@ -139,3 +139,28 @@ test('public catalog detail shows active service item', function () {
         ->where('item.service_logo_url', fn ($value) => is_string($value) && $value !== '')
     );
 });
+
+test('public catalog detail normalizes invalid service status', function () {
+    $sector = ServiceSector::factory()->create([
+        'name' => 'Sosial',
+        'slug' => 'sosial',
+        'is_active' => true,
+    ]);
+
+    $item = ServiceCatalogItem::factory()->create([
+        'service_sector_id' => $sector->id,
+        'title' => 'Layanan Sosial',
+        'slug' => 'layanan-sosial',
+        'is_active' => true,
+        'service_status' => 'tidak-valid',
+    ]);
+
+    $response = $this->get("/layanan/{$item->slug}");
+
+    $response->assertOk();
+
+    $response->assertInertia(fn (Assert $page) => $page
+        ->component('portal/service-catalog/show')
+        ->where('item.service_status', 'online')
+    );
+});
