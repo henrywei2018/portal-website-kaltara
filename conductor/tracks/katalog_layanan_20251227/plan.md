@@ -19,10 +19,10 @@
 - [x] Task: TDD - Tambahkan test publik untuk search/filter (b2a0658)
 - [x] Task: Conductor - User Manual Verification 'Phase 3: Publik UI Katalog Layanan' (Protocol in workflow.md) (55e6afa)
 
-## Phase 4: Navigasi Admin Katalog Layanan
+## Phase 4: Navigasi Admin Katalog Layanan [checkpoint: 10fd8d9]
 - [x] Task: TDD - Tambahkan menu Katalog Layanan dan Sektor Layanan di sidebar admin (62d54d8)
 - [x] Task: TDD - Perbaiki scroll pada modal slide-over admin (e100a24)
-- [~] Task: Conductor - User Manual Verification 'Phase 4: Navigasi Admin Katalog Layanan' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 4: Navigasi Admin Katalog Layanan' (Protocol in workflow.md) (10fd8d9)
 
 ## Phase 5: Detail Layanan Publik (Hero + Anchor + Metadata)
 - [ ] Task: TDD - Tambahkan metadata layanan publik (logo, instansi, status, CTA, hotline, jam layanan, website, alamat, sosial) (migrasi + model + request + admin)
