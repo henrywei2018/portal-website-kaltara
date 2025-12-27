@@ -19,6 +19,22 @@ class ServiceCatalogItem extends Model
         'service_sector_id',
         'title',
         'slug',
+        'provider_name',
+        'summary',
+        'service_logo_path',
+        'service_logo_name',
+        'service_logo_size',
+        'service_logo_disk',
+        'service_status',
+        'service_cta_label',
+        'service_cta_url',
+        'hotline_phone',
+        'service_website_url',
+        'service_address',
+        'service_phone',
+        'service_email',
+        'operational_hours',
+        'social_links',
         'media_information',
         'community_benefits',
         'sidatuk_features',
@@ -39,7 +55,10 @@ class ServiceCatalogItem extends Model
         return [
             'service_sector_id' => 'integer',
             'infographic_size' => 'integer',
+            'service_logo_size' => 'integer',
             'is_active' => 'boolean',
+            'operational_hours' => 'array',
+            'social_links' => 'array',
         ];
     }
 

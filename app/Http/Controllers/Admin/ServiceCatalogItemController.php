@@ -38,11 +38,26 @@ class ServiceCatalogItemController extends Controller
                 'sector_name' => $item->sector?->name,
                 'title' => $item->title,
                 'slug' => $item->slug,
+                'provider_name' => $item->provider_name,
+                'summary' => $item->summary,
+                'service_status' => $item->service_status,
+                'service_cta_label' => $item->service_cta_label,
+                'service_cta_url' => $item->service_cta_url,
+                'hotline_phone' => $item->hotline_phone,
+                'service_website_url' => $item->service_website_url,
+                'service_address' => $item->service_address,
+                'service_phone' => $item->service_phone,
+                'service_email' => $item->service_email,
+                'operational_hours' => $item->operational_hours ?? [],
+                'social_links' => $item->social_links ?? [],
                 'media_information' => $this->formatRichText($item->media_information),
                 'community_benefits' => $this->formatRichText($item->community_benefits),
                 'sidatuk_features' => $this->formatRichText($item->sidatuk_features),
                 'service_terms' => $this->formatRichText($item->service_terms),
                 'service_flow' => $this->formatRichText($item->service_flow),
+                'service_logo_url' => $item->service_logo_path
+                    ? Storage::disk($item->service_logo_disk ?? 'public')->url($item->service_logo_path)
+                    : null,
                 'infographic_url' => $item->infographic_path
                     ? Storage::disk($item->infographic_disk)->url($item->infographic_path)
                     : null,
@@ -85,9 +100,14 @@ class ServiceCatalogItemController extends Controller
         $data['slug'] = $this->generateSlug($data['title']);
 
         $infographic = $request->file('infographic');
+        $serviceLogo = $request->file('service_logo');
 
         if ($infographic) {
             $data = array_merge($data, $this->attachInfographicMetadata($infographic, 'public'));
+        }
+
+        if ($serviceLogo) {
+            $data = array_merge($data, $this->attachServiceLogoMetadata($serviceLogo, 'public'));
         }
 
         $faqs = $data['faqs'] ?? [];
@@ -106,12 +126,21 @@ class ServiceCatalogItemController extends Controller
         $data['slug'] = $this->generateSlug($data['title'], $serviceCatalogItem);
 
         $infographic = $request->file('infographic');
+        $serviceLogo = $request->file('service_logo');
 
         if ($infographic) {
             $this->deleteInfographicIfExists($serviceCatalogItem);
             $data = array_merge(
                 $data,
                 $this->attachInfographicMetadata($infographic, $serviceCatalogItem->infographic_disk ?? 'public')
+            );
+        }
+
+        if ($serviceLogo) {
+            $this->deleteServiceLogoIfExists($serviceCatalogItem);
+            $data = array_merge(
+                $data,
+                $this->attachServiceLogoMetadata($serviceLogo, $serviceCatalogItem->service_logo_disk ?? 'public')
             );
         }
 
@@ -128,6 +157,7 @@ class ServiceCatalogItemController extends Controller
     public function destroy(ServiceCatalogItem $serviceCatalogItem): RedirectResponse
     {
         $this->deleteInfographicIfExists($serviceCatalogItem);
+        $this->deleteServiceLogoIfExists($serviceCatalogItem);
         $serviceCatalogItem->delete();
 
         return back(303);
@@ -164,6 +194,21 @@ class ServiceCatalogItemController extends Controller
         ];
     }
 
+    /**
+     * @return array{service_logo_path: string, service_logo_name: string, service_logo_size: int, service_logo_disk: string}
+     */
+    protected function attachServiceLogoMetadata(\Illuminate\Http\UploadedFile $logo, string $disk): array
+    {
+        $path = $logo->store('service-catalog/logos', $disk);
+
+        return [
+            'service_logo_path' => $path,
+            'service_logo_name' => $logo->getClientOriginalName(),
+            'service_logo_size' => (int) $logo->getSize(),
+            'service_logo_disk' => $disk,
+        ];
+    }
+
     protected function deleteInfographicIfExists(ServiceCatalogItem $item): void
     {
         $path = (string) $item->infographic_path;
@@ -173,6 +218,19 @@ class ServiceCatalogItemController extends Controller
         }
 
         $disk = $item->infographic_disk ?? 'public';
+
+        Storage::disk($disk)->delete($path);
+    }
+
+    protected function deleteServiceLogoIfExists(ServiceCatalogItem $item): void
+    {
+        $path = (string) $item->service_logo_path;
+
+        if ($path === '') {
+            return;
+        }
+
+        $disk = $item->service_logo_disk ?? 'public';
 
         Storage::disk($disk)->delete($path);
     }

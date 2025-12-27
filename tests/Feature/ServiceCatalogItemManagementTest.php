@@ -72,10 +72,31 @@ test('admin can create service catalog item with faq and infographic', function 
     Storage::fake('public');
     $sector = ServiceSector::factory()->create();
     $file = UploadedFile::fake()->image('infografis.png');
+    $logo = UploadedFile::fake()->image('logo.png');
+    $operationalHours = [
+        ['day' => 'Senin', 'opens_at' => '08:00', 'closes_at' => '16:00', 'is_closed' => false],
+        ['day' => 'Selasa', 'opens_at' => '08:00', 'closes_at' => '16:00', 'is_closed' => false],
+    ];
+    $socialLinks = [
+        ['platform' => 'instagram', 'url' => 'https://instagram.com/layanan'],
+        ['platform' => 'youtube', 'url' => 'https://youtube.com/layanan'],
+    ];
 
     $response = $this->post('/admin/service-catalog', [
         'service_sector_id' => $sector->id,
         'title' => 'Layanan Pendidikan',
+        'provider_name' => 'Dinas Pendidikan Provinsi',
+        'summary' => 'Ringkasan layanan pendidikan untuk masyarakat.',
+        'service_status' => 'online',
+        'service_cta_label' => 'Akses Layanan',
+        'service_cta_url' => 'https://layanan.example.test',
+        'hotline_phone' => '08123456789',
+        'service_website_url' => 'https://layanan.example.test/info',
+        'service_address' => 'Jl. Merdeka No. 1, Tanjung Selor',
+        'service_phone' => '(0551) 123456',
+        'service_email' => 'kontak@layanan.example.test',
+        'operational_hours' => $operationalHours,
+        'social_links' => $socialLinks,
         'media_information' => 'Media informasi pendidikan.',
         'community_benefits' => 'Manfaat untuk masyarakat.',
         'sidatuk_features' => 'Fitur SIDATUK.',
@@ -83,6 +104,7 @@ test('admin can create service catalog item with faq and infographic', function 
         'service_flow' => 'Alur layanan.',
         'is_active' => true,
         'infographic' => $file,
+        'service_logo' => $logo,
         'faqs' => [
             ['question' => 'Apa syaratnya?', 'answer' => 'KTP dan KK.', 'sort_order' => 1],
         ],
@@ -105,6 +127,20 @@ test('admin can create service catalog item with faq and infographic', function 
     ]);
 
     Storage::disk('public')->assertExists($item->infographic_path);
+    Storage::disk('public')->assertExists($item->service_logo_path);
+
+    expect($item->provider_name)->toBe('Dinas Pendidikan Provinsi')
+        ->and($item->summary)->toBe('Ringkasan layanan pendidikan untuk masyarakat.')
+        ->and($item->service_status)->toBe('online')
+        ->and($item->service_cta_label)->toBe('Akses Layanan')
+        ->and($item->service_cta_url)->toBe('https://layanan.example.test')
+        ->and($item->hotline_phone)->toBe('08123456789')
+        ->and($item->service_website_url)->toBe('https://layanan.example.test/info')
+        ->and($item->service_address)->toBe('Jl. Merdeka No. 1, Tanjung Selor')
+        ->and($item->service_phone)->toBe('(0551) 123456')
+        ->and($item->service_email)->toBe('kontak@layanan.example.test')
+        ->and($item->operational_hours)->toMatchArray($operationalHours)
+        ->and($item->social_links)->toMatchArray($socialLinks);
 });
 
 test('service catalog item requires mandatory fields', function () {
@@ -133,6 +169,22 @@ test('admin can update service catalog item and faqs', function () {
     $response = $this->patch("/admin/service-catalog/{$item->id}", [
         'service_sector_id' => $sector->id,
         'title' => 'Layanan Baru',
+        'provider_name' => 'Dinas Pendidikan Provinsi',
+        'summary' => 'Ringkasan layanan pendidikan untuk masyarakat.',
+        'service_status' => 'limited',
+        'service_cta_label' => 'Lihat Layanan',
+        'service_cta_url' => 'https://layanan.example.test/baru',
+        'hotline_phone' => '0800001122',
+        'service_website_url' => 'https://layanan.example.test/portal',
+        'service_address' => 'Jl. Jenderal Sudirman No. 10, Tanjung Selor',
+        'service_phone' => '(0551) 654321',
+        'service_email' => 'info@layanan.example.test',
+        'operational_hours' => [
+            ['day' => 'Senin', 'opens_at' => '08:00', 'closes_at' => '15:00', 'is_closed' => false],
+        ],
+        'social_links' => [
+            ['platform' => 'facebook', 'url' => 'https://facebook.com/layanan'],
+        ],
         'media_information' => 'Media informasi baru.',
         'community_benefits' => 'Manfaat baru.',
         'sidatuk_features' => 'Fitur baru.',
@@ -156,6 +208,25 @@ test('admin can update service catalog item and faqs', function () {
         'service_catalog_item_id' => $item->id,
         'question' => 'Bagaimana alurnya?',
     ]);
+
+    $item->refresh();
+
+    expect($item->provider_name)->toBe('Dinas Pendidikan Provinsi')
+        ->and($item->summary)->toBe('Ringkasan layanan pendidikan untuk masyarakat.')
+        ->and($item->service_status)->toBe('limited')
+        ->and($item->service_cta_label)->toBe('Lihat Layanan')
+        ->and($item->service_cta_url)->toBe('https://layanan.example.test/baru')
+        ->and($item->hotline_phone)->toBe('0800001122')
+        ->and($item->service_website_url)->toBe('https://layanan.example.test/portal')
+        ->and($item->service_address)->toBe('Jl. Jenderal Sudirman No. 10, Tanjung Selor')
+        ->and($item->service_phone)->toBe('(0551) 654321')
+        ->and($item->service_email)->toBe('info@layanan.example.test')
+        ->and($item->operational_hours)->toMatchArray([
+            ['day' => 'Senin', 'opens_at' => '08:00', 'closes_at' => '15:00', 'is_closed' => false],
+        ])
+        ->and($item->social_links)->toMatchArray([
+            ['platform' => 'facebook', 'url' => 'https://facebook.com/layanan'],
+        ]);
 });
 
 test('admin can delete service catalog item', function () {

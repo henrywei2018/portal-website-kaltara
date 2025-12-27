@@ -17,15 +17,40 @@ type ServiceCatalogItem = {
     sector_id: number;
     sector_name: string | null;
     slug: string;
+    provider_name: string | null;
+    summary: string | null;
+    service_status: 'online' | 'offline' | 'limited' | null;
+    service_cta_label: string | null;
+    service_cta_url: string | null;
+    hotline_phone: string | null;
+    service_website_url: string | null;
+    service_address: string | null;
+    service_phone: string | null;
+    service_email: string | null;
+    operational_hours: OperationalHour[];
+    social_links: SocialLink[];
     media_information: string;
     community_benefits: string;
     sidatuk_features: string;
     service_terms: string;
     service_flow: string;
     infographic_url: string | null;
+    service_logo_url: string | null;
     is_active: boolean;
     faqs: Array<{ question: string; answer: string; sort_order: number }>;
     meta: string;
+};
+
+type OperationalHour = {
+    day: string;
+    opens_at: string;
+    closes_at: string;
+    is_closed: boolean;
+};
+
+type SocialLink = {
+    platform: string;
+    url: string;
 };
 
 type ServiceCatalogFaqForm = {
@@ -37,6 +62,18 @@ type ServiceCatalogFaqForm = {
 type ServiceCatalogForm = {
     service_sector_id: number | '';
     title: string;
+    provider_name: string;
+    summary: string;
+    service_status: 'online' | 'offline' | 'limited';
+    service_cta_label: string;
+    service_cta_url: string;
+    hotline_phone: string;
+    service_website_url: string;
+    service_address: string;
+    service_phone: string;
+    service_email: string;
+    operational_hours: OperationalHour[];
+    social_links: SocialLink[];
     media_information: string;
     community_benefits: string;
     sidatuk_features: string;
@@ -44,8 +81,19 @@ type ServiceCatalogForm = {
     service_flow: string;
     is_active: boolean;
     infographic: File | null;
+    service_logo: File | null;
     faqs: ServiceCatalogFaqForm[];
 };
+
+const defaultOperationalHours: OperationalHour[] = [
+    { day: 'Senin', opens_at: '08:00', closes_at: '16:00', is_closed: false },
+    { day: 'Selasa', opens_at: '08:00', closes_at: '16:00', is_closed: false },
+    { day: 'Rabu', opens_at: '08:00', closes_at: '16:00', is_closed: false },
+    { day: 'Kamis', opens_at: '08:00', closes_at: '16:00', is_closed: false },
+    { day: 'Jumat', opens_at: '08:00', closes_at: '16:00', is_closed: false },
+    { day: 'Sabtu', opens_at: '', closes_at: '', is_closed: true },
+    { day: 'Minggu', opens_at: '', closes_at: '', is_closed: true },
+];
 
 export default function AdminServiceCatalogIndex({
     items,
@@ -63,6 +111,18 @@ export default function AdminServiceCatalogIndex({
     const form = useForm<ServiceCatalogForm>({
         service_sector_id: sectors[0]?.id ?? '',
         title: '',
+        provider_name: '',
+        summary: '',
+        service_status: 'online',
+        service_cta_label: 'Akses Layanan',
+        service_cta_url: '',
+        hotline_phone: '',
+        service_website_url: '',
+        service_address: '',
+        service_phone: '',
+        service_email: '',
+        operational_hours: defaultOperationalHours,
+        social_links: [],
         media_information: '',
         community_benefits: '',
         sidatuk_features: '',
@@ -70,6 +130,7 @@ export default function AdminServiceCatalogIndex({
         service_flow: '',
         is_active: true,
         infographic: null,
+        service_logo: null,
         faqs: [],
     });
 
@@ -78,6 +139,20 @@ export default function AdminServiceCatalogIndex({
             form.setData({
                 service_sector_id: activeItem.sector_id,
                 title: activeItem.title,
+                provider_name: activeItem.provider_name ?? '',
+                summary: activeItem.summary ?? '',
+                service_status: activeItem.service_status ?? 'online',
+                service_cta_label: activeItem.service_cta_label ?? 'Akses Layanan',
+                service_cta_url: activeItem.service_cta_url ?? '',
+                hotline_phone: activeItem.hotline_phone ?? '',
+                service_website_url: activeItem.service_website_url ?? '',
+                service_address: activeItem.service_address ?? '',
+                service_phone: activeItem.service_phone ?? '',
+                service_email: activeItem.service_email ?? '',
+                operational_hours: activeItem.operational_hours?.length
+                    ? activeItem.operational_hours
+                    : defaultOperationalHours,
+                social_links: activeItem.social_links ?? [],
                 media_information: activeItem.media_information,
                 community_benefits: activeItem.community_benefits,
                 sidatuk_features: activeItem.sidatuk_features,
@@ -85,6 +160,7 @@ export default function AdminServiceCatalogIndex({
                 service_flow: activeItem.service_flow,
                 is_active: activeItem.is_active,
                 infographic: null,
+                service_logo: null,
                 faqs: activeItem.faqs ?? [],
             });
             return;
@@ -94,6 +170,18 @@ export default function AdminServiceCatalogIndex({
             form.setData({
                 service_sector_id: sectors[0]?.id ?? '',
                 title: '',
+                provider_name: '',
+                summary: '',
+                service_status: 'online',
+                service_cta_label: 'Akses Layanan',
+                service_cta_url: '',
+                hotline_phone: '',
+                service_website_url: '',
+                service_address: '',
+                service_phone: '',
+                service_email: '',
+                operational_hours: defaultOperationalHours,
+                social_links: [],
                 media_information: '',
                 community_benefits: '',
                 sidatuk_features: '',
@@ -101,6 +189,7 @@ export default function AdminServiceCatalogIndex({
                 service_flow: '',
                 is_active: true,
                 infographic: null,
+                service_logo: null,
                 faqs: [],
             });
         }
@@ -149,6 +238,38 @@ export default function AdminServiceCatalogIndex({
         form.setData(
             'faqs',
             form.data.faqs.filter((_, faqIndex) => faqIndex !== index)
+        );
+    };
+
+    const updateOperationalHour = (
+        index: number,
+        key: keyof OperationalHour,
+        value: string | boolean
+    ) => {
+        const nextHours = form.data.operational_hours.map((hour, hourIndex) =>
+            hourIndex === index ? { ...hour, [key]: value } : hour
+        );
+        form.setData('operational_hours', nextHours);
+    };
+
+    const addSocialLink = () => {
+        form.setData('social_links', [
+            ...form.data.social_links,
+            { platform: '', url: '' },
+        ]);
+    };
+
+    const updateSocialLink = (index: number, key: keyof SocialLink, value: string) => {
+        const nextLinks = form.data.social_links.map((link, linkIndex) =>
+            linkIndex === index ? { ...link, [key]: value } : link
+        );
+        form.setData('social_links', nextLinks);
+    };
+
+    const removeSocialLink = (index: number) => {
+        form.setData(
+            'social_links',
+            form.data.social_links.filter((_, linkIndex) => linkIndex !== index)
         );
     };
 
@@ -333,7 +454,55 @@ export default function AdminServiceCatalogIndex({
                     <div className="grid gap-4 md:grid-cols-2">
                         <div>
                             <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
-                                Status
+                                Instansi Penanggung Jawab
+                            </label>
+                            <input
+                                name="provider_name"
+                                value={form.data.provider_name}
+                                onChange={(event) =>
+                                    form.setData('provider_name', event.target.value)
+                                }
+                                className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                            />
+                        </div>
+                        <div>
+                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                                Ringkasan Layanan
+                            </label>
+                            <textarea
+                                name="summary"
+                                value={form.data.summary}
+                                onChange={(event) => form.setData('summary', event.target.value)}
+                                rows={2}
+                                className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="grid gap-4 md:grid-cols-3">
+                        <div>
+                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                                Status Layanan
+                            </label>
+                            <select
+                                name="service_status"
+                                value={form.data.service_status}
+                                onChange={(event) =>
+                                    form.setData(
+                                        'service_status',
+                                        event.target.value as ServiceCatalogForm['service_status']
+                                    )
+                                }
+                                className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                            >
+                                <option value="online">Online</option>
+                                <option value="limited">Terbatas</option>
+                                <option value="offline">Offline</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                                Status Publikasi
                             </label>
                             <select
                                 name="is_active"
@@ -349,6 +518,23 @@ export default function AdminServiceCatalogIndex({
                         </div>
                         <div>
                             <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                                Logo Layanan
+                            </label>
+                            <input
+                                type="file"
+                                name="service_logo"
+                                accept="image/png,image/jpeg,image/svg+xml"
+                                onChange={(event) =>
+                                    form.setData('service_logo', event.target.files?.[0] ?? null)
+                                }
+                                className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#123726] file:mr-4 file:rounded-full file:border-0 file:bg-[#0f6b4f] file:px-4 file:py-2 file:text-xs file:font-semibold file:text-white dark:border-white/10 dark:bg-white/5 dark:text-white"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="grid gap-4 md:grid-cols-2">
+                        <div>
+                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
                                 Infografis
                             </label>
                             <input
@@ -362,6 +548,29 @@ export default function AdminServiceCatalogIndex({
                             />
                         </div>
                     </div>
+
+                    {activeItem?.service_logo_url ? (
+                        <div className="overflow-hidden rounded-2xl border border-black/5 bg-white/80 dark:border-white/10 dark:bg-white/5">
+                            <div className="flex items-center justify-between border-b border-black/5 px-4 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#567365] dark:border-white/10 dark:text-[#b0c2b8]">
+                                <span>Preview Logo Layanan</span>
+                                <a
+                                    href={activeItem.service_logo_url}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="rounded-full border border-black/10 px-3 py-1 text-[0.65rem] font-semibold text-[#123726] transition hover:border-black/20 dark:border-white/20 dark:text-white"
+                                >
+                                    Buka Tab Baru
+                                </a>
+                            </div>
+                            <div className="flex justify-center bg-white px-4 py-4 dark:bg-[#0b2d1d]">
+                                <img
+                                    src={activeItem.service_logo_url}
+                                    alt={`Logo ${activeItem.title}`}
+                                    className="max-h-24 w-auto rounded-xl"
+                                />
+                            </div>
+                        </div>
+                    ) : null}
 
                     {activeItem?.infographic_url ? (
                         <div className="overflow-hidden rounded-2xl border border-black/5 bg-white/80 dark:border-white/10 dark:bg-white/5">
@@ -385,6 +594,240 @@ export default function AdminServiceCatalogIndex({
                             </div>
                         </div>
                     ) : null}
+
+                    <div className="grid gap-4 md:grid-cols-3">
+                        <div>
+                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                                Label Tombol Akses
+                            </label>
+                            <input
+                                name="service_cta_label"
+                                value={form.data.service_cta_label}
+                                onChange={(event) =>
+                                    form.setData('service_cta_label', event.target.value)
+                                }
+                                className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                            />
+                        </div>
+                        <div>
+                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                                URL Tombol Akses
+                            </label>
+                            <input
+                                name="service_cta_url"
+                                value={form.data.service_cta_url}
+                                onChange={(event) =>
+                                    form.setData('service_cta_url', event.target.value)
+                                }
+                                className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                            />
+                        </div>
+                        <div>
+                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                                Hotline
+                            </label>
+                            <input
+                                name="hotline_phone"
+                                value={form.data.hotline_phone}
+                                onChange={(event) =>
+                                    form.setData('hotline_phone', event.target.value)
+                                }
+                                className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="grid gap-4 md:grid-cols-2">
+                        <div>
+                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                                Website Resmi
+                            </label>
+                            <input
+                                name="service_website_url"
+                                value={form.data.service_website_url}
+                                onChange={(event) =>
+                                    form.setData('service_website_url', event.target.value)
+                                }
+                                className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                            />
+                        </div>
+                        <div>
+                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                                Telepon Layanan
+                            </label>
+                            <input
+                                name="service_phone"
+                                value={form.data.service_phone}
+                                onChange={(event) =>
+                                    form.setData('service_phone', event.target.value)
+                                }
+                                className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="grid gap-4 md:grid-cols-2">
+                        <div>
+                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                                Email Layanan
+                            </label>
+                            <input
+                                name="service_email"
+                                value={form.data.service_email}
+                                onChange={(event) =>
+                                    form.setData('service_email', event.target.value)
+                                }
+                                className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                            />
+                        </div>
+                        <div>
+                            <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                                Alamat Layanan
+                            </label>
+                            <textarea
+                                name="service_address"
+                                value={form.data.service_address}
+                                onChange={(event) =>
+                                    form.setData('service_address', event.target.value)
+                                }
+                                rows={2}
+                                className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="rounded-2xl border border-black/5 bg-white/80 p-4 dark:border-white/10 dark:bg-white/5">
+                        <div>
+                            <p className="text-sm font-semibold text-[#123726] dark:text-white">
+                                Jam Operasional
+                            </p>
+                            <p className="text-xs text-[#587166] dark:text-[#b0c2b8]">
+                                Atur jam buka per hari untuk layanan publik.
+                            </p>
+                        </div>
+                        <div className="mt-4 grid gap-3">
+                            {form.data.operational_hours.map((hour, index) => (
+                                <div
+                                    key={`${hour.day}-${index}`}
+                                    className="grid gap-3 rounded-2xl border border-black/5 bg-white px-4 py-3 dark:border-white/10 dark:bg-white/5 md:grid-cols-[140px_repeat(2,minmax(0,1fr))_120px]"
+                                >
+                                    <div>
+                                        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                                            Hari
+                                        </label>
+                                        <input
+                                            value={hour.day}
+                                            onChange={(event) =>
+                                                updateOperationalHour(index, 'day', event.target.value)
+                                            }
+                                            className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-xs text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                                            Buka
+                                        </label>
+                                        <input
+                                            type="time"
+                                            value={hour.opens_at}
+                                            disabled={hour.is_closed}
+                                            onChange={(event) =>
+                                                updateOperationalHour(index, 'opens_at', event.target.value)
+                                            }
+                                            className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-xs text-[#123726] disabled:bg-black/5 dark:border-white/10 dark:bg-white/5 dark:text-white"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[#567365]">
+                                            Tutup
+                                        </label>
+                                        <input
+                                            type="time"
+                                            value={hour.closes_at}
+                                            disabled={hour.is_closed}
+                                            onChange={(event) =>
+                                                updateOperationalHour(index, 'closes_at', event.target.value)
+                                            }
+                                            className="mt-2 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-xs text-[#123726] disabled:bg-black/5 dark:border-white/10 dark:bg-white/5 dark:text-white"
+                                        />
+                                    </div>
+                                    <div className="flex items-center gap-2 pt-6 text-xs font-semibold text-[#123726] dark:text-white">
+                                        <input
+                                            id={`is-closed-${index}`}
+                                            type="checkbox"
+                                            checked={hour.is_closed}
+                                            onChange={(event) =>
+                                                updateOperationalHour(
+                                                    index,
+                                                    'is_closed',
+                                                    event.target.checked
+                                                )
+                                            }
+                                            className="h-4 w-4 rounded border border-black/20"
+                                        />
+                                        <label htmlFor={`is-closed-${index}`}>Libur</label>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="rounded-2xl border border-black/5 bg-white/80 p-4 dark:border-white/10 dark:bg-white/5">
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                            <div>
+                                <p className="text-sm font-semibold text-[#123726] dark:text-white">
+                                    Sosial Media
+                                </p>
+                                <p className="text-xs text-[#587166] dark:text-[#b0c2b8]">
+                                    Tambahkan tautan sosial media terkait layanan.
+                                </p>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={addSocialLink}
+                                className="rounded-full border border-black/10 px-3 py-1 text-xs font-semibold text-[#123726] transition hover:border-black/20 dark:border-white/20 dark:text-white"
+                            >
+                                Tambah Sosial
+                            </button>
+                        </div>
+                        <div className="mt-4 grid gap-3">
+                            {form.data.social_links.length === 0 ? (
+                                <p className="text-xs text-[#587166] dark:text-[#b0c2b8]">
+                                    Belum ada sosial media.
+                                </p>
+                            ) : null}
+                            {form.data.social_links.map((link, index) => (
+                                <div
+                                    key={`${link.platform}-${index}`}
+                                    className="grid gap-3 rounded-2xl border border-black/5 bg-white px-4 py-3 dark:border-white/10 dark:bg-white/5 md:grid-cols-[160px_1fr_auto]"
+                                >
+                                    <input
+                                        placeholder="Platform"
+                                        value={link.platform}
+                                        onChange={(event) =>
+                                            updateSocialLink(index, 'platform', event.target.value)
+                                        }
+                                        className="w-full rounded-full border border-black/10 bg-white px-4 py-2 text-xs text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                                    />
+                                    <input
+                                        placeholder="URL"
+                                        value={link.url}
+                                        onChange={(event) =>
+                                            updateSocialLink(index, 'url', event.target.value)
+                                        }
+                                        className="w-full rounded-full border border-black/10 bg-white px-4 py-2 text-xs text-[#123726] dark:border-white/10 dark:bg-white/5 dark:text-white"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => removeSocialLink(index)}
+                                        className="rounded-full border border-black/10 px-3 py-1 text-xs font-semibold text-red-600 transition hover:border-black/20"
+                                    >
+                                        Hapus
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
 
                     <div className="grid gap-4">
                         <AdminRichTextEditor

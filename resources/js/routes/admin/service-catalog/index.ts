@@ -82,7 +82,7 @@ index.form = indexForm
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceCatalogItemController::store
-* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:82
+* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:97
 * @route '/admin/service-catalog'
 */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -97,7 +97,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceCatalogItemController::store
-* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:82
+* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:97
 * @route '/admin/service-catalog'
 */
 store.url = (options?: RouteQueryOptions) => {
@@ -106,7 +106,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceCatalogItemController::store
-* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:82
+* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:97
 * @route '/admin/service-catalog'
 */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -116,7 +116,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceCatalogItemController::store
-* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:82
+* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:97
 * @route '/admin/service-catalog'
 */
 const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -126,7 +126,7 @@ const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => 
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceCatalogItemController::store
-* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:82
+* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:97
 * @route '/admin/service-catalog'
 */
 storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -138,7 +138,7 @@ store.form = storeForm
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceCatalogItemController::update
-* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:103
+* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:123
 * @route '/admin/service-catalog/{serviceCatalogItem}'
 */
 export const update = (args: { serviceCatalogItem: number | { id: number } } | [serviceCatalogItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -153,7 +153,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceCatalogItemController::update
-* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:103
+* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:123
 * @route '/admin/service-catalog/{serviceCatalogItem}'
 */
 update.url = (args: { serviceCatalogItem: number | { id: number } } | [serviceCatalogItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -186,7 +186,7 @@ update.url = (args: { serviceCatalogItem: number | { id: number } } | [serviceCa
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceCatalogItemController::update
-* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:103
+* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:123
 * @route '/admin/service-catalog/{serviceCatalogItem}'
 */
 update.patch = (args: { serviceCatalogItem: number | { id: number } } | [serviceCatalogItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -196,7 +196,7 @@ update.patch = (args: { serviceCatalogItem: number | { id: number } } | [service
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceCatalogItemController::update
-* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:103
+* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:123
 * @route '/admin/service-catalog/{serviceCatalogItem}'
 */
 const updateForm = (args: { serviceCatalogItem: number | { id: number } } | [serviceCatalogItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -211,7 +211,7 @@ const updateForm = (args: { serviceCatalogItem: number | { id: number } } | [ser
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceCatalogItemController::update
-* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:103
+* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:123
 * @route '/admin/service-catalog/{serviceCatalogItem}'
 */
 updateForm.patch = (args: { serviceCatalogItem: number | { id: number } } | [serviceCatalogItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -228,7 +228,7 @@ update.form = updateForm
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceCatalogItemController::destroy
-* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:128
+* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:157
 * @route '/admin/service-catalog/{serviceCatalogItem}'
 */
 export const destroy = (args: { serviceCatalogItem: number | { id: number } } | [serviceCatalogItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -243,7 +243,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceCatalogItemController::destroy
-* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:128
+* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:157
 * @route '/admin/service-catalog/{serviceCatalogItem}'
 */
 destroy.url = (args: { serviceCatalogItem: number | { id: number } } | [serviceCatalogItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -276,7 +276,7 @@ destroy.url = (args: { serviceCatalogItem: number | { id: number } } | [serviceC
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceCatalogItemController::destroy
-* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:128
+* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:157
 * @route '/admin/service-catalog/{serviceCatalogItem}'
 */
 destroy.delete = (args: { serviceCatalogItem: number | { id: number } } | [serviceCatalogItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -286,7 +286,7 @@ destroy.delete = (args: { serviceCatalogItem: number | { id: number } } | [servi
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceCatalogItemController::destroy
-* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:128
+* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:157
 * @route '/admin/service-catalog/{serviceCatalogItem}'
 */
 const destroyForm = (args: { serviceCatalogItem: number | { id: number } } | [serviceCatalogItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -301,7 +301,7 @@ const destroyForm = (args: { serviceCatalogItem: number | { id: number } } | [se
 
 /**
 * @see \App\Http\Controllers\Admin\ServiceCatalogItemController::destroy
-* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:128
+* @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:157
 * @route '/admin/service-catalog/{serviceCatalogItem}'
 */
 destroyForm.delete = (args: { serviceCatalogItem: number | { id: number } } | [serviceCatalogItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
