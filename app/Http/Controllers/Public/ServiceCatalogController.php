@@ -97,11 +97,28 @@ class ServiceCatalogController extends Controller
             'item' => [
                 'title' => $serviceCatalogItem->title,
                 'slug' => $serviceCatalogItem->slug,
+                'provider_name' => $serviceCatalogItem->provider_name,
+                'summary' => $serviceCatalogItem->summary,
+                'service_status' => $serviceCatalogItem->service_status ?? 'online',
+                'service_cta_label' => $serviceCatalogItem->service_cta_label ?? 'Akses Layanan',
+                'service_cta_url' => $serviceCatalogItem->service_cta_url,
+                'hotline_phone' => $serviceCatalogItem->hotline_phone,
+                'service_website_url' => $serviceCatalogItem->service_website_url,
+                'service_address' => $serviceCatalogItem->service_address,
+                'service_phone' => $serviceCatalogItem->service_phone,
+                'service_email' => $serviceCatalogItem->service_email,
+                'last_updated_at' => $serviceCatalogItem->updated_at?->toDateString(),
+                'operational_hours' => $serviceCatalogItem->operational_hours ?? [],
+                'social_links' => $serviceCatalogItem->social_links ?? [],
                 'sector' => [
                     'id' => $serviceCatalogItem->sector?->id,
                     'name' => $serviceCatalogItem->sector?->name,
                     'color' => $serviceCatalogItem->sector?->color,
                 ],
+                'service_logo_url' => $serviceCatalogItem->service_logo_path
+                    ? Storage::disk($serviceCatalogItem->service_logo_disk ?? 'public')
+                        ->url($serviceCatalogItem->service_logo_path)
+                    : null,
                 'media_information' => $this->formatRichText($serviceCatalogItem->media_information),
                 'community_benefits' => $this->formatRichText($serviceCatalogItem->community_benefits),
                 'sidatuk_features' => $this->formatRichText($serviceCatalogItem->sidatuk_features),
