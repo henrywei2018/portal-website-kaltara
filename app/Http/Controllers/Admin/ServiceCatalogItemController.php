@@ -9,6 +9,7 @@ use App\Models\ServiceCatalogFaq;
 use App\Models\ServiceCatalogItem;
 use App\Models\ServiceSector;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
@@ -16,11 +17,20 @@ use Inertia\Response;
 
 class ServiceCatalogItemController extends Controller
 {
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $items = ServiceCatalogItem::query()
+        $sector = $request->query('sector');
+        $sectorId = is_numeric($sector) ? (int) $sector : null;
+
+        $itemsQuery = ServiceCatalogItem::query()
             ->with(['sector', 'faqs'])
-            ->orderBy('title')
+            ->orderBy('title');
+
+        if ($sectorId) {
+            $itemsQuery->where('service_sector_id', $sectorId);
+        }
+
+        $items = $itemsQuery
             ->get()
             ->map(fn (ServiceCatalogItem $item): array => [
                 'id' => $item->id,
@@ -37,6 +47,11 @@ class ServiceCatalogItemController extends Controller
                     ? Storage::disk($item->infographic_disk)->url($item->infographic_path)
                     : null,
                 'is_active' => $item->is_active,
+                'meta' => sprintf(
+                    '%s · %s',
+                    $item->sector?->name ?? 'Tanpa sektor',
+                    $item->is_active ? 'Aktif' : 'Nonaktif'
+                ),
                 'faqs' => $item->faqs
                     ->sortBy('sort_order')
                     ->values()
@@ -58,6 +73,9 @@ class ServiceCatalogItemController extends Controller
         return Inertia::render('admin/service-catalog/index', [
             'items' => $items,
             'sectors' => $sectors,
+            'filters' => [
+                'sector' => $sectorId,
+            ],
         ]);
     }
 

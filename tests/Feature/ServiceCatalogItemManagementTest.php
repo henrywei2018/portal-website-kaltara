@@ -35,6 +35,37 @@ test('admin can view service catalog items', function () {
     );
 });
 
+test('admin can filter service catalog items by sector', function () {
+    $sector = ServiceSector::factory()->create([
+        'name' => 'Pendidikan',
+    ]);
+
+    $otherSector = ServiceSector::factory()->create([
+        'name' => 'Kesehatan',
+    ]);
+
+    ServiceCatalogItem::factory()->create([
+        'service_sector_id' => $sector->id,
+        'title' => 'Layanan Pendidikan',
+    ]);
+
+    ServiceCatalogItem::factory()->create([
+        'service_sector_id' => $otherSector->id,
+        'title' => 'Layanan Kesehatan',
+    ]);
+
+    $response = $this->get("/admin/service-catalog?sector={$sector->id}");
+
+    $response->assertOk();
+
+    $response->assertInertia(fn (Assert $page) => $page
+        ->component('admin/service-catalog/index')
+        ->has('items', 1)
+        ->where('items.0.title', 'Layanan Pendidikan')
+        ->where('filters.sector', $sector->id)
+    );
+});
+
 test('admin can create service catalog item with faq and infographic', function () {
     Storage::fake('public');
     $sector = ServiceSector::factory()->create();
