@@ -8,7 +8,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Fondasi Data & Backend' (Protocol in workflow.md) (5ea26fb)
 
 ## Phase 2: Admin UI Katalog Layanan
-- [ ] Task: TDD - Halaman admin katalog layanan (list ringkas + filter sektor + modal CRUD layanan)
+- [x] Task: TDD - Halaman admin katalog layanan (list ringkas + filter sektor + modal CRUD layanan) (8e7cd8d)
 - [ ] Task: TDD - Halaman admin sektor (CRUD sektor + upload logo + urutan + status)
 - [ ] Task: TDD - Form layanan: rich text per bagian + FAQ (list Q&A) + infografis preview
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Admin UI Katalog Layanan' (Protocol in workflow.md)
