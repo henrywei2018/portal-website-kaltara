@@ -13,8 +13,8 @@
 - [x] Task: TDD - Form layanan: rich text per bagian + FAQ (list Q&A) + infografis preview (bf66931)
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Admin UI Katalog Layanan' (Protocol in workflow.md) (1e36c62)
 
-## Phase 3: Publik UI Katalog Layanan
+## Phase 3: Publik UI Katalog Layanan [checkpoint: 55e6afa]
 - [x] Task: TDD - Halaman publik katalog layanan (search global + filter sektor chips) (b2a0658)
 - [x] Task: TDD - Tampilan detail layanan publik (semua section + FAQ + infografis) (b2a0658)
 - [x] Task: TDD - Tambahkan test publik untuk search/filter (b2a0658)
-- [~] Task: Conductor - User Manual Verification 'Phase 3: Publik UI Katalog Layanan' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Publik UI Katalog Layanan' (Protocol in workflow.md) (55e6afa)
