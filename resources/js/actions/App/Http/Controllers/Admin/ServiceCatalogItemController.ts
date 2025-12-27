@@ -141,7 +141,7 @@ store.form = storeForm
 * @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:103
 * @route '/admin/service-catalog/{serviceCatalogItem}'
 */
-export const update = (args: { serviceCatalogItem: string | number | { id: string | number } } | [serviceCatalogItem: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+export const update = (args: { serviceCatalogItem: number | { id: number } } | [serviceCatalogItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
@@ -156,7 +156,7 @@ update.definition = {
 * @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:103
 * @route '/admin/service-catalog/{serviceCatalogItem}'
 */
-update.url = (args: { serviceCatalogItem: string | number | { id: string | number } } | [serviceCatalogItem: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+update.url = (args: { serviceCatalogItem: number | { id: number } } | [serviceCatalogItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { serviceCatalogItem: args }
     }
@@ -189,7 +189,7 @@ update.url = (args: { serviceCatalogItem: string | number | { id: string | numbe
 * @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:103
 * @route '/admin/service-catalog/{serviceCatalogItem}'
 */
-update.patch = (args: { serviceCatalogItem: string | number | { id: string | number } } | [serviceCatalogItem: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.patch = (args: { serviceCatalogItem: number | { id: number } } | [serviceCatalogItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
@@ -199,7 +199,7 @@ update.patch = (args: { serviceCatalogItem: string | number | { id: string | num
 * @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:103
 * @route '/admin/service-catalog/{serviceCatalogItem}'
 */
-const updateForm = (args: { serviceCatalogItem: string | number | { id: string | number } } | [serviceCatalogItem: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+const updateForm = (args: { serviceCatalogItem: number | { id: number } } | [serviceCatalogItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
     action: update.url(args, {
         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
             _method: 'PATCH',
@@ -214,7 +214,7 @@ const updateForm = (args: { serviceCatalogItem: string | number | { id: string |
 * @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:103
 * @route '/admin/service-catalog/{serviceCatalogItem}'
 */
-updateForm.patch = (args: { serviceCatalogItem: string | number | { id: string | number } } | [serviceCatalogItem: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+updateForm.patch = (args: { serviceCatalogItem: number | { id: number } } | [serviceCatalogItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
     action: update.url(args, {
         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
             _method: 'PATCH',
@@ -231,7 +231,7 @@ update.form = updateForm
 * @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:128
 * @route '/admin/service-catalog/{serviceCatalogItem}'
 */
-export const destroy = (args: { serviceCatalogItem: string | number | { id: string | number } } | [serviceCatalogItem: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { serviceCatalogItem: number | { id: number } } | [serviceCatalogItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -246,7 +246,7 @@ destroy.definition = {
 * @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:128
 * @route '/admin/service-catalog/{serviceCatalogItem}'
 */
-destroy.url = (args: { serviceCatalogItem: string | number | { id: string | number } } | [serviceCatalogItem: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { serviceCatalogItem: number | { id: number } } | [serviceCatalogItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { serviceCatalogItem: args }
     }
@@ -279,7 +279,7 @@ destroy.url = (args: { serviceCatalogItem: string | number | { id: string | numb
 * @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:128
 * @route '/admin/service-catalog/{serviceCatalogItem}'
 */
-destroy.delete = (args: { serviceCatalogItem: string | number | { id: string | number } } | [serviceCatalogItem: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { serviceCatalogItem: number | { id: number } } | [serviceCatalogItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -289,7 +289,7 @@ destroy.delete = (args: { serviceCatalogItem: string | number | { id: string | n
 * @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:128
 * @route '/admin/service-catalog/{serviceCatalogItem}'
 */
-const destroyForm = (args: { serviceCatalogItem: string | number | { id: string | number } } | [serviceCatalogItem: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+const destroyForm = (args: { serviceCatalogItem: number | { id: number } } | [serviceCatalogItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
     action: destroy.url(args, {
         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
             _method: 'DELETE',
@@ -304,7 +304,7 @@ const destroyForm = (args: { serviceCatalogItem: string | number | { id: string 
 * @see app/Http/Controllers/Admin/ServiceCatalogItemController.php:128
 * @route '/admin/service-catalog/{serviceCatalogItem}'
 */
-destroyForm.delete = (args: { serviceCatalogItem: string | number | { id: string | number } } | [serviceCatalogItem: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+destroyForm.delete = (args: { serviceCatalogItem: number | { id: number } } | [serviceCatalogItem: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
     action: destroy.url(args, {
         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
             _method: 'DELETE',

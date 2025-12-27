@@ -141,7 +141,7 @@ store.form = storeForm
 * @see app/Http/Controllers/Admin/ServiceSectorController.php:61
 * @route '/admin/service-sectors/{serviceSector}'
 */
-export const update = (args: { serviceSector: string | number | { id: string | number } } | [serviceSector: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+export const update = (args: { serviceSector: number | { id: number } } | [serviceSector: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
@@ -156,7 +156,7 @@ update.definition = {
 * @see app/Http/Controllers/Admin/ServiceSectorController.php:61
 * @route '/admin/service-sectors/{serviceSector}'
 */
-update.url = (args: { serviceSector: string | number | { id: string | number } } | [serviceSector: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+update.url = (args: { serviceSector: number | { id: number } } | [serviceSector: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { serviceSector: args }
     }
@@ -189,7 +189,7 @@ update.url = (args: { serviceSector: string | number | { id: string | number } }
 * @see app/Http/Controllers/Admin/ServiceSectorController.php:61
 * @route '/admin/service-sectors/{serviceSector}'
 */
-update.patch = (args: { serviceSector: string | number | { id: string | number } } | [serviceSector: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.patch = (args: { serviceSector: number | { id: number } } | [serviceSector: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
@@ -199,7 +199,7 @@ update.patch = (args: { serviceSector: string | number | { id: string | number }
 * @see app/Http/Controllers/Admin/ServiceSectorController.php:61
 * @route '/admin/service-sectors/{serviceSector}'
 */
-const updateForm = (args: { serviceSector: string | number | { id: string | number } } | [serviceSector: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+const updateForm = (args: { serviceSector: number | { id: number } } | [serviceSector: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
     action: update.url(args, {
         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
             _method: 'PATCH',
@@ -214,7 +214,7 @@ const updateForm = (args: { serviceSector: string | number | { id: string | numb
 * @see app/Http/Controllers/Admin/ServiceSectorController.php:61
 * @route '/admin/service-sectors/{serviceSector}'
 */
-updateForm.patch = (args: { serviceSector: string | number | { id: string | number } } | [serviceSector: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+updateForm.patch = (args: { serviceSector: number | { id: number } } | [serviceSector: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
     action: update.url(args, {
         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
             _method: 'PATCH',
@@ -231,7 +231,7 @@ update.form = updateForm
 * @see app/Http/Controllers/Admin/ServiceSectorController.php:78
 * @route '/admin/service-sectors/{serviceSector}'
 */
-export const destroy = (args: { serviceSector: string | number | { id: string | number } } | [serviceSector: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { serviceSector: number | { id: number } } | [serviceSector: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -246,7 +246,7 @@ destroy.definition = {
 * @see app/Http/Controllers/Admin/ServiceSectorController.php:78
 * @route '/admin/service-sectors/{serviceSector}'
 */
-destroy.url = (args: { serviceSector: string | number | { id: string | number } } | [serviceSector: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { serviceSector: number | { id: number } } | [serviceSector: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { serviceSector: args }
     }
@@ -279,7 +279,7 @@ destroy.url = (args: { serviceSector: string | number | { id: string | number } 
 * @see app/Http/Controllers/Admin/ServiceSectorController.php:78
 * @route '/admin/service-sectors/{serviceSector}'
 */
-destroy.delete = (args: { serviceSector: string | number | { id: string | number } } | [serviceSector: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { serviceSector: number | { id: number } } | [serviceSector: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -289,7 +289,7 @@ destroy.delete = (args: { serviceSector: string | number | { id: string | number
 * @see app/Http/Controllers/Admin/ServiceSectorController.php:78
 * @route '/admin/service-sectors/{serviceSector}'
 */
-const destroyForm = (args: { serviceSector: string | number | { id: string | number } } | [serviceSector: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+const destroyForm = (args: { serviceSector: number | { id: number } } | [serviceSector: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
     action: destroy.url(args, {
         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
             _method: 'DELETE',
@@ -304,7 +304,7 @@ const destroyForm = (args: { serviceSector: string | number | { id: string | num
 * @see app/Http/Controllers/Admin/ServiceSectorController.php:78
 * @route '/admin/service-sectors/{serviceSector}'
 */
-destroyForm.delete = (args: { serviceSector: string | number | { id: string | number } } | [serviceSector: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+destroyForm.delete = (args: { serviceSector: number | { id: number } } | [serviceSector: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
     action: destroy.url(args, {
         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
             _method: 'DELETE',
