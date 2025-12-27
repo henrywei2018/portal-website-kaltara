@@ -14,7 +14,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Admin UI Katalog Layanan' (Protocol in workflow.md) (1e36c62)
 
 ## Phase 3: Publik UI Katalog Layanan
-- [ ] Task: TDD - Halaman publik katalog layanan (search global + filter sektor chips)
+- [x] Task: TDD - Halaman publik katalog layanan (search global + filter sektor chips) (b2a0658)
 - [ ] Task: TDD - Tampilan detail layanan publik (semua section + FAQ + infografis)
 - [ ] Task: TDD - Tambahkan test publik untuk search/filter
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Publik UI Katalog Layanan' (Protocol in workflow.md)
