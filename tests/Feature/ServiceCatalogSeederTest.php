@@ -42,11 +42,14 @@ test('service catalog seeder creates demo services per sector', function () {
         expect($sampleItem)->not->toBeNull()
             ->and($sampleItem->provider_name)->not->toBeEmpty()
             ->and($sampleItem->summary)->not->toBeEmpty()
+            ->and($sampleItem->service_logo_path)->not->toBeEmpty()
             ->and($sampleItem->media_information)->not->toBeEmpty()
             ->and($sampleItem->community_benefits)->not->toBeEmpty()
             ->and($sampleItem->sidatuk_features)->not->toBeEmpty()
             ->and($sampleItem->service_terms)->not->toBeEmpty()
             ->and($sampleItem->service_flow)->not->toBeEmpty();
+
+        expect($sector->icon_path)->not->toBeEmpty();
 
         $faqCount = ServiceCatalogFaq::query()
             ->where('service_catalog_item_id', $sampleItem->id)

@@ -6,6 +6,7 @@ use App\Models\ServiceCatalogFaq;
 use App\Models\ServiceCatalogItem;
 use App\Models\ServiceSector;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ServiceCatalogSeeder extends Seeder
@@ -48,12 +49,27 @@ class ServiceCatalogSeeder extends Seeder
         ];
 
         foreach ($sectors as $index => $sector) {
+            $sectorSlug = Str::slug($sector['name']);
+            $iconFileName = "{$sectorSlug}.svg";
+            $iconPath = "service-catalog/icons/{$iconFileName}";
+
+            if (! Storage::disk('public')->exists($iconPath)) {
+                Storage::disk('public')->put(
+                    $iconPath,
+                    $this->generateSectorIcon($sector['name'], $sector['color'])
+                );
+            }
+
             $storedSector = ServiceSector::query()->firstOrCreate(
-                ['slug' => Str::slug($sector['name'])],
+                ['slug' => $sectorSlug],
                 [
                     'name' => $sector['name'],
                     'description' => 'Informasi layanan sektor '.$sector['name'].'.',
                     'color' => $sector['color'],
+                    'icon_path' => $iconPath,
+                    'icon_name' => $iconFileName,
+                    'icon_size' => Storage::disk('public')->size($iconPath),
+                    'icon_disk' => 'public',
                     'sort_order' => $index + 1,
                     'is_active' => true,
                 ]
@@ -63,6 +79,15 @@ class ServiceCatalogSeeder extends Seeder
                 $title = "Layanan {$sector['name']} {$serviceIndex}";
                 $slug = Str::slug($title);
                 $status = $statuses[($serviceIndex - 1) % count($statuses)];
+                $logoFileName = "{$slug}.svg";
+                $logoPath = "service-catalog/logos/{$logoFileName}";
+
+                if (! Storage::disk('public')->exists($logoPath)) {
+                    Storage::disk('public')->put(
+                        $logoPath,
+                        $this->generateServiceLogo($sector['name'], $sector['color'])
+                    );
+                }
 
                 $item = ServiceCatalogItem::query()->firstOrCreate(
                     ['slug' => $slug],
@@ -71,6 +96,10 @@ class ServiceCatalogSeeder extends Seeder
                         'title' => $title,
                         'provider_name' => $providerName,
                         'summary' => "Ringkasan untuk {$title}.",
+                        'service_logo_path' => $logoPath,
+                        'service_logo_name' => $logoFileName,
+                        'service_logo_size' => Storage::disk('public')->size($logoPath),
+                        'service_logo_disk' => 'public',
                         'service_status' => $status,
                         'service_cta_label' => 'Akses Layanan',
                         'service_cta_url' => "https://kaltara.go.id/layanan/{$slug}",
@@ -108,5 +137,29 @@ class ServiceCatalogSeeder extends Seeder
                 }
             }
         }
+    }
+
+    protected function generateSectorIcon(string $label, string $color): string
+    {
+        $initials = strtoupper(mb_substr($label, 0, 1));
+
+        return <<<SVG
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <rect width="120" height="120" rx="28" fill="{$color}"/>
+  <text x="60" y="70" font-size="48" font-family="Arial, sans-serif" fill="#ffffff" text-anchor="middle">{$initials}</text>
+</svg>
+SVG;
+    }
+
+    protected function generateServiceLogo(string $label, string $color): string
+    {
+        $initials = strtoupper(mb_substr($label, 0, 1));
+
+        return <<<SVG
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140" viewBox="0 0 140 140">
+  <circle cx="70" cy="70" r="70" fill="{$color}"/>
+  <text x="70" y="82" font-size="56" font-family="Arial, sans-serif" fill="#ffffff" text-anchor="middle">{$initials}</text>
+</svg>
+SVG;
     }
 }
