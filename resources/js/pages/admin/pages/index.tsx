@@ -133,11 +133,15 @@ export default function AdminPagesIndex({
         event.preventDefault();
 
         if (activePage) {
-            form.patch(`/admin/pages/${activePage.id}`);
+            form.patch(`/admin/pages/${activePage.id}`, {
+                onSuccess: () => closeModal(),
+            });
             return;
         }
 
-        form.post('/admin/pages');
+        form.post('/admin/pages', {
+            onSuccess: () => closeModal(),
+        });
     };
 
     return (

@@ -110,7 +110,7 @@ test('admin can create service catalog item with faq and infographic', function 
         ],
     ]);
 
-    $response->assertRedirect();
+    $response->assertRedirect()->assertSessionHas('success');
 
     $item = ServiceCatalogItem::query()->firstOrFail();
 
@@ -196,7 +196,7 @@ test('admin can update service catalog item and faqs', function () {
         ],
     ]);
 
-    $response->assertRedirect();
+    $response->assertRedirect()->assertSessionHas('success');
 
     $this->assertDatabaseHas('service_catalog_items', [
         'id' => $item->id,
@@ -234,7 +234,7 @@ test('admin can delete service catalog item', function () {
 
     $response = $this->delete("/admin/service-catalog/{$item->id}");
 
-    $response->assertRedirect();
+    $response->assertRedirect()->assertSessionHas('success');
 
     $this->assertDatabaseMissing('service_catalog_items', [
         'id' => $item->id,

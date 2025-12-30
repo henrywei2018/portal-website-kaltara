@@ -90,6 +90,34 @@ test('super admins can filter users by role and status', function () {
     );
 });
 
+test('super admins can update admin users', function () {
+    $admin = User::factory()->create([
+        'name' => 'Super Admin',
+        'email' => 'admin@example.com',
+        'role' => UserRole::SuperAdmin,
+    ]);
+
+    $user = User::factory()->create([
+        'name' => 'Editor Lama',
+        'email' => 'editor@example.com',
+        'role' => UserRole::Viewer,
+        'is_active' => true,
+    ]);
+
+    $response = $this->actingAs($admin)->patch("/admin/users/{$user->id}", [
+        'role' => UserRole::Editor->value,
+        'is_active' => false,
+    ]);
+
+    $response->assertRedirect()->assertSessionHas('success');
+
+    $this->assertDatabaseHas('users', [
+        'id' => $user->id,
+        'role' => UserRole::Editor,
+        'is_active' => 0,
+    ]);
+});
+
 test('non super admins cannot access admin user management', function () {
     $this->actingAs(User::factory()->create([
         'role' => UserRole::Editor,

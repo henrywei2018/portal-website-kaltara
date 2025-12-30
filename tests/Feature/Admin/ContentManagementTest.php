@@ -139,7 +139,7 @@ test('admin can create content item', function () {
         'excerpt' => 'Ringkasan agenda resmi.',
     ]);
 
-    $response->assertRedirect();
+    $response->assertRedirect()->assertSessionHas('success');
 
     $this->assertDatabaseHas('content_items', [
         'title' => 'Agenda Gubernur',
@@ -165,7 +165,7 @@ test('admin can update content item', function () {
         'excerpt' => 'Ringkasan diperbarui.',
     ]);
 
-    $response->assertRedirect();
+    $response->assertRedirect()->assertSessionHas('success');
 
     $this->assertDatabaseHas('content_items', [
         'id' => $item->id,
@@ -186,7 +186,7 @@ test('admin can delete content item', function () {
 
     $response = $this->delete("/admin/content/{$item->id}");
 
-    $response->assertRedirect();
+    $response->assertRedirect()->assertSessionHas('success');
 
     $this->assertDatabaseMissing('content_items', [
         'id' => $item->id,

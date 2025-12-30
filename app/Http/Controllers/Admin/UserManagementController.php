@@ -78,6 +78,6 @@ class UserManagementController extends Controller
     {
         $user->update($request->validated());
 
-        return back(303);
+        return back(303)->with('success', 'Pengguna berhasil diperbarui.');
     }
 }

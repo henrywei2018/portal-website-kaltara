@@ -1,3 +1,4 @@
+import AdminFlash from '@/components/admin/admin-flash';
 import AdminHeader from '@/components/admin/admin-header';
 import { AdminSidebar } from '@/components/admin/admin-sidebar';
 import { SidebarProvider } from '@/components/ui/sidebar';
@@ -16,6 +17,7 @@ export default function AdminSidebarLayout({
             <div className="flex min-h-screen w-full bg-[#f6f8f7] dark:bg-[#0b1410]">
                 <AdminSidebar />
                 <div className="flex min-h-screen flex-1 flex-col overflow-x-hidden">
+                    <AdminFlash />
                     <AdminHeader breadcrumbs={breadcrumbs} />
                     <main className="flex-1 px-6 pb-10 pt-8 md:px-8">{children}</main>
                 </div>

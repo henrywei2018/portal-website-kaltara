@@ -217,6 +217,7 @@ export default function AdminUsersIndex({
                         method="patch"
                         action={`/admin/users/${activeUser.id}`}
                         className="grid gap-4"
+                        onSuccess={() => setActiveUser(null)}
                     >
                         {({ processing }) => (
                             <>

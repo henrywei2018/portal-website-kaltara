@@ -76,7 +76,7 @@ class PageController extends Controller
 
         Page::query()->create($data);
 
-        return redirect()->back();
+        return back(303)->with('success', 'Halaman berhasil ditambahkan.');
     }
 
     public function update(UpdatePageRequest $request, Page $page): RedirectResponse
@@ -86,13 +86,13 @@ class PageController extends Controller
 
         $page->update($data);
 
-        return redirect()->back();
+        return back(303)->with('success', 'Halaman berhasil diperbarui.');
     }
 
     public function destroy(Page $page): RedirectResponse
     {
         $page->delete();
 
-        return redirect()->back();
+        return back(303)->with('success', 'Halaman berhasil dihapus.');
     }
 }

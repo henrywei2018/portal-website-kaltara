@@ -55,7 +55,7 @@ class ServiceSectorController extends Controller
 
         ServiceSector::query()->create($data);
 
-        return back(303);
+        return back(303)->with('success', 'Sektor layanan berhasil ditambahkan.');
     }
 
     public function update(UpdateServiceSectorRequest $request, ServiceSector $serviceSector): RedirectResponse
@@ -72,7 +72,7 @@ class ServiceSectorController extends Controller
 
         $serviceSector->update($data);
 
-        return back(303);
+        return back(303)->with('success', 'Sektor layanan berhasil diperbarui.');
     }
 
     public function destroy(ServiceSector $serviceSector): RedirectResponse
@@ -80,7 +80,7 @@ class ServiceSectorController extends Controller
         $this->deleteIconIfExists($serviceSector);
         $serviceSector->delete();
 
-        return back(303);
+        return back(303)->with('success', 'Sektor layanan berhasil dihapus.');
     }
 
     /**

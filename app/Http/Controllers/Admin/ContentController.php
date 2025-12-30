@@ -89,7 +89,7 @@ class ContentController extends Controller
 
         ContentItem::query()->create($data);
 
-        return redirect()->back();
+        return back(303)->with('success', 'Konten berhasil ditambahkan.');
     }
 
     public function update(UpdateContentItemRequest $request, ContentItem $contentItem): RedirectResponse
@@ -99,14 +99,14 @@ class ContentController extends Controller
 
         $contentItem->update($data);
 
-        return redirect()->back();
+        return back(303)->with('success', 'Konten berhasil diperbarui.');
     }
 
     public function destroy(ContentItem $contentItem): RedirectResponse
     {
         $contentItem->delete();
 
-        return redirect()->back();
+        return back(303)->with('success', 'Konten berhasil dihapus.');
     }
 
     protected function resolvePublishedAt(string $status, ?string $publishedAt): ?Carbon

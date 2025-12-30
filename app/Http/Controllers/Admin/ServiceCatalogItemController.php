@@ -117,7 +117,7 @@ class ServiceCatalogItemController extends Controller
 
         $this->syncFaqs($item, $faqs);
 
-        return back(303);
+        return back(303)->with('success', 'Layanan berhasil ditambahkan.');
     }
 
     public function update(UpdateServiceCatalogItemRequest $request, ServiceCatalogItem $serviceCatalogItem): RedirectResponse
@@ -151,7 +151,7 @@ class ServiceCatalogItemController extends Controller
 
         $this->syncFaqs($serviceCatalogItem, $faqs);
 
-        return back(303);
+        return back(303)->with('success', 'Layanan berhasil diperbarui.');
     }
 
     public function destroy(ServiceCatalogItem $serviceCatalogItem): RedirectResponse
@@ -160,7 +160,7 @@ class ServiceCatalogItemController extends Controller
         $this->deleteServiceLogoIfExists($serviceCatalogItem);
         $serviceCatalogItem->delete();
 
-        return back(303);
+        return back(303)->with('success', 'Layanan berhasil dihapus.');
     }
 
     /**

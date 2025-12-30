@@ -95,20 +95,20 @@ class NavigationController extends Controller
     {
         NavigationItem::query()->create($request->validated());
 
-        return back(303);
+        return back(303)->with('success', 'Menu navigasi berhasil ditambahkan.');
     }
 
     public function update(UpdateNavigationItemRequest $request, NavigationItem $navigationItem): RedirectResponse
     {
         $navigationItem->update($request->validated());
 
-        return back(303);
+        return back(303)->with('success', 'Menu navigasi berhasil diperbarui.');
     }
 
     public function destroy(NavigationItem $navigationItem): RedirectResponse
     {
         $navigationItem->delete();
 
-        return back(303);
+        return back(303)->with('success', 'Menu navigasi berhasil dihapus.');
     }
 }

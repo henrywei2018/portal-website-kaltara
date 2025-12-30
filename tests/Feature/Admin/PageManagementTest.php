@@ -112,7 +112,7 @@ test('admin can create a page', function () {
         'status' => 'published',
     ]);
 
-    $response->assertRedirect();
+    $response->assertRedirect()->assertSessionHas('success');
 
     $this->assertDatabaseHas('pages', [
         'title' => 'Transparansi Publik',
@@ -134,7 +134,7 @@ test('admin can update a page', function () {
         'status' => 'published',
     ]);
 
-    $response->assertRedirect();
+    $response->assertRedirect()->assertSessionHas('success');
 
     $this->assertDatabaseHas('pages', [
         'id' => $page->id,
@@ -163,7 +163,7 @@ test('admin can update page blocks', function () {
         'blocks' => $blocks,
     ]);
 
-    $response->assertRedirect();
+    $response->assertRedirect()->assertSessionHas('success');
 
     expect(Page::find($page->id)->blocks)->toBe($blocks);
 });
@@ -177,7 +177,7 @@ test('admin can delete a page', function () {
 
     $response = $this->delete("/admin/pages/{$page->id}");
 
-    $response->assertRedirect();
+    $response->assertRedirect()->assertSessionHas('success');
 
     $this->assertDatabaseMissing('pages', [
         'id' => $page->id,

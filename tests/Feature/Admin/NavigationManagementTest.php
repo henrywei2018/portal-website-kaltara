@@ -122,7 +122,7 @@ test('admin can create a navigation item', function () {
         'sort_order' => 1,
     ]);
 
-    $response->assertRedirect();
+    $response->assertRedirect()->assertSessionHas('success');
 
     $this->assertDatabaseHas('navigation_items', [
         'label' => 'Layanan',
@@ -148,7 +148,7 @@ test('admin can update a navigation item', function () {
         'sort_order' => 2,
     ]);
 
-    $response->assertRedirect();
+    $response->assertRedirect()->assertSessionHas('success');
 
     $this->assertDatabaseHas('navigation_items', [
         'id' => $item->id,
@@ -167,7 +167,7 @@ test('admin can delete a navigation item', function () {
 
     $response = $this->delete("/admin/navigation/{$item->id}");
 
-    $response->assertRedirect();
+    $response->assertRedirect()->assertSessionHas('success');
 
     $this->assertDatabaseMissing('navigation_items', [
         'id' => $item->id,

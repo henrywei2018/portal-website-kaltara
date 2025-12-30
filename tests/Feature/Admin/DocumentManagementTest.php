@@ -136,7 +136,7 @@ test('admin can create document item with PDF upload', function () {
         'published_at' => '2024-12-15',
     ]);
 
-    $response->assertRedirect();
+    $response->assertRedirect()->assertSessionHas('success');
 
     $item = DocumentItem::query()->firstOrFail();
 
@@ -166,7 +166,7 @@ test('admin can create draft document without publication date', function () {
         'issued_at' => '2024-11-01',
     ]);
 
-    $response->assertRedirect();
+    $response->assertRedirect()->assertSessionHas('success');
 
     $this->assertDatabaseHas('document_items', [
         'title' => 'Draft Pengumuman',
@@ -201,7 +201,7 @@ test('admin can update document item metadata without replacing file', function 
         'published_at' => '2024-02-10',
     ]);
 
-    $response->assertRedirect();
+    $response->assertRedirect()->assertSessionHas('success');
 
     $item->refresh();
 
@@ -224,7 +224,7 @@ test('admin can delete document item and its file', function () {
 
     $response = $this->delete("/admin/documents/{$item->id}");
 
-    $response->assertRedirect();
+    $response->assertRedirect()->assertSessionHas('success');
 
     $this->assertDatabaseMissing('document_items', [
         'id' => $item->id,

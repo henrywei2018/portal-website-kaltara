@@ -116,11 +116,15 @@ export default function AdminContentIndex({
         event.preventDefault();
 
         if (activeItem) {
-            form.patch(`/admin/content/${activeItem.id}`);
+            form.patch(`/admin/content/${activeItem.id}`, {
+                onSuccess: () => closeModal(),
+            });
             return;
         }
 
-        form.post('/admin/content');
+        form.post('/admin/content', {
+            onSuccess: () => closeModal(),
+        });
     };
 
     return (

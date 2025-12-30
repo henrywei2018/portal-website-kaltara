@@ -246,6 +246,10 @@ export default function NavigationIndex({
                         activeItem ? `/admin/navigation/${activeItem.id}` : '/admin/navigation'
                     }
                     className="grid gap-4"
+                    onSuccess={() => {
+                        setIsCreateOpen(false);
+                        setActiveItem(null);
+                    }}
                 >
                     {({ processing }) => (
                         <>

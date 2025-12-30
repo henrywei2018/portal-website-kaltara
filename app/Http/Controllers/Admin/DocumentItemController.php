@@ -100,7 +100,7 @@ class DocumentItemController extends Controller
 
         DocumentItem::query()->create($data);
 
-        return redirect()->back();
+        return back(303)->with('success', 'Dokumen berhasil ditambahkan.');
     }
 
     public function update(UpdateDocumentItemRequest $request, DocumentItem $documentItem): RedirectResponse
@@ -117,7 +117,7 @@ class DocumentItemController extends Controller
 
         $documentItem->update($data);
 
-        return redirect()->back();
+        return back(303)->with('success', 'Dokumen berhasil diperbarui.');
     }
 
     public function destroy(DocumentItem $documentItem): RedirectResponse
@@ -125,7 +125,7 @@ class DocumentItemController extends Controller
         $this->deleteFileIfExists($documentItem);
         $documentItem->delete();
 
-        return redirect()->back();
+        return back(303)->with('success', 'Dokumen berhasil dihapus.');
     }
 
     /**

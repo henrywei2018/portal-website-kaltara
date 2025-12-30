@@ -42,7 +42,7 @@ test('admin can create a service sector', function () {
         'is_active' => true,
     ]);
 
-    $response->assertRedirect();
+    $response->assertRedirect()->assertSessionHas('success');
 
     $this->assertDatabaseHas('service_sectors', [
         'name' => 'Pendidikan',
@@ -78,7 +78,7 @@ test('admin can update a service sector', function () {
         'is_active' => false,
     ]);
 
-    $response->assertRedirect();
+    $response->assertRedirect()->assertSessionHas('success');
 
     $this->assertDatabaseHas('service_sectors', [
         'id' => $sector->id,
@@ -97,7 +97,7 @@ test('admin can delete a service sector', function () {
 
     $response = $this->delete("/admin/service-sectors/{$sector->id}");
 
-    $response->assertRedirect();
+    $response->assertRedirect()->assertSessionHas('success');
 
     $this->assertDatabaseMissing('service_sectors', [
         'id' => $sector->id,
